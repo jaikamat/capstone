@@ -1,4 +1,22 @@
 app.factory('MapFactory', function () {
+    function Node (id) {
+        this.id = id;
+        this.red = null;
+        this.blue = null;
+        this.green = null;
+        this.gems = 0;
+        this.orange = false;  
+        this.purple = false;  
+    }
+
+    Node.prototype.setGems = function (number) {
+        this.gems = number;
+    }
+
+    Node.prototype.setTroll = function (color) {
+        this[color] = true;
+    }
+
     function Board (option) {
         this.nodes = {};
         this.current = null;
@@ -41,20 +59,10 @@ app.factory('MapFactory', function () {
 
     Board.prototype.step = function (color) {
         if(this.current[color]) {
-            this.current = this.nodes[this.current[color]];
+            this.setCurrent(this.current[color]);
             console.log("STEP SUCCEEDED, MOVED TO ", this.current.id);
         }
         else console.log("PATH DOES NOT EXIST");
-    }
-
-    function Node (id) {
-        this.id = id;
-        this.red = null;
-        this.blue = null;
-        this.green = null;
-        this.gems = 0;
-        this.orange = false;  
-        this.purple = false;  
     }
 
     Board.prototype.connect = function (nodeId, objectOfConnections) {   //(3, {red: 1, green: 5, blue: 6})
@@ -63,14 +71,6 @@ app.factory('MapFactory', function () {
             nodeToConnect[key] = objectOfConnections[key];
         }
         console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
-    }
-
-    Node.prototype.setGems = function (number) {
-        this.gems = number;
-    }
-
-    Node.prototype.setTroll = function (color) {
-        this[color] = true;
     }
 
     var MapFactory = {
