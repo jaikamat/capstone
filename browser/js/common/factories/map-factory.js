@@ -9,10 +9,6 @@ app.factory('MapFactory', function () {
     this.purple = false;
   }
 
-  Node.prototype.setGems = function (number) {
-    this.gems = number;
-  };
-
   Node.prototype.setTroll = function (color) {
     this[color] = true;
   };
@@ -26,63 +22,41 @@ app.factory('MapFactory', function () {
       var self = this;
       // creates all nodes
       option.forEach(function (element, index) {
-        self.addNode(index);
-      });
-      // assigns the connections to those created nodes
+          self.addNode(index);
+        })
+        // assigns the connections to those created nodes
       option.forEach(function (element, index) {
         self.connect(index, element);
-      });
+      })
     }
-
-    Node.prototype.setTroll = function (color) {
-      this[color] = true;
-    }
-
-    function Board(option) {
-      this.nodes = {};
-      this.current = null;
-      this.end = null;
-
-      if (Array.isArray(option)) { //[{red: 1, green: 5, blue: 6}, {}]
-        var self = this;
-        // creates all nodes
-        option.forEach(function (element, index) {
-            self.addNode(index);
-          })
-          // assigns the connections to those created nodes
-        option.forEach(function (element, index) {
-          self.connect(index, element);
-        })
+    if (typeof option === 'number') {
+      for (let i = 0; i < option; i++) {
+        this.addNode(i);
       }
-      if (typeof option === 'number') {
-        for (let i = 0; i < option; i++) {
-          this.addNode(i);
-        }
-      }
-
-      console.log('MADE A BOARD');
     }
 
-    Board.prototype.setGems = function (nodeId, number) {
-      var num = number || 1;
-      this.nodes[nodeId].gems += num;
-    }
+    console.log('MADE A BOARD');
+  }
 
-    Board.prototype.addNode = function (nodeId) {
-        this.nodes[nodeId] = new Node(nodeId);
-        console.log('ADDED A NODE', this.nodes[nodeId]);
-      }
-      // console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
-  };
+  Board.prototype.setGems = function (nodeId, number) {
+    var num = number || 1;
+    this.nodes[nodeId].gems += num;
+  }
 
-  var MapFactory = {
-    createNewBoard: function (n) {
-      return new Board(n);
-    },
-    createNewNode: function (nodeId) {
-      return new Node(nodeId);
-    }
-  };
+  Board.prototype.addNode = function (nodeId) {
+    this.nodes[nodeId] = new Node(nodeId);
+    console.log('ADDED A NODE', this.nodes[nodeId]);
+  }
+
+  Board.prototype.setCurrentAndEnd = function (currentId, endId) {
+    this.current = this.nodes[currentId];
+    if (endId) this.end = this.nodes[endId];
+    console.log('SET CURRENT AND END', this.current, this.end)
+  }
+
+  Board.prototype.setCurrent = function (currentId) {
+    this.current = this.nodes[currentId];
+  }
 
   Board.prototype.step = function (color) {
     if (this.current[color] !== null) {
@@ -100,8 +74,8 @@ app.factory('MapFactory', function () {
   }
 
   var MapFactory = {
-    createNewBoard: function () {
-      return new Board();
+    createNewBoard: function (option) {
+      return new Board(option);
     },
     createNewNode: function (nodeId) {
       return new Node(nodeId);
