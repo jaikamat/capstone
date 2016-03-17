@@ -39,6 +39,14 @@ app.factory('MapFactory', function () {
         this.current = this.nodes[currentId];
     }
 
+    Board.prototype.step = function (color) {
+        if(this.current[color]) {
+            this.current = this.nodes[this.current[color]];
+            console.log("STEP SUCCEEDED, MOVED TO ", this.current.id);
+        }
+        else console.log("PATH DOES NOT EXIST");
+    }
+
     function Node (id) {
         this.id = id;
         this.red = null;
@@ -80,7 +88,3 @@ app.factory('MapFactory', function () {
 
 
 
-
-for(var i = 0; i < 10; i++) {
-    console.log(i)
-}
