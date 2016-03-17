@@ -4,11 +4,11 @@ app.factory('MapFactory', function () {
         this.current = null;
         this.end = null;
 
-        if (typeof option === 'object') {
+        if (Array.isArray(option)) {  //[{red: 1, green: 5, blue: 6}, {}]
             var self = this;
             // creates all nodes
             option.forEach(function (element, index) {
-                self.nodes[index] = new Node(index);
+                self.addNode(index);
             })
             // assigns the connections to those created nodes
             option.forEach(function (element, index) {
@@ -17,7 +17,7 @@ app.factory('MapFactory', function () {
         }
         if (typeof option === 'number') {
             for (let i = 0; i < option; i++) {
-                this.nodes[i] = new Node(i);
+                this.addNode(i);
             }
         }
 
