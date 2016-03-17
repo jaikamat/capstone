@@ -9,10 +9,6 @@ app.factory('MapFactory', function () {
         this.purple = false;  
     }
 
-    Node.prototype.setGems = function (number) {
-        this.gems = number;
-    }
-
     Node.prototype.setTroll = function (color) {
         this[color] = true;
     }
@@ -30,7 +26,7 @@ app.factory('MapFactory', function () {
             })
             // assigns the connections to those created nodes
             option.forEach(function (element, index) {
-                self.connect(index, element)
+                self.connect(index, element);
             })
         }
         if (typeof option === 'number') {
@@ -42,9 +38,14 @@ app.factory('MapFactory', function () {
         console.log('MADE A BOARD');
     }
 
+    Board.prototype.setGems = function (nodeId, number) {
+        var num = number || 1;
+        this.nodes[nodeId].gems += num;
+    }
+
     Board.prototype.addNode = function (nodeId) {
         this.nodes[nodeId] = new Node(nodeId);
-        console.log('ADDED A NODE', this.nodes[nodeId])
+        console.log('ADDED A NODE', this.nodes[nodeId]);
     }
 
     Board.prototype.setCurrentAndEnd = function (currentId, endId) {
@@ -58,7 +59,7 @@ app.factory('MapFactory', function () {
     }
 
     Board.prototype.step = function (color) {
-        if(this.current[color]) {
+        if(this.current[color] !== null) {
             this.setCurrent(this.current[color]);
             console.log("STEP SUCCEEDED, MOVED TO ", this.current.id);
         }
@@ -69,7 +70,7 @@ app.factory('MapFactory', function () {
         var nodeToConnect = this.nodes[nodeId];
         for (var key in objectOfConnections) {
             nodeToConnect[key] = objectOfConnections[key];
-        }
+        };
         console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
     }
 
