@@ -1,21 +1,26 @@
 app.factory('MapFactory', function () {
-    function Board (optionalArray) {
+    function Board (option) {
         this.nodes = {};
         this.current = null;
         this.end = null;
 
-        if (optionalArray) {
+        if (typeof option === 'object') {
             var self = this;
             // creates all nodes
-            optionalArray.forEach(function (element, index) {
+            option.forEach(function (element, index) {
                 self.nodes[index] = new Node(index);
             })
             // assigns the connections to those created nodes
-            optionalArray.forEach(function (element, index) {
+            option.forEach(function (element, index) {
                 self.connect(index, element)
             })
         }
-        
+        if (typeof option === 'number') {
+            for (let i = 0; i < option; i++) {
+                this.nodes[i] = new Node(i);
+            }
+        }
+
         console.log('MADE A BOARD');
     }
 
@@ -44,7 +49,7 @@ app.factory('MapFactory', function () {
         this.purple = false;  
     }
 
-    Board.prototype.connect = function (nodeId, objectOfConnections) {
+    Board.prototype.connect = function (nodeId, objectOfConnections) {   //(3, {red: 1, green: 5, blue: 6})
         var nodeToConnect = this.nodes[nodeId];
         for (var key in objectOfConnections) {
             nodeToConnect[key] = objectOfConnections[key];
@@ -71,3 +76,11 @@ app.factory('MapFactory', function () {
 
     return MapFactory;
 });
+
+
+
+
+
+for(var i = 0; i < 10; i++) {
+    console.log(i)
+}
