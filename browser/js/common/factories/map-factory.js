@@ -75,8 +75,8 @@ app.factory('MapFactory', function () {
     }
 
     var MapFactory = {
-        createNewBoard: function () {
-            return new Board();
+        createNewBoard: function (option) {
+            return new Board(option);
         },
         createNewNode: function (nodeId) {
             return new Node(nodeId);
