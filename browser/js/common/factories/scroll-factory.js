@@ -1,21 +1,27 @@
 app.factory('ScrollFactory', function () {
     function Scroll () {
-        this.instructions = [];
+        this.instructions = {};
         this.head;
     }
 
-    Scroll.prototype.
+    Scroll.prototype.addInstruction = function (id, color) {
+        this.instructions[id] = new Instruction(id, color);
+    }
+
+    Scroll.prototype.addConditional = function (id, condition) {
+        this.instructions[id].condition = condition;
+    }
+
+    Scroll.prototype.setColor = function (id, color) {
+        this.instructions[id].color = color;
+    }
 
     function Instruction (id, color) {
         this.id = id;
-        this.color = color;
-        this.next = null;
-    }
-
-    function Conditional (condition) {
-        this.condition = condition;
-        this.next = null;
-        this.isFalse = null;
+        this.color = color || null;
+        this.condition = null;
+        this.path1 = null;
+        this.path2 = null;
     }
 
     var ScrollFactory = {
