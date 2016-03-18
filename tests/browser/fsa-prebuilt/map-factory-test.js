@@ -171,8 +171,8 @@ describe('MapFactory', function () {
 
       describe('setTroll method', function () {
         it('sets trolls', function () {
-          level1.setTroll('purple');
-          expect(level1.purple).to.equal(true);
+          level1.setTroll(4, 'purple');
+          expect(level1.nodes[4].purple).to.equal(true);
         });
       });
     });
