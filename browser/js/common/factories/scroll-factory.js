@@ -15,6 +15,29 @@
 */
 
 app.factory('ScrollFactory', function () {
+
+    function Instruction (id) {
+        this.id = id;
+        this.color = null;
+        this.next = null;
+    }
+
+    function Conditional (id) {
+        this.id = id;
+        this.truePath = null;
+        this.falsePath = null;
+        this.condition = null;
+    }
+
+    function Start () {
+        this.id = "start";
+        this.next = null;
+    }
+
+    function End () {
+        this.id = "end";
+    }
+    
     function Scroll (option) {
         this.items = {};
         this.start = new Start();
@@ -48,7 +71,7 @@ app.factory('ScrollFactory', function () {
     }
 
     //Expects a source id and an object of the connections
-    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {                // (3, {falsePath: 6, truePath: 7})
+    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {                    // (3, {falsePath: 6, truePath: 7})
         if(sourceId === 'start') {this.start.next = objectOfConnections.next}
         else {
             var itemToConnect = this.items[sourceId];
@@ -88,45 +111,23 @@ app.factory('ScrollFactory', function () {
             return data;                                                                  //Send the data
         }
         if (this.pointer.id === "end") {                                                  //If the node were on is the end
-            return 'End of game';                                                         //Notify that the game is over
+            return null;                                                                  //Notify that the game is over
         }
         else {
             this.getData(gameData);                                                       //We must have hit 2 conditionals, run this again.
         }
     }
 
-    Scroll.prototype.move = function (gameData) {                       //{trollStatus: 'orange', gemsCollected: 2}
+    Scroll.prototype.move = function (gameData) {                                         //{trollStatus: 'orange', gemsCollected: 2}
         if (!gameData) this.pointer = this.items[this.pointer.next];
         else {
             if (gameData.trollStatus === this.pointer.condition || gameData.gemsCollected === this.pointer.condtion) {
-                this.pointer = this.items[this.pointer.truePath];       //move to True Path
+                this.pointer = this.items[this.pointer.truePath];                         //move to True Path
             }
             else {
-                this.pointer = this.items[this.pointer.falsePath];      //move to False Path
+                this.pointer = this.items[this.pointer.falsePath];                        //move to False Path
             }
         }
-    }
-
-    function Instruction (id) {
-        this.id = id;
-        this.color = null;
-        this.next = null;
-    }
-
-    function Conditional (id) {
-        this.id = id;
-        this.truePath = null;
-        this.falsePath = null;
-        this.condition = null;
-    }
-
-    function Start () {
-        this.id = "start";
-        this.next = null;
-    }
-
-    function End () {
-        this.id = "end";
     }
 
     var ScrollFactory = {
