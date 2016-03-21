@@ -9,10 +9,6 @@ app.factory('MapFactory', function () {
         this.purple = false;  
     }
 
-    Node.prototype.setTroll = function (color) {
-        this[color] = true;
-    }
-
     function Board (option) {
         this.nodes = {};
         this.current = null;
@@ -34,8 +30,11 @@ app.factory('MapFactory', function () {
                 this.addNode(i);
             }
         }
-
         console.log('MADE A BOARD');
+    }
+
+    Board.prototype.setTroll = function (nodeId, color) {
+        this.nodes[nodeId][color] = true;
     }
 
     Board.prototype.setGems = function (nodeId, number) {

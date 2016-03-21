@@ -44,16 +44,19 @@ app.factory('ScrollFactory', function () {
 
     //Creates a new conditional in the items with an id
     Scroll.prototype.addConditional = function (id) {
-        this.items[id] = new Condtional(id);    
+        this.items[id] = new Conditional(id);    
     }
 
     //Expects a source id and an object of the connections
-    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {              // (3, {falsePath: 6, truePath: 7})
-        var itemToConnect = this.items[sourceId];
-        for (var key in objectOfConnections) {
-            if (objectOfConnections[key] === 'end') itemToConnect[key] = this.end;      // If the connection is the end connect the 'end' node.
-            else itemToConnect[key] = objectOfConnections[key];                         // Else connect the node.
-        };
+    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {                // (3, {falsePath: 6, truePath: 7})
+        if(sourceId === 'start') {this.start.next = objectOfConnections.next}
+        else {
+            var itemToConnect = this.items[sourceId];
+            for (var key in objectOfConnections) {
+                if (objectOfConnections[key] === 'end') itemToConnect[key] = this.end;        // If the connection is the end connect the 'end' node.
+                else itemToConnect[key] = objectOfConnections[key];                           // Else connect the node.
+            };
+        }
     }
 
     //Manually allows a user to change the starting node.
@@ -66,33 +69,33 @@ app.factory('ScrollFactory', function () {
         this.items[sourceId].next = this.end;
     }
 
-    Scroll.prototype.setColor = function (id, color) {                                  // (3, {color: 'red'}) 
+    Scroll.prototype.setColor = function (id, color) {                                    // (3, {color: 'red'}) 
         if ("color" in this.items[id]) this.items[id].color = color;
         else throw new Error("Cannot set color.");
     }
 
-    Scroll.prototype.setCondition = function (id, condition) {                          // (3, {condition: 4}) or (5, {condition: 'orange'})
+    Scroll.prototype.setCondition = function (id, condition) {                            // (3, {condition: 4}) or (5, {condition: 'orange'})
         if ("condition" in this.items[id]) this.items[id].condition = condition;
         else throw new Error("Cannot set condition.");
     }
 
     Scroll.prototype.getData = function (gameData) {
-        if (this.pointer.id === "start") this.pointer = this.items[this.pointer.next;]    //If the pointer is at start, move the pointer.
+        if (this.pointer.id === "start") this.pointer = this.items[this.pointer.next]     //If the pointer is at start, move the pointer.
         if (this.pointer.constructor === Conditional) this.move(gameData);                //If you are then currently on a conditional, execute move
         if (this.pointer.constructor === Instruction) {                                   //If you are then currently on an Instruction, 
             var data = this.pointer.color;                                                //Store the pointer data
             this.move();                                                                  //Move the pointer
             return data;                                                                  //Send the data
         }
-        if (this.pointer.id === "end") {                                                   //If the node were on is the end
+        if (this.pointer.id === "end") {                                                  //If the node were on is the end
             return 'End of game';                                                         //Notify that the game is over
         }
         else {
-            this.getData(gameData);                                                        //We must have hit 2 conditionals, run this again.
+            this.getData(gameData);                                                       //We must have hit 2 conditionals, run this again.
         }
     }
 
-    Scroll.prototype.move = function (gameData) {      //{trollStatus: 'orange', gemsCollected: 2}
+    Scroll.prototype.move = function (gameData) {                       //{trollStatus: 'orange', gemsCollected: 2}
         if (!gameData) this.pointer = this.items[this.pointer.next];
         else {
             if (gameData.trollStatus === this.pointer.condition || gameData.gemsCollected === this.pointer.condtion) {

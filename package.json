@@ -70,6 +70,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chrome": "^0.1.0",
     "karma-chrome-launcher": "^0.2.2"
   }
 }
