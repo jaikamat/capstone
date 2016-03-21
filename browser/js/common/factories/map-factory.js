@@ -18,7 +18,7 @@ app.factory('MapFactory', function () {
         this.current = null;
         this.end = null;
 
-        if (Array.isArray(option)) {  //[{red: 1, green: 5, blue: 6}, {}]
+        if (Array.isArray(option)) {  //[{red: 1, green: 5, blue: 6, purple: true}, {red: 2, green: 5, blue: 6}]
             var self = this;
             // creates all nodes
             option.forEach(function (element, index) {
