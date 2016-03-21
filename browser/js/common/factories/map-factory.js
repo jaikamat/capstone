@@ -47,7 +47,7 @@ app.factory('MapFactory', function () {
 
     Board.prototype.setCurrentAndEnd = function (currentId, endId) {
         this.current = this.nodes[currentId];
-        if (endId) this.end = this.nodes[endId];
+        this.end = this.nodes[endId];
     }
 
     Board.prototype.setCurrent = function (currentId) {
