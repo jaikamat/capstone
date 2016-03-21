@@ -102,6 +102,11 @@ app.factory('ScrollFactory', function () {
         else throw new Error("Cannot set condition.");
     }
 
+    Scroll.prototype.removeData = function(id) {
+        if ("color" in this.items[id]) this.items[id].color = null;
+        else this.items[id].condition = null;
+    }
+
     Scroll.prototype.getData = function (gameData) {
         if (this.pointer.id === "start") this.pointer = this.items[this.pointer.next]     //If the pointer is at start, move the pointer.
         if (this.pointer.constructor === Conditional) this.move(gameData);                //If you are then currently on a conditional, execute move
