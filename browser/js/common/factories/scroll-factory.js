@@ -66,12 +66,12 @@ app.factory('ScrollFactory', function () {
         this.items[sourceId].next = this.end;
     }
 
-    Scroll.prototype.setColor = function (id, color) {                                    // (3, {color: 'red'}) 
+    Scroll.prototype.setColor = function (id, color) {                                  // (3, {color: 'red'}) 
         if ("color" in this.items[id]) this.items[id].color = color;
         else throw new Error("Cannot set color.");
     }
 
-    Scroll.prototype.setCondition = function (id, condition) {                            // (3, {condition: 4}) or (5, {condition: 'orange'})
+    Scroll.prototype.setCondition = function (id, condition) {                          // (3, {condition: 4}) or (5, {condition: 'orange'})
         if ("condition" in this.items[id]) this.items[id].condition = condition;
         else throw new Error("Cannot set condition.");
     }
@@ -84,22 +84,22 @@ app.factory('ScrollFactory', function () {
             this.move();                                                                  //Move the pointer
             return data;                                                                  //Send the data
         }
-        if (this.pointer.id === "end") {                                                  //If the node were on is the end
+        if (this.pointer.id === "end") {                                                   //If the node were on is the end
             return 'End of game';                                                         //Notify that the game is over
         }
         else {
-            this.getData(gameData);                                                       //We must have hit 2 conditionals, run this again.
+            this.getData(gameData);                                                        //We must have hit 2 conditionals, run this again.
         }
     }
 
-    Scroll.prototype.move = function (gameData) {                                         //{trollStatus: 'orange', gemsCollected: 2}
+    Scroll.prototype.move = function (gameData) {      //{trollStatus: 'orange', gemsCollected: 2}
         if (!gameData) this.pointer = this.items[this.pointer.next];
         else {
             if (gameData.trollStatus === this.pointer.condition || gameData.gemsCollected === this.pointer.condtion) {
-                this.pointer = this.items[this.pointer.truePath];                         //move to True Path
+                this.pointer = this.items[this.pointer.truePath];       //move to True Path
             }
             else {
-                this.pointer = this.items[this.pointer.falsePath];                        //move to False Path
+                this.pointer = this.items[this.pointer.falsePath];      //move to False Path
             }
         }
     }

@@ -85,7 +85,3 @@ app.factory('MapFactory', function () {
 
     return MapFactory;
 });
-
-
-
-

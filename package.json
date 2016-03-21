@@ -68,5 +68,8 @@
     "test": "tests"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.2.2"
+  }
 }
