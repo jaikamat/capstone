@@ -71,13 +71,13 @@ app.factory('ScrollFactory', function () {
     }
 
     //Expects a source id and an object of the connections
-    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {                    // (3, {falsePath: 6, truePath: 7})
+    Scroll.prototype.setRoute = function (sourceId, objectOfConnections) {                 // (3, {falsePath: 6, truePath: 7})
         if(sourceId === 'start') {this.start.next = objectOfConnections.next}
         else {
             var itemToConnect = this.items[sourceId];
             for (var key in objectOfConnections) {
                 if (objectOfConnections[key] === -1) itemToConnect[key] = this.end;        // If the connection is the end connect the 'end' node.
-                else itemToConnect[key] = objectOfConnections[key];                           // Else connect the node.
+                else itemToConnect[key] = objectOfConnections[key];                        // Else connect the node.
             };
         }
     }
@@ -115,7 +115,7 @@ app.factory('ScrollFactory', function () {
             this.move();                                                                  //Move the pointer
             return data;                                                                  //Send the data
         }
-        if (this.pointer.id === -1) {                                                  //If the node were on is the end
+        if (this.pointer.id === -1) {                                                     //If the node were on is the end
             return null;                                                                  //Notify that the game is over
         }
         else {

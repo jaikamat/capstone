@@ -3,3 +3,6 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./level');
+require('./map');
+require('./scroll');
+require('./params');
