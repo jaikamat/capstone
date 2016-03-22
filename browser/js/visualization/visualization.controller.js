@@ -33,10 +33,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
       blue: 3
     }];
 
-  $scope.board = MapFactory.createNewBoard(options);
-
-  console.log('THE BOARD', $scope.board);
-
   function getConnections (nodes) {
     var connections = [];
 
@@ -51,10 +47,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return connections
   }
 
-  $scope.connections = getConnections($scope.board.nodes);
-
-  console.log('NODE CONNECTIONS', $scope.connections);
-
+  // this function takes coordinate inputs (with optional bezier curve anchor points)
+  // to draw lines
   function drawSvgLine (x1, y1, x2, y2, color, bx1, by1, bx2, by2) {
     if (bx1 && bx2) {
       //<path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
@@ -80,10 +74,54 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     }
   }
 
-  // drawSvgLine(10, 10, 50, 10, 'red', 20, 20, 40, 20);
+  var lastNode;
+  function currentNodeStyle (color) {
+    if (lastNode) lastNode.css('background-color', 'white')
+    // this is the current node on the DOM
+    $scope.board.step(color);
+    var currentDOMnode = $scope.board.current.id;
+    // this is the element we are isolating
+    var element = $('#node' + currentDOMnode);
+    // we then change the color to black 
+    element.css('background-color', 'black');
+    // and then move
+    // now the current has changed
+    lastNode = $('#node' + currentDOMnode)
+    console.log($scope.board);
+  }
+
+  setTimeout(function () {
+    currentNodeStyle('green')
+  }, 1000)
+  setTimeout(function () {
+    currentNodeStyle('red')
+  }, 2000)
+  setTimeout(function () {
+    currentNodeStyle('blue')
+  }, 3000)
+  setTimeout(function () {
+    currentNodeStyle('green')
+  }, 4000)
+  setTimeout(function () {
+    currentNodeStyle('green')
+  }, 5000)
+  setTimeout(function () {
+    currentNodeStyle('green')
+  }, 6000)
+  setTimeout(function () {
+    currentNodeStyle('red')
+  }, 7000)
+
+  $scope.board = MapFactory.createNewBoard(options);
+  console.log('THE BOARD', $scope.board);
+  $scope.connections = getConnections($scope.board.nodes);
+  console.log('NODE CONNECTIONS', $scope.connections);
+  $scope.board.setCurrentAndEnd(0,5);
+  $scope.currentNodeStyle = currentNodeStyle;
 
   // width: 600px
   // height: 400px
+  // TODO: set these to be percentage coordinates of the parent div pixel size
   $scope.board.nodes[0].coords = [100, 100];
   $scope.board.nodes[1].coords = [300, 100];
   $scope.board.nodes[2].coords = [500, 100];
@@ -103,7 +141,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     var y2 = coords2[1] + divDiameter;
     var color = array[2]
     // console.log('NODE\n', array[0], array[1], 'COLOR\n', color)
-    // 40 here is 1/2 the width of each node to prevent offset
+
     if (array[0] === 0 && array[1] === 2) {
       drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 - 100, x2 - 20, y2 - 100)
     }
@@ -117,13 +155,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     }
   })
 
+  // need to link up some of the back end functions with changing the DOM
 
-  // these are percentages
-  // $scope.board.nodes[0].coords = [15, 30];
-  // $scope.board.nodes[1].coords = [50, 30];
-  // $scope.board.nodes[2].coords = [85, 30];
-  // $scope.board.nodes[3].coords = [15, 70];
-  // $scope.board.nodes[4].coords = [50, 70];
-  // $scope.board.nodes[5].coords = [85, 70];
 
 });
