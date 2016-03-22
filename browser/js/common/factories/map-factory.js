@@ -5,16 +5,16 @@ app.factory('MapFactory', function () {
         this.blue = null;
         this.green = null;
         this.gems = 0;
-        this.orange = false;  
-        this.purple = false;  
+        this.troll = null;   
     }
 
     function Board (option) {
         this.nodes = {};
         this.current = null;
         this.end = null;
+        this.gemsCollected = 0;
 
-        if (Array.isArray(option)) {  //[{red: 1, green: 5, blue: 6, purple: true}, {red: 2, green: 5, blue: 6}]
+        if (Array.isArray(option)) {  //[{red: 1, green: 5, blue: 6, troll: 'orange'}, {red: 2, green: 5, blue: 6}]
             var self = this;
             // creates all nodes
             option.forEach(function (element, index) {
@@ -30,11 +30,10 @@ app.factory('MapFactory', function () {
                 this.addNode(i);
             }
         }
-        console.log('MADE A BOARD');
     }
 
     Board.prototype.setTroll = function (nodeId, color) {
-        this.nodes[nodeId][color] = true;
+        this.nodes[nodeId].troll = color;
     }
 
     Board.prototype.setGems = function (nodeId, number) {
@@ -44,13 +43,11 @@ app.factory('MapFactory', function () {
 
     Board.prototype.addNode = function (nodeId) {
         this.nodes[nodeId] = new Node(nodeId);
-        console.log('ADDED A NODE', this.nodes[nodeId]);
     }
 
     Board.prototype.setCurrentAndEnd = function (currentId, endId) {
         this.current = this.nodes[currentId];
-        if (endId) this.end = this.nodes[endId];
-        console.log('SET CURRENT AND END', this.current, this.end)
+        this.end = this.nodes[endId];
     }
 
     Board.prototype.setCurrent = function (currentId) {
@@ -58,19 +55,21 @@ app.factory('MapFactory', function () {
     }
 
     Board.prototype.step = function (color) {
-        if(this.current[color] !== null) {
+        if (this.current[color] !== null) {
             this.setCurrent(this.current[color]);
-            console.log("STEP SUCCEEDED, MOVED TO ", this.current.id);
+            if (this.current.gems > 0) {
+                this.gemsCollected++;
+                this.current.gems--;
+            }
         }
-        else console.log("PATH DOES NOT EXIST");
+        else return null; //This is one of the things that can end the run
     }
 
-    Board.prototype.connect = function (nodeId, objectOfConnections) {   //(3, {red: 1, green: 5, blue: 6})
+    Board.prototype.connect = function (nodeId, objectOfConnections) {   //(3, {red: 1, green: 5, blue: 6, troll: 'orange'})
         var nodeToConnect = this.nodes[nodeId];
         for (var key in objectOfConnections) {
             nodeToConnect[key] = objectOfConnections[key];
         };
-        console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
     }
 
     var MapFactory = {
