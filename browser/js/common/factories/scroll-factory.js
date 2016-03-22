@@ -1,4 +1,4 @@
-//[{type: 'i', conn: {next: 1}}, {type: 'c', conn:{truePath: 2, falsePath: 4}}, {type: 'i', conn: {next: 3}}, {type: 'i', conn:{next: 'end'}}, {type: 'i', conn:{next: 0}}]
+//[{itemType: 'i', conn: {next: 1}}, {itemType: 'c', conn:{truePath: 2, falsePath: 4}}, {itemType: 'i', conn: {next: 3}}, {itemType: 'i', conn:{next: 'end'}}, {itemType: 'i', conn:{next: 0}}]
 
 /*
   A scroll initializes an empty object of items, 
@@ -49,7 +49,7 @@ app.factory('ScrollFactory', function () {
             var self = this;
             //Create all the elements
             option.forEach(function (element, index) {
-                if (element.type === 'i') self.addInstruction(index);
+                if (element.itemType === 'i') self.addInstruction(index);
                 else self.addConditional(index);
             });
             //Create all the connections
