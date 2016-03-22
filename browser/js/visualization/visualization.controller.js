@@ -1,66 +1,129 @@
-app.controller('VisualizationCtrl', function ($scope) {
+app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFactory, ScrollFactory) {
+  
   console.log('Visualization Controller Initialized');
 
-  var graph = new joint.dia.Graph();
+  var options = [{
+      red: 1,
+      green: 2,
+      blue: 4
+    },
+    {
+      red: 0,
+      green: 3,
+      blue: 2
+    },
+    {
+      red: 5,
+      green: 0,
+      blue: 1
+    },
+    {
+      red: 4,
+      green: 1,
+      blue: 5
+    },
+    {
+      red: 3,
+      green: 5,
+      blue: 0
+    },
+    {
+      red: 2,
+      green: 4,
+      blue: 3
+    }];
 
-  var paper = new joint.dia.Paper({
-      el: $('#paper'),
-      width: 800,
-      height: 600,
-      gridSize: 1,
-      model: graph
-  });
+  $scope.board = MapFactory.createNewBoard(options);
 
-  function state(x, y, label) {
-      
-      var cell = new joint.shapes.fsa.State({
-          position: { x: x, y: y },
-          size: { width: 60, height: 60 },
-          attrs: {
-              text : { text: label, fill: '#000000', 'font-weight': 'normal' },
-              'circle': {
-                  fill: '#f6f6f6',
-                  stroke: '#000000',
-                  'stroke-width': 2
-              }
-          }
-      });
-      graph.addCell(cell);
-      return cell;
+  console.log('THE BOARD', $scope.board);
+
+  function getConnections (nodes) {
+    var connections = [];
+
+    for (var nodeId in nodes) {
+      let node = nodes[nodeId];
+      ['red', 'green', 'blue'].forEach(function (color) {
+        if (node[color] !== null) {
+          connections.push([+nodeId, node[color], color])
+        }
+      })
+    }
+    return connections
   }
 
-  function link(source, target, label, vertices) {
-      
-      var cell = new joint.shapes.fsa.Arrow({
-          source: { id: source.id },
-          target: { id: target.id },
-          labels: [{ position: 0.5, attrs: { text: { text: label || '', 'font-weight': 'bold' } } }],
-          vertices: vertices || []
-      });
-      graph.addCell(cell);
-      return cell;
+  $scope.connections = getConnections($scope.board.nodes);
+
+  console.log('NODE CONNECTIONS', $scope.connections);
+
+  function drawSvgLine (x1, y1, x2, y2, color, bx1, by1, bx2, by2) {
+    if (bx1 && bx2) {
+      //<path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
+      var newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      var attr = 'M' + x1 + " " + y1 + " C" + " " + bx1 + " " + by1 + ", " + bx2 + " " + by2 + ", " + x2 + " " + y2;
+      newPath.setAttribute('d', attr);
+      newPath.setAttribute('id','curved-routes');
+      newPath.setAttribute('fill','transparent');
+      newPath.setAttribute('stroke', color);
+      newPath.setAttribute('stroke-width', 20);
+      $("#lines").append(newPath);
+    }
+    else {
+      var newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      newLine.setAttribute('id','straight-routes');
+      newLine.setAttribute('x1',x1);
+      newLine.setAttribute('y1',y1);
+      newLine.setAttribute('x2',x2);
+      newLine.setAttribute('y2',y2);
+      newLine.setAttribute('stroke', color);
+      newLine.setAttribute('stroke-width', 20);
+      $("#lines").append(newLine);
+    }
   }
 
-  var start = new joint.shapes.fsa.StartState({ position: { x: 50, y: 530 } });
-  graph.addCell(start);
+  // drawSvgLine(10, 10, 50, 10, 'red', 20, 20, 40, 20);
 
-  var code  = state(180, 390, 'code');
-  var slash = state(340, 220, 'slash');
-  var star  = state(600, 400, 'star');
-  var line  = state(190, 100, 'line');
-  var block = state(560, 140, 'block');
+  // width: 600px
+  // height: 400px
+  $scope.board.nodes[0].coords = [100, 100];
+  $scope.board.nodes[1].coords = [300, 100];
+  $scope.board.nodes[2].coords = [500, 100];
+  $scope.board.nodes[3].coords = [100, 300];
+  $scope.board.nodes[4].coords = [300, 300];
+  $scope.board.nodes[5].coords = [500, 300];
 
-  link(start, code,  'start');
-  link(code,  slash, '/');
-  link(slash, code,  'other', [{x: 270, y: 300}]);
-  link(slash, line,  '/');
-  link(line,  code,  'new\n line');
-  link(slash, block, '*');
-  link(block, star,  '*');
-  link(star,  block, 'other', [{x: 650, y: 290}]);
-  link(star,  code,  '/',     [{x: 490, y: 310}]);
-  link(line,  line,  'other', [{x: 115,y: 100}, {x: 250, y: 50}]);
-  link(block, block, 'other', [{x: 485,y: 140}, {x: 620, y: 90}]);
-  link(code,  code,  'other', [{x: 180,y: 500}, {x: 305, y: 450}]);
-  
+  $scope.connections.forEach(function (array) {
+    var divDiameter = 40;
+    // first element of array is the source, second is the target
+    var coords1 = $scope.board.nodes[array[0]].coords;
+    var coords2 = $scope.board.nodes[array[1]].coords;
+    // centers the div coordinates
+    var x1 = coords1[0] + divDiameter;
+    var y1 = coords1[1] + divDiameter;
+    var x2 = coords2[0] + divDiameter;
+    var y2 = coords2[1] + divDiameter;
+    var color = array[2]
+    // console.log('NODE\n', array[0], array[1], 'COLOR\n', color)
+    // 40 here is 1/2 the width of each node to prevent offset
+    if (array[0] === 0 && array[1] === 2) {
+      drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 - 100, x2 - 20, y2 - 100)
+    }
+    else if (array[0] === 3 && array[1] === 5) {
+      drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 + 100, x2 - 20, y2 + 100)
+    }
+    else if (array[0] === 5 && array[1] === 3); // do nothing
+    else if (array[0] === 2 && array[1] === 0); // do nothing
+    else {
+      drawSvgLine(x1, y1, x2, y2, color)
+    }
+  })
+
+
+  // these are percentages
+  // $scope.board.nodes[0].coords = [15, 30];
+  // $scope.board.nodes[1].coords = [50, 30];
+  // $scope.board.nodes[2].coords = [85, 30];
+  // $scope.board.nodes[3].coords = [15, 70];
+  // $scope.board.nodes[4].coords = [50, 70];
+  // $scope.board.nodes[5].coords = [85, 70];
+
 });

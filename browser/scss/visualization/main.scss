@@ -1,240 +1,133 @@
-/*! JointJS v0.9.6 - JavaScript diagramming library  2015-12-19 
+/*#board {
+  position: absolute;
+  width: 100%;  
+  height: 75%;
+  background-color: #000000;  
+  z-index: -1;
+}*/ 
 
-
-This Source Code Form is subject to the terms of the Mozilla Public
-License, v. 2.0. If a copy of the MPL was not distributed with this
-file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-
-/*
-A complete list of SVG properties that can be set through CSS is here:
-http://www.w3.org/TR/SVG/styling.html
-
-Important note: Presentation attributes have a lower precedence over CSS style rules.
-*/
-
-
-/* .viewport is a <g> node wrapping all diagram elements in the paper */
-.viewport {
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   user-select: none;
+#board {
+  position: absolute;
+  width: 800px;  
+  height: 500px;
+  /*background-color: #000000;  */
+  z-index: -1;
 }
 
-/*
-1. IE can't handle paths without the `d` attribute for bounding box calculation
-2. IE can't even handle 'd' attribute as a css selector (e.g path[d]) so the following rule will
-   break the links rendering.
-
-path:not([d]) {
-    display: none;
+#node {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 1;
+  border: 5px solid grey;
+  display: table;
 }
 
-*/
-
-/* .magnet is an element that can be either source or a target of a link */
-/*
-.magnet {
-   fill: black;
-   fill-opacity: 0;
-   stroke: black;
-   stroke-width: 15;
-   stroke-opacity: 0;
-   pointer-events: visibleStroke;
-   cursor: crosshair;
-   vector-effect: non-scaling-stroke;
+.node-label {
+  color: grey;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 
-.magnet:hover {
-   stroke-opacity: .5;
-}
-*/
-
-[magnet=true]:not(.element) {
-   cursor: crosshair;
-}
-[magnet=true]:not(.element):hover {
-   opacity: .7;
+#straight-routes {
+  z-index: 2;
 }
 
-/*
-
-Elements have CSS classes named by their types. E.g. type: basic.Rect has a CSS class "element basic Rect".
-This makes it possible to easilly style elements in CSS and have generic CSS rules applying to
-the whole group of elements. Each plugin can provide its own stylesheet.
-
-*/
-
-.element {
-   /* Give the user a hint that he can drag&drop the element. */
-   cursor: move;
-}
-
-.element * {
-   /* The default behavior when scaling an element is not to scale the stroke in order to prevent the ugly effect of stroke with different proportions. */
-   vector-effect: non-scaling-stroke;
-   user-drag: none;
-}
-
-
-/*
-
-connection-wrap is a <path> element of the joint.dia.Link that follows the .connection <path> of that link.
-In other words, the `d` attribute of the .connection-wrap contains the same data as the `d` attribute of the
-.connection <path>. The advantage of using .connection-wrap is to be able to catch pointer events
-in the neighborhood of the .connection <path>. This is especially handy if the .connection <path> is
-very thin.
-
-*/
-
-.connection-wrap {
-   fill: none;
-   stroke: black;
-   stroke-width: 15;
-   stroke-linecap: round;
-   stroke-linejoin: round;
-   opacity: 0;
-   cursor: move;
-}
-.connection-wrap:hover {
-   opacity: .4;
-   stroke-opacity: .4;
-}
-
-
-.connection {
-   /* stroke: black; */
-   /* stroke width cannot be overriden by attribute? */
-   /*   stroke-width: 1; */
-   fill: none;
-   stroke-linejoin: round;
-}
-
-.marker-source, .marker-target {
-/* Cannot be in CSS otherwise it could not be overruled by attributes.
-   fill: black;
-   stroke: black;
-*/
-   /* This makes the arrowheads point to the border of objects even though the transform: scale() is applied on them. */
-   vector-effect: non-scaling-stroke;
-}
-
-/*
-
-Vertex markers are `<circle>` elements that appear at connection vertex positions.
-
-*/
-
-/* <g> element wrapping .marker-vertex-group. */
-.marker-vertices {
-   opacity: 0;
-   cursor: move;
-}
-.marker-arrowheads {
-   opacity: 0;
-   cursor: move;
-   cursor: -webkit-grab;
-   cursor: -moz-grab;
-/*   display: none;   */   /* setting `display: none` on .marker-arrowheads effectivelly switches of links reconnecting */
-}
-.link-tools {
-   opacity: 0;
-   cursor: pointer;
-}
-.link-tools .tool-options {
-   display: none;       /* by default, we don't display link options tool */
-}
-.link-tools .tool-remove circle {
-   fill: red;
-}
-.link-tools .tool-remove path {
-   fill: white;
-}
-.link:hover .marker-vertices,
-.link:hover .marker-arrowheads,
-.link:hover .link-tools {
-   opacity: 1;
-}
-
-/* <circle> element inside .marker-vertex-group <g> element */
-.marker-vertex {
-   fill: #1ABC9C;
-}
-.marker-vertex:hover {
-   fill: #34495E;
-   stroke: none;
-}
-
-.marker-arrowhead {
-   fill: #1ABC9C;
-}
-.marker-arrowhead:hover {
-   fill: #F39C12;
-   stroke: none;
-}
-
-/* <circle> element used to remove a vertex */
-.marker-vertex-remove {
-   cursor: pointer;
-   opacity: .1;
-   fill: white;
-}
-
-.marker-vertex-group:hover .marker-vertex-remove {
-   opacity: 1;
-}
-
-.marker-vertex-remove-area {
-   opacity: .1;
-   cursor: pointer;
-}
-.marker-vertex-group:hover .marker-vertex-remove-area {
-   opacity: 1;
-}
-
-/* Cell highlighting - e.g a cell underneath the dragged link get highlighted.
-   See joint.dia.cell.js highlight(); */
-.highlighted {
-    opacity: 0.7;
-}
-
-/* For some reason, CSS `outline` property
-   does not work on `<text>` elements. */
-text.highlighted {
-    fill: #FF0000;
-}
-
-/* `outline` doesn't work in Firefox, Opera and IE9+.
-   The only engine supporting outlines on SVG elements is Webkit. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    .highlighted {
-        outline: 2px solid #FF0000;
-        opacity: initial;
-    }
-}
-
-/*
-Example of custom changes (in pure CSS only!):
-
-Do not show marker vertices at all:  .marker-vertices { display: none; }
-Do not allow adding new vertices: .connection-wrap { pointer-events: none; }
-*/
-
-/* foreignObject inside the elements (i.e joint.shapes.basic.TextBlock) */
-.element .fobj {
-    overflow: hidden;
-}
-.element .fobj body {
-    background-color: transparent;
-    margin: 0px;
-}
-.element .fobj div {
+/*#node {
+    text-shadow: rgb(20, 144, 120) 1px 1px,
+    rgb(20, 144, 120) 2px 2px,
+    rgb(20, 144, 120) 3px 3px,
+    rgb(20, 144, 120) 4px 4px,
+    rgb(20, 144, 120) 5px 5px,
+    rgb(20, 144, 120) 6px 6px,
+    rgb(20, 144, 120) 7px 7px,
+    rgb(20, 144, 120) 8px 8px,
+    rgb(20, 144, 120) 9px 9px,
+    rgb(20, 144, 120) 10px 10px,
+    rgb(20, 144, 120) 11px 11px,
+    rgb(20, 144, 120) 12px 12px,
+    rgb(20, 145, 121) 13px 13px,
+    rgb(20, 146, 122) 14px 14px,
+    rgb(20, 147, 123) 15px 15px,
+    rgb(20, 148, 123) 16px 16px,
+    rgb(20, 149, 124) 17px 17px,
+    rgb(20, 150, 125) 18px 18px,
+    rgb(20, 151, 126) 19px 19px,
+    rgb(21, 152, 126) 20px 20px,
+    rgb(21, 153, 127) 21px 21px,
+    rgb(21, 154, 128) 22px 22px,
+    rgb(21, 155, 129) 23px 23px,
+    rgb(21, 156, 129) 24px 24px,
+    rgb(21, 157, 130) 25px 25px,
+    rgb(21, 158, 131) 26px 26px,
+    rgb(21, 159, 132) 27px 27px,
+    rgb(22, 160, 133) 28px 28px;
+    box-shadow: rgb(28, 37, 48) 1px 1px,
+    rgb(28, 37, 48) 2px 2px,
+    rgb(28, 37, 48) 3px 3px,
+    rgb(28, 37, 48) 4px 4px,
+    rgb(28, 37, 48) 5px 5px,
+    rgb(28, 37, 49) 6px 6px,
+    rgb(28, 37, 49) 7px 7px,
+    rgb(28, 38, 49) 8px 8px,
+    rgb(28, 38, 49) 9px 9px,
+    rgb(29, 38, 49) 10px 10px,
+    rgb(29, 38, 49) 11px 11px,
+    rgb(29, 38, 50) 12px 12px,
+    rgb(29, 38, 50) 13px 13px,
+    rgb(29, 38, 50) 14px 14px,
+    rgb(29, 39, 50) 15px 15px,
+    rgb(29, 39, 50) 16px 16px,
+    rgb(29, 39, 50) 17px 17px,
+    rgb(29, 39, 51) 18px 18px,
+    rgb(29, 39, 51) 19px 19px,
+    rgb(30, 39, 51) 20px 20px,
+    rgb(30, 39, 51) 21px 21px,
+    rgb(30, 39, 51) 22px 22px,
+    rgb(30, 40, 51) 23px 23px,
+    rgb(30, 40, 52) 24px 24px,
+    rgb(30, 40, 52) 25px 25px,
+    rgb(30, 40, 52) 26px 26px,
+    rgb(30, 40, 52) 27px 27px,
+    rgb(30, 40, 52) 28px 28px,
+    rgb(30, 40, 52) 29px 29px,
+    rgb(31, 41, 53) 30px 30px,
+    rgb(31, 41, 53) 31px 31px,
+    rgb(31, 41, 53) 32px 32px,
+    rgb(31, 41, 53) 33px 33px,
+    rgb(31, 41, 53) 34px 34px,
+    rgb(31, 41, 53) 35px 35px,
+    rgb(31, 41, 54) 36px 36px,
+    rgb(31, 41, 54) 37px 37px,
+    rgb(31, 42, 54) 38px 38px,
+    rgb(31, 42, 54) 39px 39px,
+    rgb(32, 42, 54) 40px 40px,
+    rgb(32, 42, 54) 41px 41px,
+    rgb(32, 42, 55) 42px 42px,
+    rgb(32, 42, 55) 43px 43px,
+    rgb(32, 42, 55) 44px 44px,
+    rgb(32, 43, 55) 45px 45px,
+    rgb(32, 43, 55) 46px 46px,
+    rgb(32, 43, 55) 47px 47px,
+    rgb(32, 43, 56) 48px 48px,
+    rgb(32, 43, 56) 49px 49px,
+    rgb(33, 43, 56) 50px 50px,
+    rgb(33, 43, 56) 51px 51px,
+    rgb(33, 43, 56) 52px 52px,
+    rgb(33, 44, 56) 53px 53px,
+    rgb(33, 44, 57) 54px 54px,
+    rgb(33, 44, 57) 55px 55px,
+    rgb(33, 44, 57) 56px 56px,
+    rgb(33, 44, 57) 57px 57px,
+    rgb(33, 44, 57) 58px 58px,
+    rgb(33, 44, 57) 59px 59px,
+    rgb(34, 45, 58) 60px 60px;
+    background-color: rgb(22, 160, 133);
+    height: 80px;
+    width: 80px;
+    font-size: 75px;
+    line-height: 150px;
     text-align: center;
-    vertical-align: middle;
-    display: table-cell;
-    padding: 0px 5px 0px 5px;
-}
+}*/
