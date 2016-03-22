@@ -2,10 +2,10 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	scrollId: {type: Number, min: 0, unique: true},
+	scrollId: {type: Number, min: 1, unique: true, required: true},
 
 	data: [{
-		itemType: {type: String, enum: ['i', 'c']},
+		itemType: {type: String, enum: ['i', 'c'], required: true},
 		conn: {
 			next: {type: Number, min: -1},
 			truePath: {type: Number, min: -1},

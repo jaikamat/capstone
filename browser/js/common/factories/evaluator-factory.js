@@ -12,18 +12,29 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 
 		initializeGame: function (levelNumber) {
 			var self = this;
-			$http.get('/' + levelNumber) //make a http request to the backend
-			.then(function (res) {
-				mapCache = MapFactory.createNewBoard(res.data.map); //create the map
-				scrollCache = ScrollFactory.createScroll(res.data.scroll); //create the scroll
-				paramsCache = ParametersFactory.createParameters(res.data.params); //create the parameters
-				paramsCache.initBoard(mapCache); //initialize the board with the parameters given
-			})
-			.then(function () {	//Cache everything
+			if(levelNumber === 0){
+				mapCache = MapFactory.createNewBoard(0); 
+				scrollCache = ScrollFactory.createScroll(); 
+				paramsCache = ParametersFactory.createParameters(); 
+				paramsCache.initBoard(mapCache);
 				self.map = mapCache;
 				self.scroll = scrollCache;
 				self.params = paramsCache;
-			})
+			}
+			else {
+				$http.get('/' + levelNumber) //make a http request to the backend
+				.then(function (res) {
+					mapCache = MapFactory.createNewBoard(res.data.map); //create the map
+					scrollCache = ScrollFactory.createScroll(res.data.scroll); //create the scroll
+					paramsCache = ParametersFactory.createParameters(res.data.params); //create the parameters
+					paramsCache.initBoard(mapCache); //initialize the board with the parameters given
+				})
+				.then(function () {	//Cache everything
+					self.map = mapCache;
+					self.scroll = scrollCache;
+					self.params = paramsCache;
+				})
+			}
 		},
 
 		advance: function () {
