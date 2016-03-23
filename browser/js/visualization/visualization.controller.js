@@ -76,9 +76,10 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     // this is the element we are isolating
     var element = $('#node' + currentDOMnode);
     // we then change the color to black 
-    element.css('background-color', 'black');
+    element.css('background-color', 'grey');
     // and then move
     // now the current has changed
+    console.log(element)
     lastNode = $('#node' + currentDOMnode);
   }
 
