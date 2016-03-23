@@ -22,6 +22,11 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Map = Promise.promisifyAll(mongoose.mode('Map'));
+var Scroll = Promise.promisifyAll(mongoose.model('Scroll'));
+var Params = Promise.promisifyAll(mongoose.mode('Params'));
+
+var mapData = require('./seedData/maps.json');
 
 var seedUsers = function () {
 
