@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var Scrolls = Promise.promisifyAll(mongoose.model('Scrolls'));
-var scrollData = require('./scrolls.json');
+var scrollData = require('../rawData/scrolls.json');
 
 function seedScrolls () {
 	return Scrolls.createAsync(

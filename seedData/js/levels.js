@@ -6,7 +6,7 @@ var Maps = mongoose.model('Maps');
 var Scrolls = mongoose.model('Scrolls');
 var Params = mongoose.model('Params');
 
-var levelData = require('./levels.json');
+var levelData = require('../rawData/levels.json');
 
 function seedLevels () {
 	return Promise.each(levelData, function (level, index) {
