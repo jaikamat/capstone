@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="style.css" />
+<div id='game-container'>
+  <div id="board">
+    <div id="node-{{ nodeId }}" class="node-class" ng-repeat="(nodeId, node) in board.nodes" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px">
+      <!-- <h2 class="node-label">{{ node.id }}</h2> -->
+    </div>
+    <svg id="lines" width="800px" height="500px">
+    </svg>
+  </div>
+  <div id="scroll">
+    <!-- <div id="item-start" class="item-class" style="background-color: grey"></div> -->
+    <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items"></div>
+    <div id="run" class="item-class" style="background-color: pink" ng-click="run()"></div>
+    <!-- <div id="item-end" class="item-class" style="background-color: grey"></div> -->
+  </div>
+  <div id="tokens">
+    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.redTokens) track by $index" style="background-color: red" draggable="true"></div>
+    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.greenTokens) track by $index" style="background-color: green" draggable="true"></div>
+    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.blueTokens) track by $index" style="background-color: blue" draggable="true"></div>
+  </div>
+</div>
+</div>
+</div>
