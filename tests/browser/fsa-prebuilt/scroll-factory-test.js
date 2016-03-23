@@ -22,7 +22,7 @@ describe('ScrollFactory', function () {
       });
       it('should instantiate an End item', function () {
         expect(scroll1.end).to.be.an('object');
-        expect(scroll1.end.id).to.equal('end');
+        expect(scroll1.end.id).to.equal(-1);
       });
       it('should instantiate an Items object', function () {
         expect(scroll1.items).to.be.an('object');
@@ -113,12 +113,9 @@ describe('ScrollFactory', function () {
           next: 4
         });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(4, {
-          truePath: 'end',
-          falsePath: 0
-        });
+        scroll10.setRoute(4, {truePath: -1, falsePath: 0});
         scroll10.pointer = scroll10.pointer.truePath;
-        expect(scroll10.pointer.id).to.equal('end');
+        expect(scroll10.pointer.id).to.equal(-1);
       });
     });
   });

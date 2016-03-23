@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFactory, ScrollFactory) {
+app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFactory, ScrollFactory, EvalFactory) {
 
   var options = [{
     red: 1,
@@ -83,28 +83,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     lastNode = $('#node' + currentDOMnode);
   }
 
-  // setTimeout(function () {
-  //   currentNodeStyle('green');
-  // }, 1000);
-  // setTimeout(function () {
-  //   currentNodeStyle('red');
-  // }, 2000);
-  // setTimeout(function () {
-  //   currentNodeStyle('blue');
-  // }, 3000);
-  // setTimeout(function () {
-  //   currentNodeStyle('green');
-  // }, 4000);
-  // setTimeout(function () {
-  //   currentNodeStyle('green');
-  // }, 5000);
-  // setTimeout(function () {
-  //   currentNodeStyle('green');
-  // }, 6000);
-  // setTimeout(function () {
-  //   currentNodeStyle('red');
-  // }, 7000);
-
   $scope.board = MapFactory.createNewBoard(options);
   $scope.connections = getConnections($scope.board.nodes);
   $scope.board.setCurrentAndEnd(0, 5);
@@ -149,6 +127,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   $scope.scroll.addInstruction(1);
   $scope.scroll.addInstruction(2);
   $scope.scroll.addInstruction(3);
+  $scope.scroll.setStart(0);
   $scope.scroll.setRoute(0, {
     next: 1
   });
@@ -159,10 +138,21 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     next: 3
   });
   $scope.scroll.setRoute(3, {
-    next: 'end'
+    next: -1
   });
 
-  $scope.parameters = ParametersFactory.createParameters(5, 3, 2, 2, 0, [], 0);
+  var parametersOptions = {
+    startNode: 5,
+    endNode: 3,
+    redTokens: 2,
+    greenTokens: 2,
+    blueTokens: 0,
+    gems: [],
+    conditionals: []
+  };
+
+  $scope.parameters = ParametersFactory.createParameters(parametersOptions);
+  console.log($scope.parameters);
 
   $scope.getNumber = function (n) {
     return Array(n);
@@ -209,9 +199,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     // this.style.color = dragSrcEl.style.color;
     this.style.backgroundColor = dragSrcEl.style.backgroundColor;
     var id = this.id.split('-')[1];
-    $scope.scroll.items[id].next = this.style.backgroundColor;
+    EvalFactory.scroll.items[id].color = this.style.backgroundColor;
     dragSrcEl.style.backgroundColor = 'white';
-
     return false;
   }
 
@@ -245,5 +234,27 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   }, 1000);
 
   // need to link up some of the back end functions with changing the DOM
+  EvalFactory.initializeGame(0);
+  EvalFactory.map = $scope.board;
+  EvalFactory.scroll = $scope.scroll;
+  EvalFactory.params = $scope.parameters;
+  EvalFactory.mapCache = $scope.board;
+  EvalFactory.scrollCache = $scope.scroll;
+  EvalFactory.paramsCache = $scope.parameters;
+  EvalFactory.params.initBoard(EvalFactory.map);
+  console.log("Initted map: ", EvalFactory.map);
+
+  $scope.run = function () {
+    // console.log("Player location before step: ", EvalFactory.map.current);
+    var last = document.getElementById('node-' + EvalFactory.map.current.id);
+    EvalFactory.advance();
+    var current = document.getElementById('node-' + EvalFactory.map.current.id);
+    if (last) last.style.backgroundColor = 'white';
+    current.style.backgroundColor = 'yellow';
+    // console.log("Player location after step: ", EvalFactory.map.current);
+    console.log("Game message: ", EvalFactory.gameMessage);
+    // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
+    console.log("Scroll.end: ", EvalFactory.scroll.end);
+  };
 
 });
