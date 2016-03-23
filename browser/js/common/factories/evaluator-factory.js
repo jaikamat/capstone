@@ -22,11 +22,11 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 				self.params = paramsCache;
 			}
 			else {
-				$http.get('/' + levelNumber) //make a http request to the backend
+				$http.get('/api/levels' + levelNumber) //make a http request to the backend
 				.then(function (res) {
-					mapCache = MapFactory.createNewBoard(res.data.map); //create the map
-					scrollCache = ScrollFactory.createScroll(res.data.scroll); //create the scroll
-					paramsCache = ParametersFactory.createParameters(res.data.params); //create the parameters
+					mapCache = MapFactory.createNewBoard(res.data.map.data); //create the map
+					scrollCache = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
+					paramsCache = ParametersFactory.createParameters(res.data.params.data); //create the parameters
 					paramsCache.initBoard(mapCache); //initialize the board with the parameters given
 				})
 				.then(function () {	//Cache everything
