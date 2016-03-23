@@ -55,7 +55,7 @@ app.factory('ScrollFactory', function () {
             //Create all the connections
             option.forEach(function (element, index) {
                 self.setRoute(index, element.conn);
-            })
+            });
             this.setStart('0');
         }
     }
@@ -63,7 +63,7 @@ app.factory('ScrollFactory', function () {
     //Creates a new instruction in the items with an id
     Scroll.prototype.addInstruction = function (id) {
         this.items[id] = new Instruction(id);
-    }
+    };
 
     //Creates a new conditional in the items with an id
     Scroll.prototype.addConditional = function (id) {
@@ -80,27 +80,27 @@ app.factory('ScrollFactory', function () {
                 else itemToConnect[key] = objectOfConnections[key];                        // Else connect the node.
             };
         }
-    }
+    };
 
     //Manually allows a user to change the starting node.
     Scroll.prototype.setStart = function (sourceId) {
         this.start.next = this.items[sourceId];
-    }
+    };
 
     //Manually allows a user to change the ending node.
     Scroll.prototype.setEnd = function (sourceId) {
         this.items[sourceId].next = this.end;
-    }
+    };
 
     Scroll.prototype.setColor = function (id, color) {                                    // (3, {color: 'red'})
         if ("color" in this.items[id]) this.items[id].color = color;
         else throw new Error("Cannot set color.");
-    }
+    };
 
     Scroll.prototype.setCondition = function (id, condition) {                            // (3, {condition: 4}) or (5, {condition: 'orange'})
         if ("condition" in this.items[id]) this.items[id].condition = condition;
         else throw new Error("Cannot set condition.");
-    }
+    };
 
     Scroll.prototype.removeData = function(id) {
         if ("color" in this.items[id]) this.items[id].color = null;
@@ -108,7 +108,8 @@ app.factory('ScrollFactory', function () {
     }
 
     Scroll.prototype.getData = function (gameData) {
-        if (this.pointer.id === "start") this.pointer = this.items[this.pointer.next]     //If the pointer is at start, move the pointer.
+        console.log("Pointer: ", this.pointer);
+        if (this.pointer.id === "start") this.pointer = this.start.next;    //If the pointer is at start, move the pointer.
         if (this.pointer.constructor === Conditional) this.move(gameData);                //If you are then currently on a conditional, execute move
         if (this.pointer.constructor === Instruction) {                                   //If you are then currently on an Instruction,
             var data = this.pointer.color;                                                //Store the pointer data
@@ -121,10 +122,13 @@ app.factory('ScrollFactory', function () {
         else {
             this.getData(gameData);                                                       //We must have hit 2 conditionals, run this again.
         }
-    }
+    };
 
     Scroll.prototype.move = function (gameData) {                                         //{trollStatus: 'orange', gemsCollected: 2}
-        if (!gameData) this.pointer = this.items[this.pointer.next];
+        if (!gameData) {
+            if (this.pointer.next.id === -1) this.pointer = this.end;
+            else this.pointer = this.items[this.pointer.next];
+        }
         else {
             if (gameData.trollStatus === this.pointer.condition || gameData.gemsCollected === this.pointer.condtion) {
                 this.pointer = this.items[this.pointer.truePath];                         //move to True Path
@@ -133,7 +137,7 @@ app.factory('ScrollFactory', function () {
                 this.pointer = this.items[this.pointer.falsePath];                        //move to False Path
             }
         }
-    }
+    };
 
     var ScrollFactory = {
         createScroll: function (option) {

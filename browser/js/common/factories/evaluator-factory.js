@@ -33,7 +33,7 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 					self.map = mapCache;
 					self.scroll = scrollCache;
 					self.params = paramsCache;
-				})
+				});
 			}
 		},
 
@@ -42,13 +42,13 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 			//Check if the game has stepped more than 30 times.
 			if(stepCounter > 30) {
 				self.validGame = false;
-				self.gameMessage = "Stuck in infinite loop!"
+				self.gameMessage = "Stuck in infinite loop!";
 			}
 			if (self.validGame) {
 				var gameData = {    //Capture data from the map
 					trollStatus: self.map.current.troll,
 					gemsCollected: self.map.gemsCollected
-				}	
+				};
 				var color = self.scroll.getData(gameData); //Get the next scroll color
 				if (color !== null) { //If we aren't at the end of the scroll
 					var mapMove = self.map.step(color);
@@ -72,7 +72,7 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 				}
 				else {	//Did not make it to the portal
 					self.validGame = false;
-					self.gameMessage = "Goal not reached!"
+					self.gameMessage = "Goal not reached!";
 				}
 				stepCounter++; //increment the step counter to check for infinite loop
 			}
