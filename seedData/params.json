@@ -1,0 +1,21 @@
+[
+	{
+		"startNode": 5,
+		"endNode": 3,
+		"redTokens": 2,
+		"blueTokens": 0,
+		"greenTokens": 2,
+		"gems": [],
+		"conditionals": []
+	},
+	{
+		"startNode": 3,
+		"endNode": 5,
+		"redTokens": 2,
+		"blueTokens": 2,
+		"greenTokens": 0,
+		"gems": [0],
+		"conditionals": []
+	}
+
+]
