@@ -1,8 +1,9 @@
 'use strict';
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var schema = new mongoose.Schema({
-	paramId = {type: Number, min: 1, unique: true},
+	paramId: {type: Number, min: 1, unique: true},
 	startNode: {type: Number, min: 0},
 	endNode: {type: Number, min: 0},
 	redTokens: {type: Number, min: 0},
