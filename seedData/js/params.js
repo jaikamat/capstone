@@ -7,8 +7,10 @@ var paramData = require('../rawData/params.json');
 function seedParams () {
 	return Params.createAsync(
 		paramData.map(function (element, index) {
-			element.paramId = index + 1;
-			return element;
+			return {
+				paramId: index + 1,
+				data: element
+			}
 		})
 	)
 }
