@@ -10,8 +10,8 @@
   <div id="scroll">
     <!-- <div id="item-start" class="item-class" style="background-color: grey"></div> -->
     <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items"></div>
+    <div id="run" class="item-class" style="background-color: pink" ng-click="run()"></div>
     <!-- <div id="item-end" class="item-class" style="background-color: grey"></div> -->
-<!--     <btn class="btn-primary btn-lg">Run</btn> -->
   </div>
   <div id="tokens">
     <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.redTokens) track by $index" style="background-color: red" draggable="true"></div>
