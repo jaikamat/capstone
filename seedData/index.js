@@ -3,10 +3,10 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('../server/db');
 
-var seedMaps = require('./maps');
-var seedScrolls = require('./scrolls');
-var seedParams = require('./params');
-var seedLevels = require('./levels');
+var seedMaps = require('./js/maps');
+var seedScrolls = require('./js/scrolls');
+var seedParams = require('./js/params');
+var seedLevels = require('./js/levels');
 
 connectToDb.then(function (db) {
 	return db.db.dropDatabase();

@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var Params = Promise.promisifyAll(mongoose.model('Params'));
-var paramData = require('./params.json');
+var paramData = require('../rawData/params.json');
 
 function seedParams () {
 	return Params.createAsync(
