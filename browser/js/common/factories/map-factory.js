@@ -30,7 +30,7 @@ app.factory('MapFactory', function () {
                 this.addNode(i);
             }
         }
-        console.log('MADE A BOARD');
+        // console.log('MADE A BOARD');
     }
 
     Board.prototype.setTroll = function (nodeId, color) {
@@ -44,13 +44,13 @@ app.factory('MapFactory', function () {
 
     Board.prototype.addNode = function (nodeId) {
         this.nodes[nodeId] = new Node(nodeId);
-        console.log('ADDED A NODE', this.nodes[nodeId]);
+        // console.log('ADDED A NODE', this.nodes[nodeId]);
     }
 
     Board.prototype.setCurrentAndEnd = function (currentId, endId) {
         this.current = this.nodes[currentId];
         if (endId) this.end = this.nodes[endId];
-        console.log('SET CURRENT AND END', this.current, this.end)
+        // console.log('SET CURRENT AND END', this.current, this.end)
     }
 
     Board.prototype.setCurrent = function (currentId) {
@@ -70,7 +70,7 @@ app.factory('MapFactory', function () {
         for (var key in objectOfConnections) {
             nodeToConnect[key] = objectOfConnections[key];
         };
-        console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
+        // console.log(nodeToConnect + " IS CONNECTED TO " + nodeToConnect.red, nodeToConnect.green, nodeToConnect.blue);
     }
 
     var MapFactory = {

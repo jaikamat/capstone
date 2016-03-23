@@ -5,7 +5,6 @@ describe('ScrollFactory', function () {
   var ScrollFactory;
   var scroll1;
 
-
   beforeEach('inject tools', inject(function (_ScrollFactory_) {
     ScrollFactory = _ScrollFactory_;
     scroll1 = ScrollFactory.createScroll();
@@ -34,7 +33,7 @@ describe('ScrollFactory', function () {
     });
 
     describe('addInstruction method', function () {
-      it('should add instructions to the scroll', function() {
+      it('should add instructions to the scroll', function () {
         scroll1.addInstruction(0);
         scroll1.addInstruction(1);
         scroll1.addInstruction(2);
@@ -69,7 +68,9 @@ describe('ScrollFactory', function () {
       });
       it('should throw an error if called on a condition', function () {
         scroll1.addConditional(0);
-        assert.throws(function () { scroll1.setColor('0, red'); }, Error);
+        assert.throws(function () {
+          scroll1.setColor('0, red');
+        }, Error);
       });
     });
 
@@ -92,17 +93,30 @@ describe('ScrollFactory', function () {
         scroll10.addInstruction(2);
         scroll10.addInstruction(3);
         scroll10.addConditional(4);
-        scroll10.setRoute('start', {next: 0});
+        scroll10.setRoute('start', {
+          next: 0
+        });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(0, {next: 1});
+        scroll10.setRoute(0, {
+          next: 1
+        });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(1, {next: 2});
+        scroll10.setRoute(1, {
+          next: 2
+        });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(2, {next: 3});
+        scroll10.setRoute(2, {
+          next: 3
+        });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(3, {next: 4});
+        scroll10.setRoute(3, {
+          next: 4
+        });
         scroll10.pointer = scroll10.items[scroll10.pointer.next];
-        scroll10.setRoute(4, {truePath: 'end', falsePath: 0});
+        scroll10.setRoute(4, {
+          truePath: 'end',
+          falsePath: 0
+        });
         scroll10.pointer = scroll10.pointer.truePath;
         expect(scroll10.pointer.id).to.equal('end');
       });
