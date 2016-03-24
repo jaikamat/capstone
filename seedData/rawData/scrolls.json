@@ -1,0 +1,60 @@
+[
+	[
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 1
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 2
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 3
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": -1
+			}
+		}
+	],
+	[
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 1
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 2
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 3
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": 4
+			}
+		},
+		{
+			"itemType": "i",
+			"conn": {
+				"next": -1
+			}
+		}
+	]
+]

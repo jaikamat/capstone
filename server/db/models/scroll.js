@@ -14,6 +14,4 @@ var schema = new mongoose.Schema({
 	}]
 });
 
-mongoose.model('Scroll', schema);
-
-// might need additional pre-validation hooks
+mongoose.model('Scrolls', schema);
