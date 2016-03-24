@@ -41,6 +41,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return connections;
   }
 
+  // { oneWay: [], twoWay:  }
+
   // this function takes coordinate inputs (with optional bezier curve anchor points)
   // to draw lines
   function drawSvgLine(x1, y1, x2, y2, color, bx1, by1, bx2, by2) {
@@ -244,7 +246,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   function actualResizeHandler () {
     // TODO: make sure to re-compute map data here
     drawMapNodes(level1);
-    $scope.$apply();
+    // $scope.$apply(); // need this
     console.log('WE ARE RESIZING')
   }
 
