@@ -187,22 +187,24 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   EvalFactory.scrollCache = $scope.scroll;
   EvalFactory.paramsCache = $scope.parameters;
   EvalFactory.params.initBoard(EvalFactory.map);
-  console.log("Initted map: ", EvalFactory.map);
 
   $scope.run = function () {
-    var items = $('.item-class');
-    var tokens = items.children();
-    console.log(items);
-    // console.log("Player location before step: ", EvalFactory.map.current);
-    // var last = document.getElementById('node-' + EvalFactory.map.current.id);
-    // EvalFactory.advance();
-    // var current = document.getElementById('node-' + EvalFactory.map.current.id);
-    // if (last) last.style.backgroundColor = 'white';
-    // current.style.backgroundColor = 'yellow';
-    // // console.log("Player location after step: ", EvalFactory.map.current);
-    // console.log("Game message: ", EvalFactory.gameMessage);
-    // // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
-    // console.log("Scroll.end: ", EvalFactory.scroll.end);
+    var items = [].slice.call($('.item-class'), 0, -1);
+    var tokens = [].slice.call($('.item-class').children());
+    items.forEach(function (item, index) {
+      EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
+    });
+    console.log("EvalFactory scroll items: ", EvalFactory.scroll.items);
+    console.log("Player location before step: ", EvalFactory.map.current);
+    var last = document.getElementById('node-' + EvalFactory.map.current.id);
+    EvalFactory.advance();
+    var current = document.getElementById('node-' + EvalFactory.map.current.id);
+    if (last) last.style.backgroundColor = 'white';
+    current.style.backgroundColor = 'yellow';
+    // console.log("Player location after step: ", EvalFactory.map.current);
+    console.log("Game message: ", EvalFactory.gameMessage);
+    // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
+    console.log("Scroll.end: ", EvalFactory.scroll.end);
   };
 
 });
