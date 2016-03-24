@@ -9,14 +9,14 @@
   </div>
   <div id="scroll">
     <!-- <div id="item-start" class="item-class" style="background-color: grey"></div> -->
-    <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items"></div>
+    <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items" droppable></div>
     <div id="run" class="item-class" style="background-color: pink" ng-click="run()"></div>
     <!-- <div id="item-end" class="item-class" style="background-color: grey"></div> -->
   </div>
   <div id="tokens">
-    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.redTokens) track by $index" style="background-color: red" draggable="true"></div>
-    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.greenTokens) track by $index" style="background-color: green" draggable="true"></div>
-    <div id="token-{{ tokenId }}" class="token-class" ng-repeat="i in getNumber(parameters.blueTokens) track by $index" style="background-color: blue" draggable="true"></div>
+    <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
+      <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
+    </div>
   </div>
 </div>
 </div>
