@@ -1,10 +1,12 @@
 [
 	{
 		"map": 1,
-		"scroll": 1
+		"scroll": 1,
+		"difficulty": "Beginner"
 	},
 	{
 		"map": 2,
-		"scroll": 1
+		"scroll": 1,
+		"difficulty": "Beginner"
 	}
 ]

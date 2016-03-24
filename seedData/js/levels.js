@@ -18,6 +18,7 @@ function seedLevels () {
 		.spread(function (map, scroll, params) {
 			return Levels.createAsync({
 				levelId: index + 1,
+				difficulty: level.difficulty,
 				map: map._id,
 				scroll: scroll._id,
 				params: params._id
