@@ -189,6 +189,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   EvalFactory.params.initBoard(EvalFactory.map);
 
   $scope.run = function () {
+    $('.item-class').children().removeAttr('draggable');
     var items = [].slice.call($('.item-class'), 0, -1);
     var tokens = [].slice.call($('.item-class').children());
     items.forEach(function (item, index) {
