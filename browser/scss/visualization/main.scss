@@ -1,0 +1,92 @@
+#board {
+  /*position: absolute;*/
+  width: 800px;  
+  height: 500px;
+  /*background-color: #000000;  */
+  z-index: 0;
+}
+
+#game-container {
+  display: inline-block;
+  position: absolute;
+/*  margin-left: 50%;
+  margin-right: 50%;*/
+
+  /*background-color: #f9f9ff;*/
+}
+
+#tokens {
+  /*position: relative;*/
+  width: 800px;  
+  height: 100px; 
+  z-index: 0;
+  text-align: center;
+}
+
+#scroll {
+  /*position: relative;*/
+  width: 800px;  
+  height: 100px; 
+  z-index: 0;
+  text-align: center;
+}
+
+.item-class {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 2;
+  border: 5px solid grey;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.item-class.over {
+  border: 5px dashed grey;
+}
+
+.token-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 2;
+  border: 5px solid grey;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.token {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.node-class {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 2;
+  border: 5px solid grey;
+  display: table;
+}
+
+.node-label {
+  color: grey;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#straight-routes {
+  z-index: 2;
+}
+
+.stay-back {
+  position: absolute;
+  z-index: 1;
+}

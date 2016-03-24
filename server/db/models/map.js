@@ -7,8 +7,8 @@ var schema = new mongoose.Schema({
 		red: {type: Number, min: 0},
 		blue: {type: Number, min: 0},
 		green: {type: Number, min: 0},
-		troll: {type: String, enum: ['orange', 'purple']}
+		troll: {type: String, enum: ['orange', 'purple', null]}
 	}]
 });
 
-mongoose.model('Map', schema);
+mongoose.model('Maps', schema);
