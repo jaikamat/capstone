@@ -153,84 +153,30 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   $scope.parameters = ParametersFactory.createParameters(parametersOptions);
   console.log($scope.parameters);
 
-  $scope.getNumber = function (n) {
-    return Array(n);
-  };
-
-  var dragSrcEl = null;
-
-  function handleDragStart(e) {
-    this.style.opacity = '1';
-
-    dragSrcEl = this;
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
-  }
-
-  function handleDragOver(e) {
-    if (e.preventDefault) {
-      e.preventDefault(); // Necessary. Allows us to drop.
+  function getTokens() {
+    var arr = [];
+    for (let i = 0; i < $scope.parameters.redTokens; i++) {
+      arr.push({
+        id: i,
+        color: 'red'
+      });
     }
-
-    e.dataTransfer.dropEffect = 'move'; // See the section on the DataTransfer object.
-
-    return false;
-  }
-
-  function handleDragEnter(e) {
-    // this / e.target is the current hover target.
-    this.classList.add('over');
-  }
-
-  function handleDragLeave(e) {
-    this.classList.remove('over'); // this / e.target is previous target element.
-  }
-
-  function handleDrop(e) {
-    // this / e.target is current target element.
-
-    if (e.stopPropagation) {
-      e.stopPropagation(); // stops the browser from redirecting.
+    for (let i = 0; i < $scope.parameters.greenTokens; i++) {
+      arr.push({
+        id: i,
+        color: 'green'
+      });
     }
-
-    // See the section on the DataTransfer object.
-    // this.style.color = dragSrcEl.style.color;
-    this.style.backgroundColor = dragSrcEl.style.backgroundColor;
-    var id = this.id.split('-')[1];
-    EvalFactory.scroll.items[id].color = this.style.backgroundColor;
-    dragSrcEl.style.backgroundColor = 'white';
-    return false;
+    for (let i = 0; i < $scope.parameters.blueTokens; i++) {
+      arr.push({
+        id: i,
+        color: 'blue'
+      });
+    }
+    return arr;
   }
 
-  function handleDragEnd(e) {
-    // this/e.target is the source node.
-    var items = document.querySelectorAll('.item-class');
-    [].forEach.call(items, function (item) {
-      item.classList.remove('over');
-    });
-  }
-
-  setTimeout(function () {
-    var tokens = document.querySelectorAll('.token-class');
-    var items = document.querySelectorAll('.item-class');
-    [].forEach.call(tokens, function (token) {
-      token.addEventListener('dragstart', handleDragStart, false);
-      token.addEventListener('dragover', handleDragOver, false);
-      token.addEventListener('drop', handleDrop, false);
-      token.addEventListener('dragenter', handleDragEnter, false);
-      token.addEventListener('dragleave', handleDragLeave, false);
-      token.addEventListener('dragend', handleDragEnd, false);
-    });
-    [].forEach.call(items, function (item) {
-      item.addEventListener('dragenter', handleDragEnter, false);
-      item.addEventListener('dragleave', handleDragLeave, false);
-      item.addEventListener('dragend', handleDragEnd, false);
-      item.addEventListener('dragstart', handleDragStart, false);
-      item.addEventListener('dragover', handleDragOver, false);
-      item.addEventListener('drop', handleDrop, false);
-    });
-  }, 1000);
+  $scope.tokens = getTokens();
 
   // need to link up some of the back end functions with changing the DOM
   EvalFactory.initializeGame(0);
@@ -244,16 +190,19 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   console.log("Initted map: ", EvalFactory.map);
 
   $scope.run = function () {
+    var items = $('.item-class');
+    var tokens = items.children();
+    console.log(items);
     // console.log("Player location before step: ", EvalFactory.map.current);
-    var last = document.getElementById('node-' + EvalFactory.map.current.id);
-    EvalFactory.advance();
-    var current = document.getElementById('node-' + EvalFactory.map.current.id);
-    if (last) last.style.backgroundColor = 'white';
-    current.style.backgroundColor = 'yellow';
-    // console.log("Player location after step: ", EvalFactory.map.current);
-    console.log("Game message: ", EvalFactory.gameMessage);
-    // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
-    console.log("Scroll.end: ", EvalFactory.scroll.end);
+    // var last = document.getElementById('node-' + EvalFactory.map.current.id);
+    // EvalFactory.advance();
+    // var current = document.getElementById('node-' + EvalFactory.map.current.id);
+    // if (last) last.style.backgroundColor = 'white';
+    // current.style.backgroundColor = 'yellow';
+    // // console.log("Player location after step: ", EvalFactory.map.current);
+    // console.log("Game message: ", EvalFactory.gameMessage);
+    // // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
+    // console.log("Scroll.end: ", EvalFactory.scroll.end);
   };
 
 });
