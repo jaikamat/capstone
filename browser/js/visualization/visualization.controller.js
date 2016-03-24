@@ -37,8 +37,11 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
         }
       });
     }
+    console.log(connections);
     return connections;
   }
+
+  // { oneWay: [], twoWay:  }
 
   // this function takes coordinate inputs (with optional bezier curve anchor points)
   // to draw lines
@@ -83,19 +86,38 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   }
 
   $scope.board = MapFactory.createNewBoard(options);
+  console.log('THESE ARE THE NODES', $scope.board.nodes)
   $scope.connections = getConnections($scope.board.nodes);
   $scope.board.setCurrentAndEnd(0, 5);
   $scope.currentNodeStyle = currentNodeStyle;
 
-  // width: 600px
-  // height: 400px
   // TODO: set these to be percentage coordinates of the parent div pixel size
-  $scope.board.nodes[0].coords = [160, 100];
-  $scope.board.nodes[1].coords = [360, 100];
-  $scope.board.nodes[2].coords = [560, 100];
-  $scope.board.nodes[3].coords = [160, 300];
-  $scope.board.nodes[4].coords = [360, 300];
-  $scope.board.nodes[5].coords = [560, 300];
+  // TODO: on window resize, re-run function to draw map on front end;
+  var nodeWidth = 80;
+
+  // for each node, inout the corrds it should be at and then draw them
+  // for each path, compute its location as well
+
+  var level1 = {
+    0 : [0.2, 0.2],
+    1 : [0.5, 0.2],
+    2 : [0.8, 0.2],
+    3 : [0.2, 0.6],
+    4 : [0.5, 0.6],
+    5 : [0.8, 0.6]
+  };
+
+  function drawMapNodes (object) { //is invoked with an object of key id and value array { 0: [], 1: [], 2[] }
+    var bW = document.getElementById('board').offsetWidth;
+    var bH = document.getElementById('board').offsetHeight;
+    for (let key in object) {
+      $scope.board.nodes[key].coords = [bW * object[key][0] - nodeWidth / 2, bH * object[key][1]];
+    }
+    console.log("MAP NODES DRAWN")
+    console.log('DIV WIDTH: ', bW, 'DIV HEIGHT: ', bH);
+  }
+
+  drawMapNodes(level1);
 
   $scope.connections.forEach(function (array) {
     var divDiameter = 40;
@@ -109,6 +131,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     var y2 = coords2[1] + divDiameter;
     var color = array[2];
     // console.log('NODE\n', array[0], array[1], 'COLOR\n', color)
+
+    // pare down 
 
     if (array[0] === 0 && array[1] === 2) {
       drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 - 100, x2 - 20, y2 - 100);
@@ -207,5 +231,27 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
     console.log("Scroll.end: ", EvalFactory.scroll.end);
   };
+
+(function () {
+  var resizeTimeout;
+
+  function resizeThrottler () {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(function () {
+        resizeTimeout = null;
+        actualResizeHandler();
+      }, 1000)
+    }
+  }
+
+  function actualResizeHandler () {
+    // TODO: make sure to re-compute map data here
+    drawMapNodes(level1);
+    // $scope.$apply(); // need this
+    console.log('WE ARE RESIZING')
+  }
+
+  window.addEventListener("resize", resizeThrottler);
+})()
 
 });
