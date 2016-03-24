@@ -5,8 +5,13 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider
+        .when('/auth/google', '/auth/google')
+        .otherwise('/');
 });
+
+
+
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
@@ -31,6 +36,10 @@ app.run(function ($rootScope, AuthService, $state) {
             // Short circuit with return.
             return;
         }
+      if (toState.external) {
+        event.preventDefault();
+        $window.open(toState.url, '_self')
+      }
 
         // Cancel navigating to new state.
         event.preventDefault();
@@ -49,3 +58,5 @@ app.run(function ($rootScope, AuthService, $state) {
     });
 
 });
+
+

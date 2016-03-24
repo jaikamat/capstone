@@ -1,16 +1,21 @@
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
 
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
+  <alert type="danger" ng-show="error">
+    {{ error }}
+  </alert>
 
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="login-password">Password</label>
+    <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+  <br>
+  <a href="/auth/google" target="_self">
+    <!-- might need type="button" -->
+    <img class="google-sign-in-button" src="/images/btn_google_signin_light_normal_web.png">
+  </a>
 </form>

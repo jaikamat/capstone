@@ -25,4 +25,11 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
     };
 
+    AuthService.getLoggedInUser()
+        .then(function(user) {
+          if(user) {
+            state.go('home')
+          }
+        })
+
 });
