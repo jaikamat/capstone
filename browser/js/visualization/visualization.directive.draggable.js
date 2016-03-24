@@ -9,6 +9,7 @@ app.directive('draggable', function () {
       function (e) {
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('Text', this.id);
+        e.dataTransfer.setData('Parent', this.parentNode.id);
         this.classList.add('drag');
         return false;
       },
@@ -73,6 +74,12 @@ app.directive('droppable', function () {
           this.classList.remove('over');
 
           var item = document.getElementById(e.dataTransfer.getData('Text'));
+          var source = document.getElementById(e.dataTransfer.getData('Parent'));
+          if (this.firstChild) {
+            console.log("All children: ", this.childNodes);
+            var oldChild = this.removeChild(this.firstChild);
+            source.appendChild(oldChild);
+          }
           this.appendChild(item);
 
           return false;
