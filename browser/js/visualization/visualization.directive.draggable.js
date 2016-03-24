@@ -76,7 +76,6 @@ app.directive('droppable', function () {
           var item = document.getElementById(e.dataTransfer.getData('Text'));
           var source = document.getElementById(e.dataTransfer.getData('Parent'));
           if (this.firstChild) {
-            console.log("All children: ", this.childNodes);
             var oldChild = this.removeChild(this.firstChild);
             source.appendChild(oldChild);
           }
