@@ -109,17 +109,21 @@ app.factory('ScrollFactory', function () {
 
     Scroll.prototype.getScrollColor = function (gemsAndTrollState) {
         console.log("Pointer: ", this.pointer);
-        if (this.pointer.id === "start") this.pointer = this.start.next;    //If the pointer is at start, move the pointer.
-        if (this.pointer instanceof Conditional) this.move(gemsAndTrollState);                //If you are then currently on a conditional, execute move
-        if (this.pointer instanceof Instruction) {                                   //If you are then currently on an Instruction,
+        if (this.pointer.id === "start") {
+            this.pointer = this.start.next;    //If the pointer is at start, move the pointer.
+            return;
+        }
+        if (this.pointer instanceof Conditional) {                                           //If you are then currently on a conditional, execute move
+            this.move(gemsAndTrollState);
+            return;
+        }                
+        if (this.pointer instanceof Instruction) {                                      //If you are then currently on an Instruction,
             var data = this.pointer.color;                                                //Store the pointer data
             this.move();                                                                  //Move the pointer
             return data;                                                                  //Send the data
         }
         if (this.pointer.id === -1) {                                                     //If the node were on is the end
             return null;                                                                  //Notify that the game is over
-        } else {
-            this.getScrollColor(gemsAndTrollState);                                                       //We must have hit 2 conditionals, run this again.
         }
     };
 
