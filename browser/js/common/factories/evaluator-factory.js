@@ -42,7 +42,10 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 					gemsCollected: self.map.gemsCollected
 				};
 				var color = self.scroll.getScrollColor(gemsAndTrollStatus); //Get the next scroll color
-				if (color !== null) { //If we aren't at the end of the scroll
+				if(color === undefined) {
+					self.gameMessage = "Moving pointer!"
+					return;
+				} else if (color !== null) { //If we aren't at the end of the scroll
 					try {
 						self.map.step(color);
 						self.gameMessage = "Moving along " + color + " path!";
