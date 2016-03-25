@@ -8,6 +8,12 @@ app.directive('draggable', function () {
       'dragstart',
       function (e) {
         e.dataTransfer.effectAllowed = 'move';
+        this.style.borderRadius = '50%';
+        var clone = this.cloneNode(true);
+        clone.style.transform = 'translateX(-500px)';
+        document.body.appendChild(clone);
+        e.dataTransfer.setDragImage(clone, 20, 20);
+        this.style.backgroundColor = 'white';
         e.dataTransfer.setData('Text', this.id);
         e.dataTransfer.setData('Parent', this.parentNode.id);
         this.classList.add('drag');
@@ -20,6 +26,7 @@ app.directive('draggable', function () {
       'dragend',
       function (e) {
         this.classList.remove('drag');
+        this.style.backgroundColor = this.id.split('-')[0];
         return false;
       },
       false
@@ -79,7 +86,9 @@ app.directive('droppable', function () {
             var oldChild = this.removeChild(this.firstChild);
             source.appendChild(oldChild);
           }
+          item.style.backgroundColor = item.id.split('-')[0];
           this.appendChild(item);
+
 
           return false;
         },
