@@ -1,6 +1,6 @@
 #board {
   /*position: absolute;*/
-/*  width: 900px;  
+  /*  width: 900px;  
   height: 500px;*/
   /*background-color: #000000;  */
   z-index: 0;
@@ -24,16 +24,16 @@ svg {
 
 #tokens {
   /*position: relative;*/
-  width: 800px;  
-  height: 100px; 
+  width: 800px;
+  height: 100px;
   z-index: 0;
   text-align: center;
 }
 
 #scroll {
   /*position: relative;*/
-  width: 800px;  
-  height: 100px; 
+  width: 800px;
+  height: 100px;
   z-index: 0;
   text-align: center;
 }
@@ -48,6 +48,7 @@ svg {
   margin-left: 10px;
   margin-right: 10px;
   display: inline-block;
+  text-align: center;
 }
 
 .item-class.over {
@@ -96,4 +97,14 @@ svg {
 .stay-back {
   position: absolute;
   z-index: 1;
+}
+
+#pointer {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #ffff00;
+  z-index: 3;
+  position: absolute;
+  transform: translate(27.5px, 17.5px);
 }

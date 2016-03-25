@@ -41,6 +41,22 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return connections;
   }
 
+  function getSteps(items) {
+    var steps = [];
+
+    steps.push(['start', items[0].id, 'next']);
+
+    for (let itemId in items) {
+      let item = items[itemId];
+      ['next', 'truePath', 'falsePath'].forEach(function (follower) {
+        if (item[follower] !== null && item[follower] !== undefined) {
+          steps.push([+itemId, item[follower], follower]);
+        }
+      });
+    }
+    return steps;
+  }
+
   // { oneWay: [], twoWay:  }
 
   // this function takes coordinate inputs (with optional bezier curve anchor points)
@@ -86,7 +102,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   }
 
   $scope.board = MapFactory.createNewBoard(options);
-  console.log('THESE ARE THE NODES', $scope.board.nodes)
+  console.log('THESE ARE THE NODES', $scope.board.nodes);
   $scope.connections = getConnections($scope.board.nodes);
   $scope.board.setCurrentAndEnd(0, 5);
   $scope.currentNodeStyle = currentNodeStyle;
@@ -94,27 +110,51 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   // TODO: set these to be percentage coordinates of the parent div pixel size
   // TODO: on window resize, re-run function to draw map on front end;
   var nodeWidth = 80;
+  var itemWidth = 40;
 
   // for each node, inout the corrds it should be at and then draw them
   // for each path, compute its location as well
 
   var level1 = {
-    0 : [0.2, 0.2],
-    1 : [0.5, 0.2],
-    2 : [0.8, 0.2],
-    3 : [0.2, 0.6],
-    4 : [0.5, 0.6],
-    5 : [0.8, 0.6]
+    0: [0.2, 0.2],
+    1: [0.5, 0.2],
+    2: [0.8, 0.2],
+    3: [0.2, 0.6],
+    4: [0.5, 0.6],
+    5: [0.8, 0.6]
   };
 
-  function drawMapNodes (object) { //is invoked with an object of key id and value array { 0: [], 1: [], 2[] }
+  var scroll1 = {
+    0: [0.35, 0.3],
+    1: [0.45, 0.3],
+    2: [0.55, 0.3],
+    3: [0.65, 0.3],
+  };
+
+  var startCoords = [0.25, 0.3];
+  var endCoords = [0.75, 0.3];
+
+  function drawMapNodes(object) { //is invoked with an object of key id and value array { 0: [], 1: [], 2[] }
     var bW = document.getElementById('board').offsetWidth;
     var bH = document.getElementById('board').offsetHeight;
     for (let key in object) {
-      $scope.board.nodes[key].coords = [bW * object[key][0] - nodeWidth / 2, bH * object[key][1]];
+      $scope.board.nodes[key].coords = [bW * object[key][0] - itemWidth / 2, bH * object[key][1]];
     }
-    console.log("MAP NODES DRAWN")
-    console.log('DIV WIDTH: ', bW, 'DIV HEIGHT: ', bH);
+    // console.log("MAP NODES DRAWN")
+    // console.log('DIV WIDTH: ', bW, 'DIV HEIGHT: ', bH);
+  }
+
+  function drawScrollItems(scrollCoords, startCoods, endCoords) {
+    var sW = document.getElementById('scroll').offsetWidth;
+    var sH = document.getElementById('scroll').offsetHeight;
+    var bH = document.getElementById('board').offsetHeight;
+    for (let key in scrollCoords) {
+      if (scrollCoords.hasOwnProperty(key)) {
+        $scope.scroll.items[key].coords = [sW * scrollCoords[key][0] - itemWidth / 2, bH + sH * scrollCoords[key][1]];
+      }
+    }
+    $scope.scroll.start.coords = [sW * startCoords[0] - itemWidth / 2, bH + sH * startCoords[1]];
+    $scope.scroll.end.coords = [sW * endCoords[0] - itemWidth / 2, bH + sH * endCoords[1]];
   }
 
   drawMapNodes(level1);
@@ -162,6 +202,34 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   });
   $scope.scroll.setRoute(3, {
     next: -1
+  });
+
+  drawScrollItems(scroll1, startCoords, endCoords);
+  $scope.steps = getSteps($scope.scroll.items);
+
+  console.log("Steps", $scope.steps);
+
+  $scope.steps.forEach(function (step) {
+    const divRadius = 25;
+    // first element of array is the source, second is the target
+    let coords1;
+    console.log(step);
+    if (step[0] === 'start') coords1 = $scope.scroll.start.coords;
+    else coords1 = $scope.scroll.items[step[0]].coords;
+    let coords2;
+    if (step[1].id === -1) coords2 = $scope.scroll.end.coords;
+    else coords2 = $scope.scroll.items[step[1]].coords;
+    // centers the div coordinates
+    const x1 = coords1[0] + divRadius;
+    const y1 = coords1[1] + divRadius;
+    const x2 = coords2[0] + divRadius;
+    const y2 = coords2[1] + divRadius;
+    let color;
+    if (step[2] === 'next') color = 'gray';
+    if (step[2] === 'truePath') color = 'green';
+    if (step[2] === 'falsePath') color = 'red';
+
+    drawSvgLine(x1, y1, x2, y2, color);
   });
 
   var parametersOptions = {
@@ -214,7 +282,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
 
   $scope.run = function () {
     $('.item-class').children().removeAttr('draggable');
-    var items = [].slice.call($('.item-class'), 0, -1);
+    var items = [].slice.call($('.item-class', 1, -1));
     var tokens = [].slice.call($('.item-class').children());
     items.forEach(function (item, index) {
       EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
@@ -226,32 +294,31 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     var current = document.getElementById('node-' + EvalFactory.map.current.id);
     if (last) last.style.backgroundColor = 'white';
     current.style.backgroundColor = 'yellow';
-    // console.log("Player location after step: ", EvalFactory.map.current);
+    console.log("Player location after step: ", EvalFactory.map.current);
     console.log("Game message: ", EvalFactory.gameMessage);
     // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
-    console.log("Scroll.end: ", EvalFactory.scroll.end);
   };
 
-(function () {
-  var resizeTimeout;
+  (function () {
+    var resizeTimeout;
 
-  function resizeThrottler () {
-    if (!resizeTimeout) {
-      resizeTimeout = setTimeout(function () {
-        resizeTimeout = null;
-        actualResizeHandler();
-      }, 1000)
+    function resizeThrottler() {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function () {
+          resizeTimeout = null;
+          actualResizeHandler();
+        }, 1000)
+      }
     }
-  }
 
-  function actualResizeHandler () {
-    // TODO: make sure to re-compute map data here
-    drawMapNodes(level1);
-    // $scope.$apply(); // need this
-    console.log('WE ARE RESIZING')
-  }
+    function actualResizeHandler() {
+      // TODO: make sure to re-compute map data here
+      drawMapNodes(level1);
+      // $scope.$apply(); // need this
+      console.log('WE ARE RESIZING')
+    }
 
-  window.addEventListener("resize", resizeThrottler);
-})()
+    window.addEventListener("resize", resizeThrottler);
+  })()
 
 });
