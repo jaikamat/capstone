@@ -22,11 +22,11 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
-var Map = Promise.promisifyAll(mongoose.mode('Map'));
-var Scroll = Promise.promisifyAll(mongoose.model('Scroll'));
-var Params = Promise.promisifyAll(mongoose.mode('Params'));
+var Maps = Promise.promisifyAll(mongoose.model('Maps'));
+var Scrolls = Promise.promisifyAll(mongoose.model('Scrolls'));
+var Params = Promise.promisifyAll(mongoose.model('Params'));
 
-var mapData = require('./seedData/maps.json');
+var mapData = require('./seedData/rawData/maps.json');
 
 var seedUsers = function () {
 
@@ -45,19 +45,14 @@ var seedUsers = function () {
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
-    }).then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
-    }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
-    });
+connectToDb.then(function (db) {
+  return db.db.dropDatabase();
+}).then(function() {
+  return seedUsers();
+}).then(function () {
+    console.log(chalk.green('Seed successful!'));
+    process.kill(0);
+}).catch(function (err) {
+  console.error(err);
+  process.kill(1);
 });
