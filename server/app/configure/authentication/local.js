@@ -53,4 +53,23 @@ module.exports = function (app) {
 
     });
 
+    app.post('/signup', function (req, res, next) {
+      User.create({
+        email: req.body.email,
+        password: req.body.password
+      })
+          .then(function (user) {
+            console.log('hello');
+            req.logIn(user, function (loginErr) {
+              console.log('login resolution', arguments);
+              if (loginErr) return next(loginErr);
+              res.status(200).send({
+                user: user.sanitize()
+              })
+            })
+          })
+          .then(null, next);
+    })
+
+
 };

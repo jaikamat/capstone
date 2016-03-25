@@ -21,9 +21,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
   $scope.sendLogin = function (loginInfo) {
 
-    if (isLogin) {
-      $scope.error = null;
-
+    if ($scope.isLogin) {
       AuthService.login(loginInfo).then(function () {
         $state.go('home');
       }).catch(function () {
@@ -36,12 +34,16 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
               state.go('home')
             }
           })
-    } else {
+    } else { //state is signup
+      $scope.error = null;
 
+      AuthService.signup(loginInfo).then(function (user) {
+        console.log(user);
+        $state.go('home');
+      }).catch(function () {
+        console.error("ERROR");
+        $scope.error = 'A user already exists for that email.'
+      });
     }
-
-
   }
-
-
 });
