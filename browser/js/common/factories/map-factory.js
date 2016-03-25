@@ -25,7 +25,7 @@ app.factory('MapFactory', function () {
                 self.connect(index, element);
             })
         }
-        if (typeof option === 'number') {
+        else if (typeof option === 'number') {
             for (let i = 0; i < option; i++) {
                 this.addNode(i);
             }
@@ -62,7 +62,7 @@ app.factory('MapFactory', function () {
                 this.current.gems--;
             }
         }
-        else return null; //This is one of the things that can end the run
+        else throw new Error('That path does not exist!'); //This is one of the things that can end the run
     }
 
     Board.prototype.connect = function (nodeId, objectOfConnections) {   //(3, {red: 1, green: 5, blue: 6, troll: 'orange'})
