@@ -42,9 +42,14 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   }
 
   function getSteps(items) {
-    var steps = [];
+    let divRadius = 25;
+    let steps = [];
 
-    steps.push(['start', items[0].id, 'next']);
+    steps.push({
+      source: 'start',
+      destination: items[0].id,
+      type: 'next'
+    });
 
     for (let itemId in items) {
       let item = items[itemId];
@@ -54,6 +59,26 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
         }
       });
     }
+
+    steps.forEach(function (step) {
+      const divRadius = 25;
+      // first element of array is the source, second is the target
+      let coords1;
+      if (step[0] === 'start') coords1 = $scope.scroll.start.coords;
+      else coords1 = $scope.scroll.items[step[0]].coords;
+      let coords2;
+      if (step[1].id === -1) coords2 = $scope.scroll.end.coords;
+      else coords2 = $scope.scroll.items[step[1]].coords;
+      // centers the div coordinates
+      step.x1 = step.coords1[0] + divRadius;
+      step.y1 = coords1[1] + divRadius;
+      step.x2 = coords2[0] + divRadius;
+      step.y2 = coords2[1] + divRadius;
+      if (step[2] === 'next') step.color = 'gray';
+      if (step[2] === 'truePath') step.color = 'green';
+      if (step[2] === 'falsePath') step.color = 'red';
+    });
+
     return steps;
   }
 
@@ -209,29 +234,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
 
   console.log("Steps", $scope.steps);
 
-  $scope.steps.forEach(function (step) {
-    const divRadius = 25;
-    // first element of array is the source, second is the target
-    let coords1;
-    console.log(step);
-    if (step[0] === 'start') coords1 = $scope.scroll.start.coords;
-    else coords1 = $scope.scroll.items[step[0]].coords;
-    let coords2;
-    if (step[1].id === -1) coords2 = $scope.scroll.end.coords;
-    else coords2 = $scope.scroll.items[step[1]].coords;
-    // centers the div coordinates
-    const x1 = coords1[0] + divRadius;
-    const y1 = coords1[1] + divRadius;
-    const x2 = coords2[0] + divRadius;
-    const y2 = coords2[1] + divRadius;
-    let color;
-    if (step[2] === 'next') color = 'gray';
-    if (step[2] === 'truePath') color = 'green';
-    if (step[2] === 'falsePath') color = 'red';
-
-    drawSvgLine(x1, y1, x2, y2, color);
-  });
-
   var parametersOptions = {
     startNode: 5,
     endNode: 3,
@@ -282,19 +284,16 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
 
   $scope.run = function () {
     $('.item-class').children().removeAttr('draggable');
-    var items = [].slice.call($('.item-class', 1, -1));
+    var items = [].slice.call($('.item-class'), 1, -1);
     var tokens = [].slice.call($('.item-class').children());
     items.forEach(function (item, index) {
       EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
     });
-    console.log("EvalFactory scroll items: ", EvalFactory.scroll.items);
-    console.log("Player location before step: ", EvalFactory.map.current);
     var last = document.getElementById('node-' + EvalFactory.map.current.id);
     EvalFactory.advance();
     var current = document.getElementById('node-' + EvalFactory.map.current.id);
     if (last) last.style.backgroundColor = 'white';
     current.style.backgroundColor = 'yellow';
-    console.log("Player location after step: ", EvalFactory.map.current);
     console.log("Game message: ", EvalFactory.gameMessage);
     // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
   };
