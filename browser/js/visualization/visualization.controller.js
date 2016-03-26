@@ -1,6 +1,7 @@
 app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFactory, ScrollFactory, EvalFactory) {
 
   var NODE_WIDTH = 80;
+  var TOKEN_WITDH = 50;
 
   //~~~MAP 7~~~
 
@@ -273,12 +274,12 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   };
 
   var scroll1 = {
-    'start': [0.25, 0.5],
+    start: [0.25, 0.5],
     0: [0.35, 0.5],
     1: [0.45, 0.5],
     2: [0.55, 0.5],
     3: [0.65, 0.5],
-    'end': [0.75, 0.5]
+    end: [0.75, 0.5]
   };
 
   // specify lower number first TODO: fix this
@@ -321,6 +322,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     })
     return arr;
   }
+
+// think about how to 
 
   function getAllConnections(nodes) {
     var connections = [];
@@ -433,6 +436,27 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     });
   }
 
+  function getScrollCoordinates(object) { //takes in the $scope.scroll object
+    var paths = {};
+    var arrayOfItems = Object.keys(object.items).map(k => object.items[k]);
+    var arrayToIterateOver = [object.start].concat(arrayOfItems).concat(object.end);
+
+    for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
+      paths[i] = {
+        x1: arrayToIterateOver[i].coords[0] + TOKEN_WITDH / 2,
+        y1: arrayToIterateOver[i].coords[1] + TOKEN_WITDH / 2,
+        x2: arrayToIterateOver[i + 1].coords[0] + TOKEN_WITDH / 2,
+        y2: arrayToIterateOver[i + 1].coords[1] + TOKEN_WITDH / 2
+      }
+    }
+
+    return paths;
+  }
+
+  $scope.getScrollCoordinates = getScrollCoordinates;
+
+  // find all the token nodes and their coords (done)
+  // draw an svg line for each coordinate pair using ng-repeat
   function getTokens() {
     var arr = [];
     ["red", "green", "blue"].forEach(function (color) {
@@ -446,7 +470,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return arr;
   }
 
-  function getNumberForNgRepeat(integer) {
+  function getNumberForNgRepeat(integer) { // hack for ng-repeat
     return Array(integer);
   }
 
@@ -505,7 +529,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   setMapCoordinates(level1);
   setScrollCoordinates(scroll1);
   drawMapPaths($scope.connections);
-  
+
+  $scope.scrollItemConnections = getScrollCoordinates($scope.scroll);
 
   $scope.parameters = ParametersFactory.createParameters(parametersOptions);
 
