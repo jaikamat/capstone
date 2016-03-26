@@ -19,10 +19,7 @@
       
     </div>
     <div id="tokens" class="animated fadeInUp animDelay08">
-      <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
-        <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
-      </div>
-      <div id="run" class="token-container" style="background-color: pink" ng-click="run()"></div>
+      <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable><div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div></div><div id="run" class="token-container" style="background-color: pink" ng-click="run()"></div>
     </div>
   </div>
 </div>
