@@ -294,7 +294,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     redTokens: 2,
     greenTokens: 1,
     blueTokens: 1,
-    gems: [1],
+    gems: [1,5,5,5,2,2],
     conditionals: []
   };
 
@@ -427,6 +427,10 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return arr;
   }
 
+  function getNumberForNgRepeat (integer) {
+    return Array(integer);
+  }
+
   $scope.run = function () {
     $('.item-class').children().removeAttr('draggable');
     var items = [].slice.call($('.item-class'), 0, -1);
@@ -455,6 +459,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   setNodeCoordinates(level1);
   drawMapPaths($scope.connections);
 
+  $scope.getNumberForNgRepeat = getNumberForNgRepeat;
   $scope.scroll = ScrollFactory.createScroll();
   $scope.scroll.addInstruction(0);
   $scope.scroll.addInstruction(1);
