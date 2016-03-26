@@ -301,8 +301,8 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     redTokens: 2,
     greenTokens: 2,
     blueTokens: 0,
-    gems: [1, 5, 5, 5, 2, 2],
-    // gems: [],
+    // gems: [1, 5, 5, 5, 2, 2],
+    gems: [],
     conditionals: []
   };
 
@@ -436,13 +436,15 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     });
   }
 
-  function getScrollCoordinates(object) { //takes in the $scope.scroll object
+  function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
     var paths = {};
-    var arrayOfItems = Object.keys(object.items).map(k => object.items[k]);
-    var arrayToIterateOver = [object.start].concat(arrayOfItems).concat(object.end);
+    var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
+    var arrayToIterateOver = [scroll.start].concat(arrayOfItems).concat(scroll.end);
 
     for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
       paths[i] = {
+        pathBegin: i,
+        pathEnd: i + 1,
         x1: arrayToIterateOver[i].coords[0] + TOKEN_WITDH / 2,
         y1: arrayToIterateOver[i].coords[1] + TOKEN_WITDH / 2,
         x2: arrayToIterateOver[i + 1].coords[0] + TOKEN_WITDH / 2,
@@ -452,8 +454,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
 
     return paths;
   }
-
-  $scope.getScrollCoordinates = getScrollCoordinates;
 
   // find all the token nodes and their coords (done)
   // draw an svg line for each coordinate pair using ng-repeat
@@ -478,18 +478,23 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     $('.item-class').children().removeAttr('draggable');
     var items = [].slice.call($('.item-class'), 1, -1);
     var tokens = [].slice.call($('.item-class').children());
+    var current, last, origin, destination;
+
+    last = document.getElementById('node-' + EvalFactory.map.current.id);
+
     items.forEach(function (item, index) {
       EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
     });
-    // console.log("EvalFactory scroll items: ", EvalFactory.scroll.items);
-    console.log("Player location before step: ", EvalFactory.map.current);
-    var last = document.getElementById('node-' + EvalFactory.map.current.id);
+    
+    origin = EvalFactory.scroll.pointer;
     EvalFactory.advance();
-    var current = document.getElementById('node-' + EvalFactory.map.current.id);
+    destination = EvalFactory.scroll.pointer;
+
+    animatePointer(origin, destination);
+    current = document.getElementById('node-' + EvalFactory.map.current.id);
     if (last) last.style.backgroundColor = 'white';
     current.style.backgroundColor = 'yellow';
     console.log("Game message: ", EvalFactory.gameMessage);
-    console.log("Scroll.end: ", EvalFactory.scroll.end);
 
     // experimental additions for player interaction
     // this is a terrible, idea, just hacked for visuals
@@ -498,12 +503,33 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     }
   };
 
+  function animatePointer (origin, destination) {
+    var pointer = document.getElementById('pointer');
+    var positionKeyframes = [{motionOffset: '0%'}, {motionOffset: '100%'}];
+    var positionTiming = {duration: 1000, iterations: 1};
+
+    var originCoords, destinationCoords;
+    if (origin.id === 'start') originCoords = $scope.scroll.start.coords;
+    else if (origin.id === -1) originCoords = $scope.scroll.end.coords;
+    else originCoords = $scope.scroll.items[origin.id].coords;
+    if (destination.id === -1) destinationCoords = $scope.scroll.end.coords;
+    else destinationCoords = $scope.scroll.items[destination.id].coords;
+
+    //animate the dot
+    var motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
+    pointer.style.motionPath = `path("${motionPath}")`;
+    pointer.animate(positionKeyframes, positionTiming)
+    // pointer.style.top = destinationCoords[1];
+    // pointer.style.left = destinationCoords[0];
+  }
+
+
+
   $scope.board = MapFactory.createNewBoard(options);
   console.log('THESE ARE THE NODES', $scope.board.nodes);
   var mapConnections = getAllConnections($scope.board.nodes);
   $scope.connections = mapConnections;
   $scope.board.setCurrentAndEnd(0, 5);
-
 
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
   $scope.scroll = ScrollFactory.createScroll();
@@ -529,8 +555,10 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   setMapCoordinates(level1);
   setScrollCoordinates(scroll1);
   drawMapPaths($scope.connections);
+  // animatePointer();
 
   $scope.scrollItemConnections = getScrollCoordinates($scope.scroll);
+  console.log($scope.scrollItemConnections);
 
   $scope.parameters = ParametersFactory.createParameters(parametersOptions);
 
@@ -545,7 +573,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   EvalFactory.scrollCache = $scope.scroll;
   EvalFactory.paramsCache = $scope.parameters;
   EvalFactory.params.initBoard(EvalFactory.map);
-
   (function () {
     var resizeTimeout;
 
@@ -554,7 +581,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
         resizeTimeout = setTimeout(function () {
           resizeTimeout = null;
           actualResizeHandler();
-        }, 1000)
+        }, 1000);
       }
     }
 
@@ -568,5 +595,4 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
 
     window.addEventListener("resize", resizeThrottler);
   })()
-
 });

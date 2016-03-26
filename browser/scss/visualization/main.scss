@@ -138,8 +138,8 @@ svg {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #ffff00;
+  background-color: yellow;
   z-index: 3;
   position: absolute;
-  transform: translate(27.5px, 17.5px);
+  motion-path: path('M160,40 L560,40');
 }

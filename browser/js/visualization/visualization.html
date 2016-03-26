@@ -12,8 +12,6 @@
     </div>
     <div id="scroll-and-tokens">
         <div id="scroll" class="animated fadeInUp animDelay06">
-            <div id="pointer" style="position: absolute; top: {{ scroll.start.coords[1] }}px; left: {{ scroll.start.coords[0] }}px">
-            </div>
             <div id="item-start" class="item-class" style="background-color: grey; position: absolute; top: {{ scroll.start.coords[1] }}px; left: {{ scroll.start.coords[0] }}px">
             </div>
             <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable>
@@ -23,6 +21,7 @@
             <svg id="scroll-lines" class="animated fadeIn animDelay1">
                 <path id="scroll-path-{{ key }}" ng:attr:d="M {{ val.x1 }} {{ val.y1 }} L {{ val.x2 }} {{ val.y2 }}" ng-repeat="(key, val) in scrollItemConnections" stroke="grey" stroke-width="5px" />
             </svg>
+            <div id="pointer" style="position: absolute; top: 25px; left: 25px"></div>
         </div>
     <div id="tokens" class="animated fadeInUp animDelay08">
       <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable><div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div></div><div id="run" class="token-container" style="background-color: pink" ng-click="run()"></div>
