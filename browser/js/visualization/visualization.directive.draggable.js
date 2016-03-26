@@ -10,6 +10,7 @@ app.directive('draggable', function () {
         e.dataTransfer.effectAllowed = 'move';
         this.style.borderRadius = '50%';
         var clone = this.cloneNode(true);
+        clone.id = 'clone';
         clone.style.transform = 'translateX(-500px)';
         document.body.appendChild(clone);
         e.dataTransfer.setDragImage(clone, 20, 20);
@@ -27,6 +28,7 @@ app.directive('draggable', function () {
       function (e) {
         this.classList.remove('drag');
         this.style.backgroundColor = this.id.split('-')[0];
+        document.getElementById('clone').remove();
         return false;
       },
       false

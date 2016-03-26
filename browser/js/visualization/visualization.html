@@ -1,24 +1,28 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="style.css" />
 <div id='game-container'>
-    <div id="board">
-        <div id="node-{{ nodeId }}" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null }" ng-repeat="(nodeId, node) in board.nodes" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
-            <div id="favicon-container" class="animated fadeIn animDelay1">
-                <i class="fa fa-circle" ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index"></i>
-            </div>
-        </div>
-        <svg id="lines" class="animated fadeIn animDelay1">
-        </svg>
+  <div id="board">
+    <div id="node-{{ nodeId }}" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null }" ng-repeat="(nodeId, node) in board.nodes" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
+      <div id="favicon-container" class="animated fadeIn animDelay1">
+        <i class="fa fa-circle" ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index"></i>
+      </div>
     </div>
-    <div id="scroll-and-tokens">
-        <div id="scroll" class="animated fadeInUp animDelay06">
-            <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items" droppable></div>
-            <div id="run" class="item-class" style="background-color: pink" ng-click="run()"></div>
-        </div>
-        <div id="tokens" class="animated fadeInUp animDelay08">
-            <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
-                <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
-            </div>
-        </div>
+    <svg id="lines" class="animated fadeIn animDelay1">
+    </svg>
+  </div>
+  <div id="scroll-and-tokens">
+    <div id="scroll" class="animated fadeInUp animDelay06">
+      <div id="pointer" style="position: absolute; top: {{ scroll.start.coords[1] }}px; left: {{ scroll.start.coords[0] }}px"></div>
+      <div id="item-start" class="item-class" style="background-color: grey; position: absolute; top: {{ scroll.start.coords[1] }}px; left: {{ scroll.start.coords[0] }}px"></div>
+      <div id="item-{{ itemId }}" class="item-class" ng-repeat="(itemId, item) in scroll.items" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable></div>
+      <div id="item-end" class="item-class" style="background-color: grey; position: absolute; top: {{ scroll.end.coords[1] }}px; left: {{ scroll.end.coords[0] }}px"></div>
+      
     </div>
+    <div id="tokens" class="animated fadeInUp animDelay08">
+      <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
+        <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
+      </div>
+      <div id="run" class="token-container" style="background-color: pink" ng-click="run()"></div>
+    </div>
+  </div>
 </div>
