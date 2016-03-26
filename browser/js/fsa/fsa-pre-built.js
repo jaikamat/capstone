@@ -95,13 +95,10 @@
     };
 
     this.signup = function (credentials) {
-      console.log('HIHIHIHIHIHIHI');
       return $http.post('/signup', credentials)
           .then(onSuccessfulLogin).then(function(stuff) {
-            console.log('this is what happened', stuff);
           })
           .catch(function() {
-            console.log('ERROR');
             return $q.reject({ message: 'A user already exists for that email'});
           });
     };
