@@ -323,7 +323,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     return arr;
   }
 
-// think about how to 
+  // think about how to 
 
   function getAllConnections(nodes) {
     var connections = [];
