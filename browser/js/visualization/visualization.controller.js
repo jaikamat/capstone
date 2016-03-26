@@ -289,12 +289,13 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   ]
 
   var parametersOptions = {
-    startNode: 2,
-    endNode: 4,
+    startNode: 5,
+    endNode: 3,
     redTokens: 2,
-    greenTokens: 1,
-    blueTokens: 1,
+    greenTokens: 2,
+    blueTokens: 0,
     gems: [1,5,5,5,2,2],
+    // gems: [],
     conditionals: []
   };
 
@@ -343,7 +344,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
         }
       });
     });
-    // console.log("ALL THE CONNECTIONS: ",array);
     return array;
   }
 
@@ -389,7 +389,6 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     for (let key in object) {
       $scope.board.nodes[key].coords = [bW * object[key][0] - NODE_WIDTH / 2, bH * object[key][1]];
     }
-    console.log("MAP NODES DRAWN")
   }
 
   function drawMapPaths (array) { // use the output from the get all connections
@@ -438,7 +437,7 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     items.forEach(function (item, index) {
       EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
     });
-    console.log("EvalFactory scroll items: ", EvalFactory.scroll.items);
+    // console.log("EvalFactory scroll items: ", EvalFactory.scroll.items);
     console.log("Player location before step: ", EvalFactory.map.current);
     var last = document.getElementById('node-' + EvalFactory.map.current.id);
     EvalFactory.advance();
@@ -447,6 +446,12 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     current.style.backgroundColor = 'yellow';
     console.log("Game message: ", EvalFactory.gameMessage);
     console.log("Scroll.end: ", EvalFactory.scroll.end);
+
+    // experimental additions for player interaction
+    // this is a terrible, idea, just hacked for visuals
+    if (EvalFactory.gameMessage === 'Level completed!') {
+      $('#game-container').fadeOut('slow');
+    }
   };
 
   $scope.board = MapFactory.createNewBoard(options);

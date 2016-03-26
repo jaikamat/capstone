@@ -19,6 +19,7 @@
 
 #board {
   z-index: 0;
+  width: 100%;
 }
 
 #game-container {
@@ -27,10 +28,6 @@
   width: 100%;
   height: 100%;
   max-height: calc(100vh - 96px);
-}
-
-#game-container > div {
-  width: 100%;
 }
 
 svg {
@@ -42,19 +39,18 @@ svg {
   position: absolute;
   left: 50%;
   margin-left: -400px;
-  bottom: 10vh;
 }
 
 #tokens {
   width: 800px;  
-  height: 100px; 
+  height: 80px; 
   z-index: 0;
   text-align: center;
 }
 
 #scroll {
   width: 800px;  
-  height: 100px; 
+  height: 80px; 
   z-index: 0;
   text-align: center;
 }
