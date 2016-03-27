@@ -16,17 +16,18 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
         UserModel.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
 
                 if (user) {
                     return user;
                 } else {
+
                     return UserModel.create({
                         google: {
                             id: profile.id
-                        }
+                        },
+                      email: profile.emails[0].value
                     });
                 }
 
@@ -43,7 +44,7 @@ module.exports = function (app) {
 
     app.get('/auth/google', passport.authenticate('google', {
         scope: [
-            'https://www.googleapis.com/auth/plus.profile.emails.read'
+            'email'
         ]
       //scope:
       //  'https://www.googleapis.com/auth/userinfo.profile ' +
