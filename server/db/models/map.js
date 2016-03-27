@@ -8,6 +8,13 @@ var schema = new mongoose.Schema({
 		blue: {type: Number, min: 0},
 		green: {type: Number, min: 0},
 		troll: {type: String, enum: ['orange', 'purple', null]}
+	}],
+	nodeCoords: mongoose.Schema.Types.Mixed,
+	bezierData: [{
+		start: {type: Number},
+		end: {type: Number},
+		color: {type: String, enum: ['red', 'blue', 'green']},
+		curvature: {type: Number}
 	}]
 });
 
