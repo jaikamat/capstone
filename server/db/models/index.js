@@ -6,3 +6,4 @@ require('./level');
 require('./map');
 require('./scroll');
 require('./params');
+require('./user-stats');
