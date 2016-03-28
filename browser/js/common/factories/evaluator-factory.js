@@ -2,8 +2,12 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 	//These cached objects are used to reset the game so another http request is not required.
 	var mapCache, scrollCache, paramsCache;
 
+	var MAX_STEPS = 50;
+
 	return {
 		map: null,
+		nodeCoords: null,
+		bezierData: null,
 		scroll: null,
 		params: null,
 		stepCounter: 0,
@@ -19,9 +23,11 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 				paramsCache.initBoard(mapCache);
 			}
 			else {
-				$http.get('/api/levels' + levelNumber) //make a http request to the backend
+				return $http.get('/api/levels/' + levelNumber) //make a http request to the backend
 				.then(function (res) {
 					self.map = mapCache = MapFactory.createNewBoard(res.data.map.data); //create the map
+					self.nodeCoords = res.data.map.nodeCoords; //set the node coordinates
+					self.bezierData = res.data.map.bezierData; //set the svg bezier curve data
 					self.scroll = scrollCache = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
 					self.params = paramsCache = ParametersFactory.createParameters(res.data.params.data); //create the parameters
 					paramsCache.initBoard(mapCache); //initialize the board with the parameters given
@@ -32,7 +38,7 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 		advance: function () {
 			var self = this;
 			//Check if the game has stepped more than 30 times.
-			if(self.stepCounter > 30) {
+			if(self.stepCounter > MAX_STEPS) {
 				self.validGame = false;
 				self.gameMessage = "Stuck in infinite loop!";
 			}

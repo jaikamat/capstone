@@ -11,7 +11,8 @@ module.exports = function (app) {
     var facebookCredentials = {
         clientID: facebookConfig.clientID,
         clientSecret: facebookConfig.clientSecret,
-        callbackURL: facebookConfig.callbackURL
+        callbackURL: facebookConfig.callbackURL,
+        profileFields: ['emails']
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
@@ -24,8 +25,9 @@ module.exports = function (app) {
                 } else {
                     return UserModel.create({
                         facebook: {
-                            id: profile.id
-                        }
+                            id: profile.id,
+                        },
+                        email: profile.emails[0].value
                     });
                 }
 
@@ -42,7 +44,7 @@ module.exports = function (app) {
 
     app.get('/auth/facebook', passport.authenticate('facebook', {
       scope: [
-          'email'
+          'email', 'user_friends'
       ]
     }));
 

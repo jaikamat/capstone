@@ -9,7 +9,9 @@ function seedMaps () {
 		mapData.map(function (element, index) {
 			return {
 				mapId: index + 1,
-				data: element
+				data: element.data,
+				nodeCoords: element.nodeCoords,
+				bezierData: element.bezierData
 			}
 		})
 	)
