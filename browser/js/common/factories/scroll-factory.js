@@ -108,7 +108,6 @@ app.factory('ScrollFactory', function () {
     }
 
     Scroll.prototype.getScrollColor = function (gemsAndTrollState) {
-        console.log("Pointer: ", this.pointer);
         if (this.pointer.id === "start") {
             this.pointer = this.start.next;    //If the pointer is at start, move the pointer.
             return;
