@@ -195,8 +195,6 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     var tokens = [].slice.call($('.item-class').children());
     var current, currentNode, last, origin, destination, previousOrigin;
 
-    last = document.getElementById('node-' + $scope.game.map.current.id);
-
     items.forEach(function (item, index) {
       $scope.game.scroll.items[index].color = tokens[index].style.backgroundColor;
     });
@@ -206,9 +204,6 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     destination = $scope.game.scroll.pointer;
     animatePointer(origin, destination);
 
-    currentNode = document.getElementById('node-' + $scope.game.map.current.id);
-    if (last) last.style.backgroundColor = 'white';
-    currentNode.style.backgroundColor = 'yellow';
     console.log("Game message: ", $scope.game.gameMessage);
 
     // experimental addition for player interaction
@@ -216,6 +211,7 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     if ($scope.game.gameMessage === 'Level completed!') {
       $('#game-container').fadeOut('slow');
     }
+    // $scope.$apply();
   };
 
   // function initMap () { // lables nodes as start and end and applies styles with animations
