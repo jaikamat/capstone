@@ -7,7 +7,6 @@ var mapData = require('../rawData/maps.json');
 function seedMaps () {
 	return Maps.createAsync(
 		mapData.map(function (element, index) {
-			console.log(element.nodeCoords)
 			return {
 				mapId: index + 1,
 				data: element.data,
