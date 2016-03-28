@@ -177,11 +177,13 @@ svg {
 }
 
 #pointer {
-  width: 15px;
-  height: 15px;
+  width: 2px;
+  height: 2px;
   border-radius: 50%;
   background-color: #FFFFFF;
   z-index: 3;
   position: absolute;
+  padding: 8px;
   motion-path: path('M160,40');
+  animation-fill-mode: 'forwards';
 }

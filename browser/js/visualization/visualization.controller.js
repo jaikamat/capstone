@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, game) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
   $scope.game = game;
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
@@ -193,7 +193,7 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     var items = [].slice.call($('.item-class'), 1, -1);
     var tokens = [].slice.call($('.item-class').children());
     if (items.length !== tokens.length) {
-      console.log("You haven't inserted all the tokens.");
+      console.log("Please insert all tokens before clicking the Play button.");
     } else {
       $('.item-class').children().removeAttr('draggable');
 
@@ -219,12 +219,23 @@ app.controller('VisualizationCtrl', function ($scope, game) {
   };
 
   $scope.reset = function () {
+
+    console.log(game.scroll);
+    EvalFactory.resetGame();
+    console.log(game.scroll);
+
     var items = [].slice.call($('.item-class'));
     items.forEach(function (item) {
       if (item.firstChild) item.removeChild(item.firstChild);
-    })
+    });
     $scope.tokens = getTokens();
+
+    var pointer = document.getElementById('pointer');
+    pointer.style.motionPath = 'path("M160,40")';
+
   };
+
+  console.log("START: ", $scope.game.scroll.start.coords);
 
   // function initMap () { // lables nodes as start and end and applies styles with animations
   //   var startNode, endNode;
@@ -234,9 +245,10 @@ app.controller('VisualizationCtrl', function ($scope, game) {
   // }
 
   function animatePointer (origin, destination) {
-    var pointer = document.getElementById('pointer');
+    var pointer = $('#pointer');
+    // var pointer = document.getElementById('pointer');
     var positionKeyframes = [{motionOffset: '0%'}, {motionOffset: '100%'}];
-    var positionTiming = {duration: 1000};
+    var positionTiming = {duration: 1000, iterations: 1};
 
     var originCoords, destinationCoords;
     if (origin.id === 'start') originCoords = $scope.game.scroll.start.coords;
@@ -246,13 +258,14 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     else destinationCoords = $scope.game.scroll.items[destination.id].coords;
 
     //animate the dot
-    var motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
-    pointer.style.motionPath = `path("${motionPath}")`;
-    pointer.animate(positionKeyframes, positionTiming);
+    // var motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
+    // pointer.style.motionPath = `path("${motionPath}")`;
+    // pointer.animate(positionKeyframes, positionTiming);
+    pointer.animate({top: (destinationCoords[1] - 15) + 'px', left: (destinationCoords[0] - 135) + 'px'});
     // pointer.style.top = destinationCoords[1] + 'px';
     // pointer.style.left = destinationCoords[0] + 'px';
-    // console.log("LEFT: ", pointer.style.left);
-    // console.log("DEST: ", destinationCoords[0]);
+    console.log("LEFT: ", pointer[0].style.left);
+    console.log("DEST: ", destinationCoords[0]);
   }
 
   (function () {
@@ -272,7 +285,6 @@ app.controller('VisualizationCtrl', function ($scope, game) {
       // setNodeCoordinates(level1);
       // drawMapConnections($scope.connections);
       // $scope.$apply();
-      console.log('WE ARE RESIZING')
     }
     window.addEventListener("resize", resizeThrottler);
   })()
