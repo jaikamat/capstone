@@ -1,9 +1,246 @@
 app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFactory, ScrollFactory, EvalFactory) {
 
+  var NODE_WIDTH = 80;
+  var TOKEN_WITDH = 50;
+
+  //~~~MAP 7~~~
+
+  // var options = [{
+  //     red: 3,
+  //     green: 1,
+  //     blue: 2
+  //   }, {
+  //     red: 4,
+  //     green: 0,
+  //     blue: null
+  //   }, {
+  //     red: 5,
+  //     green: 3,
+  //     blue: 0
+  //   }, {
+  //     red: 0,
+  //     green: 2,
+  //     blue: 4
+  //   }, {
+  //     red: 1,
+  //     green: 6,
+  //     blue: 3
+  //   }, {
+  //     red: 2,
+  //     green: 7,
+  //     blue: 6
+  //   }, {
+  //     red: 8,
+  //     green: 4,
+  //     blue: 5
+  //   }, {
+  //     red: null,
+  //     green: 5,
+  //     blue: 8
+  //   }, {
+  //     red: 6,
+  //     green: null,
+  //     blue: 7
+  //   }];
+
+  // var level1 = {
+  //   0 : [0.2, 0.3],
+  //   1 : [0.2, 0.6],
+  //   2 : [0.4, 0.1],
+  //   3 : [0.4, 0.45],
+  //   4 : [0.4, 0.8],
+  //   5 : [0.6, 0.3],
+  //   6 : [0.6, 0.6],
+  //   7 : [0.8, 0.3],
+  //   8 : [0.8, 0.6]
+  // }
+
+  // var bezierCurves = []
+
+  //~~~MAP 4~~~
+
+  // var options = [{
+  //     red: 1,
+  //     green: 1,
+  //     blue: 0
+  //   }, {
+  //     red: 0,
+  //     green: 0,
+  //     blue: 2
+  //   }, {
+  //     red: 3,
+  //     green: 5,
+  //     blue: 1
+  //   }, {
+  //     red: 2,
+  //     green: 4,
+  //     blue: 5
+  //   }, {
+  //     red: 5,
+  //     green: 3,
+  //     blue: 4
+  //   }, {
+  //     red: 4,
+  //     green: 2,
+  //     blue: 3
+  //   }];
+
+  // var level1 = {
+  //   0 : [0.2, 0.25],
+  //   1 : [0.2, 0.75],
+  //   2 : [0.4, 0.75],
+  //   3 : [0.6, 0.75],
+  //   4 : [0.8, 0.75],
+  //   5 : [0.6, 0.25]
+  // }
+
+  // var bezierCurves = [
+  //   {
+  //     start : 0,
+  //     end: 0,
+  //     color : 'blue',
+  //     curvature: 100
+  //   },
+  //   {
+  //     start : 0,
+  //     end: 1,
+  //     color: 'red',
+  //     curvature: -50
+  //   },
+  //   {
+  //     start : 0,
+  //     end: 1,
+  //     color: 'green',
+  //     curvature: 50
+  //   },
+  //   {
+  //     start : 4,
+  //     end: 4,
+  //     color: 'blue',
+  //     curvature: -100
+  //   }
+  // ]
+
+  //~~~MAP 3~~~
+
+  // var options = [{
+  //     red: 1,
+  //     green: 1,
+  //     blue: 3
+  //   }, {
+  //     red: 0,
+  //     green: 0,
+  //     blue: 2
+  //   }, {
+  //     red: 3,
+  //     green: 5,
+  //     blue: 1
+  //   }, {
+  //     red: 2,
+  //     green: 4,
+  //     blue: 0
+  //   }, {
+  //     red: 5,
+  //     green: 3,
+  //     blue: 5
+  //   }, {
+  //     red: 4,
+  //     green: 2,
+  //     blue: 4
+  //   }];
+
+  // var level1 = {
+  //   0 : [0.2, 0.2],
+  //   1 : [0.5, 0.2],
+  //   2 : [0.8, 0.2],
+  //   3 : [0.2, 0.6],
+  //   4 : [0.5, 0.6],
+  //   5 : [0.8, 0.6]
+  // }
+
+  // var bezierCurves = [
+  //   {
+  //     start : 0,
+  //     end: 1,
+  //     color : 'red',
+  //     curvature: -50
+  //   },
+  //   {
+  //     start : 0,
+  //     end: 1,
+  //     color: 'green',
+  //     curvature: 50
+  //   },
+  //   {
+  //     start : 4,
+  //     end: 5,
+  //     color: 'red',
+  //     curvature: -50
+  //   },
+  //   {
+  //     start : 4,
+  //     end: 5,
+  //     color: 'blue',
+  //     curvature: 50
+  //   }
+  // ]
+
+  //~~~MAP 2~~~
+
+  // var options = [{
+  //     red: 2,
+  //     green: 4,
+  //     blue: 1
+  //   }, {
+  //     red: 5,
+  //     green: 2,
+  //     blue: 0
+  //   }, {
+  //     red: 0,
+  //     green: 1,
+  //     blue: 3
+  //   }, {
+  //     red: 4,
+  //     green: 5,
+  //     blue: 2
+  //   }, {
+  //     red: 3,
+  //     green: 0,
+  //     blue: 5
+  //   }, {
+  //     red: 1,
+  //     green: 3,
+  //     blue: 4
+  //   }];
+
+  // var level1 = {
+  //   0: [0.4, 0.20],
+  //   1: [0.2, 0.5],
+  //   2: [0.4, 0.5],
+  //   3: [0.6, 0.5],
+  //   4: [0.8, 0.5],
+  //   5: [0.6, 0.8],
+  // }
+
+  // var bezierCurves = [];
+
+  // var parametersOptions = {
+  //   startNode: 3,
+  //   endNode: 5,
+  //   redTokens: 2,
+  //   greenTokens: 0,
+  //   blueTokens: 2,
+  //   gems: [],
+  //   conditionals: []
+  // }
+
+  //~~~MAP 1~~~
+
   var options = [{
     red: 1,
     green: 2,
-    blue: 4
+    blue: 4,
+    troll: 'purple'
   }, {
     red: 0,
     green: 3,
@@ -19,127 +256,44 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   }, {
     red: 3,
     green: 5,
-    blue: 0
+    blue: 0,
   }, {
     red: 2,
     green: 4,
-    blue: 3
+    blue: 3,
+    troll: 'orange'
   }];
 
-  function getConnections(nodes) {
-    var connections = [];
+  var level1 = {
+    0: [0.2, 0.2],
+    1: [0.5, 0.2],
+    2: [0.8, 0.2],
+    3: [0.2, 0.6],
+    4: [0.5, 0.6],
+    5: [0.8, 0.6]
+  };
 
-    for (var nodeId in nodes) {
-      let node = nodes[nodeId];
-      ['red', 'green', 'blue'].forEach(function (color) {
-        if (node[color] !== null) {
-          connections.push([+nodeId, node[color], color]);
-        }
-      });
-    }
-    return connections;
-  }
+  var scroll1 = {
+    start: [0.25, 0.5],
+    0: [0.35, 0.5],
+    1: [0.45, 0.5],
+    2: [0.55, 0.5],
+    3: [0.65, 0.5],
+    end: [0.75, 0.5]
+  };
 
-  // this function takes coordinate inputs (with optional bezier curve anchor points)
-  // to draw lines
-  function drawSvgLine(x1, y1, x2, y2, color, bx1, by1, bx2, by2) {
-    if (bx1 && bx2) {
-      //<path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
-      var newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      var attr = 'M' + x1 + " " + y1 + " C" + " " + bx1 + " " + by1 + ", " + bx2 + " " + by2 + ", " + x2 + " " + y2;
-      newPath.setAttribute('d', attr);
-      newPath.setAttribute('id', 'curved-routes');
-      newPath.setAttribute('fill', 'transparent');
-      newPath.setAttribute('stroke', color);
-      newPath.setAttribute('stroke-width', 20);
-      $("#lines").append(newPath);
-    } else {
-      var newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      newLine.setAttribute('id', 'straight-routes');
-      newLine.setAttribute('x1', x1);
-      newLine.setAttribute('y1', y1);
-      newLine.setAttribute('x2', x2);
-      newLine.setAttribute('y2', y2);
-      newLine.setAttribute('stroke', color);
-      newLine.setAttribute('stroke-width', 20);
-      $("#lines").append(newLine);
-    }
-  }
-
-  var lastNode;
-
-  function currentNodeStyle(color) {
-    if (lastNode) lastNode.css('background-color', 'white');
-    // this is the current node on the DOM
-    $scope.board.step(color);
-    var currentDOMnode = $scope.board.current.id;
-    // this is the element we are isolating
-    var element = $('#node' + currentDOMnode);
-    // we then change the color to black 
-    element.css('background-color', 'grey');
-    // and then move
-    // now the current has changed
-    console.log(element)
-    lastNode = $('#node' + currentDOMnode);
-  }
-
-  $scope.board = MapFactory.createNewBoard(options);
-  $scope.connections = getConnections($scope.board.nodes);
-  $scope.board.setCurrentAndEnd(0, 5);
-  $scope.currentNodeStyle = currentNodeStyle;
-
-  // width: 600px
-  // height: 400px
-  // TODO: set these to be percentage coordinates of the parent div pixel size
-  $scope.board.nodes[0].coords = [160, 100];
-  $scope.board.nodes[1].coords = [360, 100];
-  $scope.board.nodes[2].coords = [560, 100];
-  $scope.board.nodes[3].coords = [160, 300];
-  $scope.board.nodes[4].coords = [360, 300];
-  $scope.board.nodes[5].coords = [560, 300];
-
-  $scope.connections.forEach(function (array) {
-    var divDiameter = 40;
-    // first element of array is the source, second is the target
-    var coords1 = $scope.board.nodes[array[0]].coords;
-    var coords2 = $scope.board.nodes[array[1]].coords;
-    // centers the div coordinates
-    var x1 = coords1[0] + divDiameter;
-    var y1 = coords1[1] + divDiameter;
-    var x2 = coords2[0] + divDiameter;
-    var y2 = coords2[1] + divDiameter;
-    var color = array[2];
-    // console.log('NODE\n', array[0], array[1], 'COLOR\n', color)
-
-    if (array[0] === 0 && array[1] === 2) {
-      drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 - 100, x2 - 20, y2 - 100);
-    } else if (array[0] === 3 && array[1] === 5) {
-      drawSvgLine(x1, y1, x2, y2, color, x1 + 20, y1 + 100, x2 - 20, y2 + 100);
-    } else if (array[0] === 5 && array[1] === 3); // do nothing
-    else if (array[0] === 2 && array[1] === 0); // do nothing
-    else {
-      drawSvgLine(x1, y1, x2, y2, color);
-    }
-  });
-
-  $scope.scroll = ScrollFactory.createScroll();
-  $scope.scroll.addInstruction(0);
-  $scope.scroll.addInstruction(1);
-  $scope.scroll.addInstruction(2);
-  $scope.scroll.addInstruction(3);
-  $scope.scroll.setStart(0);
-  $scope.scroll.setRoute(0, {
-    next: 1
-  });
-  $scope.scroll.setRoute(1, {
-    next: 2
-  });
-  $scope.scroll.setRoute(2, {
-    next: 3
-  });
-  $scope.scroll.setRoute(3, {
-    next: -1
-  });
+  // specify lower number first TODO: fix this
+  var bezierCurves = [{
+    start: 0,
+    end: 2,
+    color: 'green',
+    curvature: -100
+  }, {
+    start: 3,
+    end: 5,
+    color: 'blue',
+    curvature: 100
+  }]
 
   var parametersOptions = {
     startNode: 5,
@@ -147,91 +301,266 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
     redTokens: 2,
     greenTokens: 2,
     blueTokens: 0,
+    // gems: [1, 5, 5, 5, 2, 2],
     gems: [],
     conditionals: []
   };
 
-  $scope.parameters = ParametersFactory.createParameters(parametersOptions);
-  console.log($scope.parameters);
+  // for each element, if another object exists with those start and 
+  // ends swapped, remove it and label bidirectional
 
-  $scope.getNumber = function (n) {
-    return Array(n);
+  function filterDirection(arr) {
+    arr.forEach(function (element) {
+      var nstart = element.end;
+      var nend = element.start;
+      arr.forEach(function (e, idx) {
+        if (e.start === nstart && e.end === nend && nstart !== nend) {
+          element.bidirectional = true;
+          arr.splice(idx, 1);
+        }
+      })
+    })
+    return arr;
+  }
+
+  // think about how to 
+
+  function getAllConnections(nodes) {
+    var connections = [];
+
+    for (var nodeId in nodes) {
+      let node = nodes[nodeId];
+      ['red', 'green', 'blue'].forEach(function (color) {
+        if (node[color] !== null) {
+          connections.push({
+            start: +nodeId,
+            end: node[color],
+            color: color,
+            bidirectional: false
+          });
+        }
+      });
+    }
+    var sortedConnections = filterDirection(connections);
+    return specifyBezierCurves(sortedConnections);
+  }
+
+  function specifyBezierCurves(array) {
+    array.forEach(function (object) {
+      bezierCurves.forEach(function (element) {
+        if (object.start === element.start && object.end === element.end && object.color === element.color) {
+          object.curvature = element.curvature;
+        }
+      });
+    });
+    return array;
+  }
+
+  // this function takes coordinate inputs (with optional bezier curve anchor points) to draw paths
+  function drawSvgLine(x1, y1, x2, y2, color, dist) { // dist is the amount of curvature needed
+    var attr, bx1, by1, bx2, by2;
+    var newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    var check = false
+
+    dist = dist || 0;
+
+    if (x1 === x2 && y1 === y2) {
+      var cachex1 = x1;
+      var cachex2 = x2;
+      x1 += 75;
+      x2 -= 75;
+    }
+
+    bx1 = x1 - (dist * (y2 - y1) / Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+    by1 = y1 + (dist * (x2 - x1) / Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+    bx2 = x2 - (dist * (y2 - y1) / Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+    by2 = y2 + (dist * (x2 - x1) / Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+
+    if (cachex1) {
+      x1 = cachex1;
+      x2 = cachex2;
+    }
+
+    attr = `M ${x1} ${y1} C ${bx1} ${by1} ${bx2} ${by2}, ${x2} ${y2}`;
+
+    newPath.setAttribute('d', attr);
+    newPath.setAttribute('id', 'routes');
+    newPath.setAttribute('fill', 'transparent');
+    newPath.setAttribute('stroke', color);
+    newPath.setAttribute('stroke-width', 20);
+
+    $("#lines").append(newPath);
+  }
+
+  function setMapCoordinates(object) { //is invoked with an object of key id and value array { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
+    var bW = document.getElementById('board').offsetWidth;
+    var bH = document.getElementById('board').offsetHeight;
+    for (let key in object) {
+      $scope.board.nodes[key].coords = [bW * object[key][0] - NODE_WIDTH / 2, bH * object[key][1]];
+    }
+  }
+
+  function setScrollCoordinates(object) { //is invoked with an object of key id and value array { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
+    var sW = document.getElementById('scroll').offsetWidth;
+    var sH = document.getElementById('scroll').offsetHeight;
+    for (let key in object) {
+      if (key === 'start') {
+        $scope.scroll.start.coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
+      } else if (key === 'end') {
+        $scope.scroll.end.coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
+      } else {
+        $scope.scroll.items[key].coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
+      }
+    }
+  }
+
+  function drawMapPaths(array) { // use the output from the get all connections
+    array.forEach(function (object) {
+      var bW = document.getElementById('board').offsetWidth;
+      var bH = document.getElementById('board').offsetHeight;
+
+      var divDiameter = NODE_WIDTH / 2;
+      // first element of array is the source, second is the target
+      var startCoords = $scope.board.nodes[object.start].coords;
+      var endCoords = $scope.board.nodes[object.end].coords;
+
+      // centers the div coordinates
+      var x1 = startCoords[0] + divDiameter;
+      var y1 = startCoords[1] + divDiameter;
+      var x2 = endCoords[0] + divDiameter;
+      var y2 = endCoords[1] + divDiameter;
+      var color = object.color;
+
+      if (object.curvature) drawSvgLine(x1, y1, x2, y2, color, object.curvature);
+      else drawSvgLine(x1, y1, x2, y2, color);
+    });
+  }
+
+  function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
+    var paths = {};
+    var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
+    var arrayToIterateOver = [scroll.start].concat(arrayOfItems).concat(scroll.end);
+
+    for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
+      paths[i] = {
+        pathBegin: i,
+        pathEnd: i + 1,
+        x1: arrayToIterateOver[i].coords[0] + TOKEN_WITDH / 2,
+        y1: arrayToIterateOver[i].coords[1] + TOKEN_WITDH / 2,
+        x2: arrayToIterateOver[i + 1].coords[0] + TOKEN_WITDH / 2,
+        y2: arrayToIterateOver[i + 1].coords[1] + TOKEN_WITDH / 2
+      }
+    }
+
+    return paths;
+  }
+
+  // find all the token nodes and their coords (done)
+  // draw an svg line for each coordinate pair using ng-repeat
+  function getTokens() {
+    var arr = [];
+    ["red", "green", "blue"].forEach(function (color) {
+      for (let i = 0; i < $scope.parameters[color + "Tokens"]; i++) {
+        arr.push({
+          id: i,
+          color: color
+        });
+      }
+    })
+    return arr;
+  }
+
+  function getNumberForNgRepeat(integer) { // hack for ng-repeat
+    return Array(integer);
+  }
+
+  $scope.run = function () {
+    $('.item-class').children().removeAttr('draggable');
+    var items = [].slice.call($('.item-class'), 1, -1);
+    var tokens = [].slice.call($('.item-class').children());
+    var current, currentNode, last, origin, destination, previousOrigin;
+
+    last = document.getElementById('node-' + EvalFactory.map.current.id);
+
+    items.forEach(function (item, index) {
+      EvalFactory.scroll.items[index].color = tokens[index].style.backgroundColor;
+    });
+
+    origin = EvalFactory.scroll.pointer;
+    EvalFactory.advance();
+    destination = EvalFactory.scroll.pointer;
+    animatePointer(origin, destination);
+
+    currentNode = document.getElementById('node-' + EvalFactory.map.current.id);
+    if (last) last.style.backgroundColor = 'white';
+    currentNode.style.backgroundColor = 'yellow';
+    console.log("Game message: ", EvalFactory.gameMessage);
+
+    // experimental addition for player interaction
+    // this is a terrible, idea, just hacked for visuals
+    if (EvalFactory.gameMessage === 'Level completed!') {
+      $('#game-container').fadeOut('slow');
+    }
   };
 
-  var dragSrcEl = null;
+  // function initMap () { // lables nodes as start and end and applies styles with animations
+  //   var startNode, endNode;
 
-  function handleDragStart(e) {
-    this.style.opacity = '1';
+  //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
+  //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
+  // }
 
-    dragSrcEl = this;
+  function animatePointer(origin, destination) {
+    var pointer = document.getElementById('pointer');
+    var positionKeyframes = [{ motionOffset: '100%' }];
+    var positionTiming = { duration: 1000, iterations: 1 };
+    var originCoords, destinationCoords, motionPath;
 
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
+    if (origin.id === 'start') originCoords = $scope.scroll.start.coords;
+    else if (origin.id === -1) originCoords = $scope.scroll.end.coords;
+    else originCoords = $scope.scroll.items[origin.id].coords;
+    if (destination.id === -1) destinationCoords = $scope.scroll.end.coords;
+    else destinationCoords = $scope.scroll.items[destination.id].coords;
+
+    motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
+    pointer.style.motionPath = `path("${motionPath}")`;
+    pointer.animate(positionKeyframes, positionTiming)
+    .finished
+    .then(function (arg) {
+      console.log(arg);
+      pointer.style.motionPath = `path("M ${destinationCoords[0]}, ${destinationCoords[1]}")`;
+    })
   }
 
-  function handleDragOver(e) {
-    if (e.preventDefault) {
-      e.preventDefault(); // Necessary. Allows us to drop.
-    }
+  $scope.board = MapFactory.createNewBoard(options);
+  console.log('THESE ARE THE NODES', $scope.board.nodes);
+  var mapConnections = getAllConnections($scope.board.nodes);
+  $scope.connections = mapConnections;
+  $scope.board.setCurrentAndEnd(0, 5);
 
-    e.dataTransfer.dropEffect = 'move'; // See the section on the DataTransfer object.
+  $scope.getNumberForNgRepeat = getNumberForNgRepeat;
+  $scope.scroll = ScrollFactory.createScroll();
+  $scope.scroll.addInstruction(0);
+  $scope.scroll.addInstruction(1);
+  $scope.scroll.addInstruction(2);
+  $scope.scroll.addInstruction(3);
+  $scope.scroll.setStart(0);
+  $scope.scroll.setRoute(0, { next: 1 });
+  $scope.scroll.setRoute(1, { next: 2 });
+  $scope.scroll.setRoute(2, { next: 3 });
+  $scope.scroll.setRoute(3, { next: -1 });
 
-    return false;
-  }
+  // draw the map paths and nodes
+  setMapCoordinates(level1);
+  setScrollCoordinates(scroll1);
+  drawMapPaths($scope.connections);
 
-  function handleDragEnter(e) {
-    // this / e.target is the current hover target.
-    this.classList.add('over');
-  }
+  $scope.scrollItemConnections = getScrollCoordinates($scope.scroll);
+  console.log($scope.scrollItemConnections);
 
-  function handleDragLeave(e) {
-    this.classList.remove('over'); // this / e.target is previous target element.
-  }
+  $scope.parameters = ParametersFactory.createParameters(parametersOptions);
 
-  function handleDrop(e) {
-    // this / e.target is current target element.
-
-    if (e.stopPropagation) {
-      e.stopPropagation(); // stops the browser from redirecting.
-    }
-
-    // See the section on the DataTransfer object.
-    // this.style.color = dragSrcEl.style.color;
-    this.style.backgroundColor = dragSrcEl.style.backgroundColor;
-    var id = this.id.split('-')[1];
-    EvalFactory.scroll.items[id].color = this.style.backgroundColor;
-    dragSrcEl.style.backgroundColor = 'white';
-    return false;
-  }
-
-  function handleDragEnd(e) {
-    // this/e.target is the source node.
-    var items = document.querySelectorAll('.item-class');
-    [].forEach.call(items, function (item) {
-      item.classList.remove('over');
-    });
-  }
-
-  setTimeout(function () {
-    var tokens = document.querySelectorAll('.token-class');
-    var items = document.querySelectorAll('.item-class');
-    [].forEach.call(tokens, function (token) {
-      token.addEventListener('dragstart', handleDragStart, false);
-      token.addEventListener('dragover', handleDragOver, false);
-      token.addEventListener('drop', handleDrop, false);
-      token.addEventListener('dragenter', handleDragEnter, false);
-      token.addEventListener('dragleave', handleDragLeave, false);
-      token.addEventListener('dragend', handleDragEnd, false);
-    });
-    [].forEach.call(items, function (item) {
-      item.addEventListener('dragenter', handleDragEnter, false);
-      item.addEventListener('dragleave', handleDragLeave, false);
-      item.addEventListener('dragend', handleDragEnd, false);
-      item.addEventListener('dragstart', handleDragStart, false);
-      item.addEventListener('dragover', handleDragOver, false);
-      item.addEventListener('drop', handleDrop, false);
-    });
-  }, 1000);
+  $scope.tokens = getTokens();
 
   // need to link up some of the back end functions with changing the DOM
   EvalFactory.initializeGame(0);
@@ -242,19 +571,27 @@ app.controller('VisualizationCtrl', function ($scope, MapFactory, ParametersFact
   EvalFactory.scrollCache = $scope.scroll;
   EvalFactory.paramsCache = $scope.parameters;
   EvalFactory.params.initBoard(EvalFactory.map);
-  console.log("Initted map: ", EvalFactory.map);
+  $scope.map = EvalFactory.map;
+// debugger;
+  (function () {
+    var resizeTimeout;
 
-  $scope.run = function () {
-    // console.log("Player location before step: ", EvalFactory.map.current);
-    var last = document.getElementById('node-' + EvalFactory.map.current.id);
-    EvalFactory.advance();
-    var current = document.getElementById('node-' + EvalFactory.map.current.id);
-    if (last) last.style.backgroundColor = 'white';
-    current.style.backgroundColor = 'yellow';
-    // console.log("Player location after step: ", EvalFactory.map.current);
-    console.log("Game message: ", EvalFactory.gameMessage);
-    // console.log("Current: ", EvalFactory.map.current, "End: ", EvalFactory.map.end);
-    console.log("Scroll.end: ", EvalFactory.scroll.end);
-  };
+    function resizeThrottler() {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function () {
+          resizeTimeout = null;
+          actualResizeHandler();
+        }, 1000);
+      }
+    }
 
+    function actualResizeHandler() {
+      // TODO: make sure to re-compute map data here
+      // setMapCoordinates(level1);
+      // drawMapPaths($scope.connections);
+      // $scope.$apply();
+      console.log('WE ARE RESIZING')
+    }
+    window.addEventListener("resize", resizeThrottler);
+  })()
 });

@@ -1,6 +1,5 @@
 'use strict';
 var passport = require('passport');
-var _ = require('lodash');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -53,5 +52,24 @@ module.exports = function (app) {
         passport.authenticate('local', authCb)(req, res, next);
 
     });
+
+    app.post('/signup', function (req, res, next) {
+      User.create({
+        email: req.body.email,
+        password: req.body.password
+      })
+          .then(function (user) {
+            console.log('hello');
+            req.logIn(user, function (loginErr) {
+              console.log('login resolution', arguments);
+              if (loginErr) return next(loginErr);
+              res.status(200).send({
+                user: user.sanitize()
+              })
+            })
+          })
+          .then(null, next);
+    })
+
 
 };
