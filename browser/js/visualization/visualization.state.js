@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
         controller: 'VisualizationCtrl',
         resolve: {
         	game: function (EvalFactory) {
-        		return EvalFactory.initializeGame(1)
+        		return EvalFactory.initializeGame(2)
         		.then(function(){
         			return EvalFactory;
         		})
