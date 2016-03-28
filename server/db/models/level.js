@@ -10,4 +10,5 @@ var schema = new mongoose.Schema({
 	  params: {type: Schema.Types.ObjectId, ref: 'Params', required: true}
 });
 
+
 mongoose.model('Levels', schema);
