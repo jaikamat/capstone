@@ -16,6 +16,23 @@
 		"greenTokens": 0,
 		"gems": [0],
 		"conditionals": []
+	},
+	{
+		"startNode": 4,
+		"endNode": 0,
+		"redTokens": 1,
+		"blueTokens": 2,
+		"greenTokens": 1,
+		"gems": [1, 5],
+		"conditionals": []
+	},
+	{
+		"startNode": 1,
+		"endNode": 5,
+		"redTokens": 2,
+		"blueTokens": 2,
+		"greenTokens": 1,
+		"gems": [3, 4],
+		"conditionals": []
 	}
-
 ]
