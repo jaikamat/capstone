@@ -211,7 +211,6 @@ app.controller('VisualizationCtrl', function ($scope, game) {
     if ($scope.game.gameMessage === 'Level completed!') {
       $('#game-container').fadeOut('slow');
     }
-    // $scope.$apply();
   };
 
   // function initMap () { // lables nodes as start and end and applies styles with animations
