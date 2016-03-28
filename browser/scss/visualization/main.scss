@@ -1,3 +1,11 @@
+$node-border-radius: 5px;
+$node-color-default: grey;
+$site-background-color: #EEEEEE;
+
+body {
+  background-color: $site-background-color;
+}
+
 .node-class,
 .token-container,
 .item-class {
@@ -70,7 +78,7 @@ svg {
 
 .noTroll {
     /*box-shadow: 0 0 0 5px #CC00CC;*/
-    border: 10px solid grey;
+    border: 10px solid $node-color-default;
 }
 
 .item-class {
@@ -79,13 +87,13 @@ svg {
     border-radius: 50%;
     background-color: #ffffff;
     z-index: 2;
-    border: 5px solid grey;
+    border: 5px solid $node-color-default;
     display: inline-block;
     text-align: center;
 }
 
 .item-class.over {
-    border: 5px dashed grey;
+    border: 5px dashed $node-color-default;
 }
 
 .token-container {
@@ -94,7 +102,7 @@ svg {
     border-radius: 50%;
     background-color: #ffffff;
     z-index: 2;
-    border: 5px solid grey;
+    border: 5px solid $node-color-default;
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
@@ -112,27 +120,27 @@ svg {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     z-index: 2;
 }
 
 .node-label {
-    color: grey;
+    color: $node-color-default;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
+}
+
+.currentMapNode {
+  background-color: yellow;
 }
 
 .step {
     stroke-width: 20;
 }
 
-.startNode {
-    /*box-shadow: 0px 0px 100px 5px rgba(85, 255, 0, 1);*/
-}
-
 .endNode {
-    /*box-shadow: 0px 0px 100px 5px rgba(85, 255, 0, 1);*/
+    background-color: #444444;
 }
 
 #straight-routes {
