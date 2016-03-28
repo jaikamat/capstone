@@ -64,40 +64,40 @@
     {
         "data": [
             {
-                "red": 1,
-                "green": 2,
-                "blue": 4,
-                "troll": "purple"
-            },
-            {
-                "red": 0,
-                "green": 3,
-                "blue": 2,
-                "troll": null
-            },
-            {
-                "red": 5,
-                "green": 0,
+                "red": 2,
+                "green": 4,
                 "blue": 1,
                 "troll": null
             },
             {
-                "red": 4,
+                "red": 5,
+                "green": 2,
+                "blue": 0,
+                "troll": "orange"
+            },
+            {
+                "red": 0,
                 "green": 1,
-                "blue": 5,
+                "blue": 3,
+                "troll": "purple"
+            },
+            {
+                "red": 4,
+                "green": 5,
+                "blue": 2,
                 "troll": null
             },
             {
                 "red": 3,
-                "green": 5,
-                "blue": 0,
+                "green": 0,
+                "blue": 5,
                 "troll": null
             },
             {
-                "red": 2,
-                "green": 4,
-                "blue": 3,
-                "troll": "orange"
+                "red": 1,
+                "green": 3,
+                "blue": 4,
+                "troll": null
             }
         ],
         "nodeCoords": {
@@ -128,7 +128,7 @@
                 "red": 3,
                 "green": 5,
                 "blue": 1,
-                "troll": null
+                "troll": "purple"
             },
             {
                 "red": 2,
@@ -140,13 +140,13 @@
                 "red": 5,
                 "green": 3,
                 "blue": 5,
-                "troll": null
+                "troll": "orange"
             },
             {
                 "red": 4,
                 "green": 2,
                 "blue": 4,
-                "troll": "orange"
+                "troll": null
             }
         ],
         "nodeCoords": {
@@ -220,7 +220,7 @@
                 "red": 4,
                 "green": 2,
                 "blue": 3,
-                "troll": "orange"
+                "troll": "purple"
             }
         ],
         "nodeCoords": {
