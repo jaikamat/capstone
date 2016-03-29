@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $stateParams, $state, $timeout) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
@@ -208,6 +208,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
       // this is a terrible, idea, just hacked for visuals
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
+        $timeout(function () {
+          $state.go('level', { levelNum: (Number($stateParams.levelNum)) + 1 }, { reload: true });
+        }, 1000)
       }
     }
   };
@@ -234,13 +237,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
 
   };
 
-  // function initMap () { // lables nodes as start and end and applies styles with animations
-  //   var startNode, endNode;
-
-  //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
-  //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
-  // }
-
   function animatePlayer () {
     var player = $('#player');
     var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
@@ -262,15 +258,12 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
     else destinationCoords = $scope.game.scroll.items[destination.id].coords;
 
     //animate the dot
-    // var motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
-    // pointer.style.motionPath = `path("${motionPath}")`;
-    // pointer.animate(positionKeyframes, positionTiming);
     pointer.animate({top: (destinationCoords[1] - 15) + 'px', left: (destinationCoords[0] - 135) + 'px'});
-    // pointer.style.top = destinationCoords[1] + 'px';
-    // pointer.style.left = destinationCoords[0] + 'px';
     console.log("LEFT: ", pointer[0].style.left);
     console.log("DEST: ", destinationCoords[0]);
   }
+
+console.log("THESE ARE THE STATE PARAMS", $stateParams);
 
   (function () {
     var resizeTimeout;
