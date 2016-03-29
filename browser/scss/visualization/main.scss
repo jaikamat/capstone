@@ -185,5 +185,15 @@ svg {
   position: absolute;
   padding: 8px;
   motion-path: path('M160,40');
-  animation-fill-mode: 'forwards';
+}
+
+#player {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFD300;
+  z-index: 3;
+  position: absolute;
+  padding: 8px;
+  transition: top 0.4s, left 0.4s;
 }
