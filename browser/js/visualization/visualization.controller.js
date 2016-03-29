@@ -1,19 +1,13 @@
 app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
   $scope.game = game;
+
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
-
-  var scroll1 = {
-    start: [0.25, 0.5],
-    0: [0.35, 0.5],
-    1: [0.45, 0.5],
-    2: [0.55, 0.5],
-    3: [0.65, 0.5],
-    end: [0.75, 0.5]
-  };
+  
+  var scrollCoords = $scope.game.scrollCoords;
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
 
-  setScrollCoordinates(scroll1);
+  setScrollCoordinates(scrollCoords);
   $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
   $scope.tokens = getTokens();
@@ -207,7 +201,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
       $scope.game.advance();
       destination = $scope.game.scroll.pointer;
       animatePointer(origin, destination);
-
+      animatePlayer();
       console.log("Game message: ", $scope.game.gameMessage);
 
       // experimental addition for player interaction
@@ -220,9 +214,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
 
   $scope.reset = function () {
 
-    console.log(game.scroll);
+    // This isn't working. Maybe we need to change the factory?
     EvalFactory.resetGame();
-    console.log(game.scroll);
+    setNodeCoordinates($scope.game.nodeCoords);
+  // draws map connections
+    drawMapConnections(getAllConnections($scope.game.map.nodes));
+    setScrollCoordinates(scrollCoords);
+    $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
     var items = [].slice.call($('.item-class'));
     items.forEach(function (item) {
@@ -230,12 +228,11 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
     });
     $scope.tokens = getTokens();
 
-    var pointer = document.getElementById('pointer');
-    pointer.style.motionPath = 'path("M160,40")';
+    var pointer = $('#pointer');
+    pointer.animate({ top: ($scope.game.scroll.start.coords[1] - 15) + 'px', left: ($scope.game.scroll.start.coords[0] - 135) + 'px' });
+
 
   };
-
-  console.log("START: ", $scope.game.scroll.start.coords);
 
   // function initMap () { // lables nodes as start and end and applies styles with animations
   //   var startNode, endNode;
@@ -243,6 +240,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
   //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
   //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
   // }
+
+  function animatePlayer () {
+    var player = $('#player');
+    var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
+    player.css({top: (destinationCoords[1] + 30) + 'px', left: (destinationCoords[0] + 30) + 'px'});
+
+  }
 
   function animatePointer (origin, destination) {
     var pointer = $('#pointer');
