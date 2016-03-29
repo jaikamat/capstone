@@ -207,7 +207,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
       $scope.game.advance();
       destination = $scope.game.scroll.pointer;
       animatePointer(origin, destination);
-
+      animatePlayer();
       console.log("Game message: ", $scope.game.gameMessage);
 
       // experimental addition for player interaction
@@ -220,9 +220,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
 
   $scope.reset = function () {
 
-    console.log(game.scroll);
+    // This isn't working. Maybe we need to change the factory?
     EvalFactory.resetGame();
-    console.log(game.scroll);
 
     var items = [].slice.call($('.item-class'));
     items.forEach(function (item) {
@@ -235,14 +234,19 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
 
   };
 
-  console.log("START: ", $scope.game.scroll.start.coords);
-
   // function initMap () { // lables nodes as start and end and applies styles with animations
   //   var startNode, endNode;
 
   //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
   //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
   // }
+
+  function animatePlayer () {
+    var player = $('#player');
+    var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
+    player.css({top: (destinationCoords[1] + 30) + 'px', left: (destinationCoords[0] + 30) + 'px'});
+
+  }
 
   function animatePointer (origin, destination) {
     var pointer = $('#pointer');
