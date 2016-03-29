@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   levelStats: [{
-    levelId: {type: mongoose.Schema.Types.ObjectId, ref: 'Levels'},
+    levelId: Number,
     completed: Boolean,
     unlocked: Boolean
   }]
