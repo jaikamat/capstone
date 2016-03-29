@@ -19,10 +19,10 @@ body {
   margin: 0 auto;
 }
 
-@import 'directives/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
 @import 'visualization/main';
 @import 'visualization/animate';
+@import 'site-assets/main';
