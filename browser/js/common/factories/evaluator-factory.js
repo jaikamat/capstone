@@ -27,14 +27,17 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 			else {
 				return $http.get('/api/levels/' + levelNumber) //make a http request to the backend
 				.then(function (res) {
-					self.map = mapCache = MapFactory.createNewBoard(res.data.map.data); //create the map
+					self.map = MapFactory.createNewBoard(res.data.map.data); //create the map
 					self.nodeCoords = res.data.map.nodeCoords; //set the node coordinates
 					self.bezierData = res.data.map.bezierData; //set the svg bezier curve data for the nodes
-					self.scroll = scrollCache = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
+					self.scroll = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
 					self.scrollCoords = res.data.scroll.scrollCoords; //set the scroll coordinates
 					self.scrollbezierData = res.data.scroll.bezierData; //set the svg bezier curve data for the scroll
-					self.params = paramsCache = ParametersFactory.createParameters(res.data.params.data); //create the parameters
-					paramsCache.initBoard(mapCache); //initialize the board with the parameters given
+					self.params = ParametersFactory.createParameters(res.data.params.data); //create the parameters
+					self.params.initBoard(self.map); //initialize the board with the parameters given
+					mapCache = res.data.map.data;
+					scrollCache = res.data.scroll.data;
+					paramsCache = res.data.params.data;
 				});
 			}
 		},
@@ -89,9 +92,10 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 		resetGame: function () {	//Reset the game
 			this.stepCounter = 0;
 			this.validGame = true;
-			this.map = mapCache;
-			this.scroll = scrollCache;
-			this.params = paramsCache;
+			this.map = MapFactory.createNewBoard(mapCache);
+			this.scroll = ScrollFactory.createScroll(scrollCache);
+			this.params = ParametersFactory.createParameters(paramsCache);
+			this.params.initBoard(this.map);
 		}
 
 	};
