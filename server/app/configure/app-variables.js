@@ -24,3 +24,4 @@ module.exports = function (app) {
     app.setValue('faviconPath', faviconPath);
     app.setValue('log', logMiddleware);
 };
+

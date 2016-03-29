@@ -1,18 +1,30 @@
-<nav class="navbar navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <fullstack-logo></fullstack-logo>
+<div class="bloc bgc-white l-bloc sticky-nav" id="nav-bloc">
+    <div class="container bloc-sm">
+        <nav class="navbar row">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">the path</a>
+                <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-1">
+                <ul class="site-navigation nav navbar-nav">
+                    <li>
+                        <a ui-sref="level({ levelNum: 1 })">Play Now</a>
+                    </li>
+                    <li>
+                        <a ng-show="isLoggedIn()" ui-sref="level-select({ userId: user._id })">Your Stats</a>
+                        <a ng-hide="isLoggedIn()" ui-sref="signup">Sign up</a>
+                    </li>
+                    <li>
+                        <a id="pl-1" ng-show="isLoggedIn()" ng-click="logout()">Logout</a>
+                        <a id="pl-1" ng-hide="isLoggedIn()" ui-sref="login">Login</a>
+                    </li>
+                    <li>
+                        <a ui-sref="about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <ul class="nav navbar-nav">
-      <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-        <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-      </li>
-    </ul>
-    <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-    <button ng-show="!user" ui-sref="signup" class="btn login-button">Sign Up</button>
-    <div ng-show="user" class="welcome">
-      <span>Welcome, {{ user.email }}!</span>
-      <a ng-click="logout()">Logout</a>
-    </div>
-  </div>
-</nav>
+</div>
