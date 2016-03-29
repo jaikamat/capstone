@@ -9,6 +9,8 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 		nodeCoords: null,
 		bezierData: null,
 		scroll: null,
+		scrollCoords: null,
+		scrollBezierData: null,
 		params: null,
 		stepCounter: 0,
 		validGame: true,
@@ -27,8 +29,10 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 				.then(function (res) {
 					self.map = mapCache = MapFactory.createNewBoard(res.data.map.data); //create the map
 					self.nodeCoords = res.data.map.nodeCoords; //set the node coordinates
-					self.bezierData = res.data.map.bezierData; //set the svg bezier curve data
+					self.bezierData = res.data.map.bezierData; //set the svg bezier curve data for the nodes
 					self.scroll = scrollCache = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
+					self.scrollCoords = res.data.scroll.scrollCoords; //set the scroll coordinates
+					self.scrollbezierData = res.data.scroll.bezierData; //set the svg bezier curve data for the scroll
 					self.params = paramsCache = ParametersFactory.createParameters(res.data.params.data); //create the parameters
 					paramsCache.initBoard(mapCache); //initialize the board with the parameters given
 				});

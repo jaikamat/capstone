@@ -2,18 +2,18 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
   $scope.game = game;
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
-
-  var scroll1 = {
-    start: [0.25, 0.5],
-    0: [0.35, 0.5],
-    1: [0.45, 0.5],
-    2: [0.55, 0.5],
-    3: [0.65, 0.5],
-    end: [0.75, 0.5]
-  };
+  var scrollCoords = $scope.game.scrollCoords;
+  // var scroll1 = {
+  //   start: [0.25, 0.5],
+  //   0: [0.35, 0.5],
+  //   1: [0.45, 0.5],
+  //   2: [0.55, 0.5],
+  //   3: [0.65, 0.5],
+  //   end: [0.75, 0.5]
+  // };
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
 
-  setScrollCoordinates(scroll1);
+  setScrollCoordinates(scrollCoords);
   $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
   $scope.tokens = getTokens();
