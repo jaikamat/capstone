@@ -222,6 +222,11 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
 
     // This isn't working. Maybe we need to change the factory?
     EvalFactory.resetGame();
+    setNodeCoordinates($scope.game.nodeCoords);
+  // draws map connections
+    drawMapConnections(getAllConnections($scope.game.map.nodes));
+    setScrollCoordinates(scrollCoords);
+    $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
     var items = [].slice.call($('.item-class'));
     items.forEach(function (item) {
@@ -229,8 +234,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
     });
     $scope.tokens = getTokens();
 
-    var pointer = document.getElementById('pointer');
-    pointer.style.motionPath = 'path("M160,40")';
+    var pointer = $('#pointer');
+    pointer.animate({ top: ($scope.game.scroll.start.coords[1] - 15) + 'px', left: ($scope.game.scroll.start.coords[0] - 135) + 'px' });
+
 
   };
 
