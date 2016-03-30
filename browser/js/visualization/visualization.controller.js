@@ -141,7 +141,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         });
       } else if (allItems[i].hasOwnProperty('next')) {
         let destination;
-        if (allItems[allItems[i].next]) destination = allItems[allItems[i].next];
+        if (allItems[allItems[i].next]) destination = arrayOfItems[allItems[i].next];
         else destination = allItems[i].next;
         paths.push({
           x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
@@ -152,10 +152,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         });
       } else if (allItems[i].hasOwnProperty('truePath')) {
         let trueDestination;
-        if (allItems[allItems[i].truePath]) trueDestination = allItems[allItems[i].truePath];
+        if (allItems[allItems[i].truePath]) trueDestination = arrayOfItems[allItems[i].truePath];
         else trueDestination = allItems[i].truePath;
         let falseDestination;
-        if (allItems[allItems[i].falsePath]) falseDestination = allItems[allItems[i].falsePath];
+        if (allItems[allItems[i].falsePath]) falseDestination = arrayOfItems[allItems[i].falsePath];
         else falseDestination = allItems[i].falsePath;
         paths.push({
           x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
