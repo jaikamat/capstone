@@ -3,6 +3,8 @@ $node-color-default: grey;
 $site-background-color: #EEEEEE;
 
 /*used for wireframing*/
+
+
 /** {
   border: 1px solid red;
 }*/
@@ -14,13 +16,14 @@ body {
 .node-class,
 .token-container,
 .item-class,
+.item-class-conditional,
+.token-container-conditional,
 .control {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 #scroll-lines {
   height: 300px;
-
 }
 
 #favicon-container {
@@ -69,6 +72,7 @@ svg {
   height: 80px;
   z-index: 0;
   text-align: center;
+  padding-top: 10px;
 }
 
 #controls {
@@ -120,7 +124,7 @@ svg {
   border: 5px solid $node-color-default;
   display: inline-block;
   text-align: center;
-  -webkit-transform:rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
 .item-class.over {
@@ -138,6 +142,31 @@ svg {
   margin-right: 10px;
   display: inline-block;
   transform: translate(0%, 50%);
+}
+
+.token-container-conditional {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  z-index: 2;
+  border: 5px solid $node-color-default;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  -webkit-transform: rotate(-45deg) translate(0%, 50%);
+  -webkit-transform-origin: 50% 90%;
+  vertical-align: top;
+}
+
+.token-conditional {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.token-conditional > div {
+  -webkit-transform: rotate(45deg) translate(0%, 50%);
+  -webkit-transform-origin: 50% 90%;
 }
 
 .control {
