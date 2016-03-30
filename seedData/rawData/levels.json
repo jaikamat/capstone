@@ -18,5 +18,11 @@
 		"map": 4,
 		"scroll": 2,
 		"difficulty": "Beginner"
+	},
+	{
+		"map": 3,
+		"scroll": 4,
+		"difficulty": "Intermediate"
 	}
+
 ]
