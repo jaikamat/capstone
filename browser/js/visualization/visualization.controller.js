@@ -211,6 +211,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         $timeout(function () {
           $state.go('level', { levelNum: (Number($stateParams.levelNum)) + 1 }, { reload: true, inherit: false, notify: true });
         }, 1000)
+        // $timeout(function () {
+        //   $state.reload();
+        // }, 1100)
       }
     }
   };
