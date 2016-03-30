@@ -1,5 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('visualization', {
+        cache: false,
         url: '/level/:levelNum',
         templateUrl: 'js/visualization/visualization.html',
         controller: 'VisualizationCtrl',

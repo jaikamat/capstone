@@ -10,16 +10,14 @@ var schema = new mongoose.Schema({
   }]
 });
 
-schema.statics.getStatsByUserId = function(userId) {
+schema.statics.getUserStatsByUserId = function(userId) {
   var self = this;
-  return self.findById(userId).then(function(userStats) {
+  return self.findOne({userId: userId}).then(function(userStats) {
     if (!userStats) {
       return self.init(userId);
     } else {
       return userStats;
     }
-  }).then(function(userStats) {
-    return userStats.levelStats;
   });
 };
 

@@ -3,8 +3,7 @@ var router = require('express').Router();
 var UserStats = require('mongoose').model('UserStats');
 
 router.get('/:userId', function(req, res, next) {
-  console.log('CHALK');
-  UserStats.getStatsByUserId(req.params.userId)
+  UserStats.getUserStatsByUserId(req.params.userId)
       .then(function(userStats) {
         res.json(userStats);
       })

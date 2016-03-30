@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeout, $state, $stateParams) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
@@ -114,7 +114,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
     var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
     var arrayToIterateOver = [scroll.start].concat(arrayOfItems).concat(scroll.end);
-    console.log("ARRAYTOITERATEOVER FFS", arrayToIterateOver);
 
     for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
       paths[i] = {
@@ -238,6 +237,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
       // this is a terrible, idea, just hacked for visuals
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
+        $timeout(function () {
+          $state.go('level', { levelNum: (Number($stateParams.levelNum)) + 1 }, { reload: true, inherit: false, notify: true });
+        }, 1000)
       }
     }
   };
@@ -273,6 +275,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory) {
   //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
   //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
   // }
+
+  // function checkState (stateString) {
+  //   if $state.includes(stateString) return 'white';
+  //   return null;
+  // }
+
+  // $scope.checkState = checkState;
 
   function animatePlayer() {
     var player = $('#player');
