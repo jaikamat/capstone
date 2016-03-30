@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="title">Level Selector</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3"
+         ng-repeat="difficultyLevelModel in difficultyLevelModels">
+      <div class="difficulty-level-progress">
+        <h3 class="difficultyName">{{ difficultyLevelModel.difficulty }}</h3>
+        <div>
+          <div class="progress-status">{{ difficultyLevelModel.numComplete }} / {{ difficultyLevelModel.numLevels }}</div>
+          <div
+              round-progress
+              max="difficultyLevelModel.numLevels"
+              current="difficultyLevelModel.numComplete"
+              color="{{difficultyLevelModel.fontColor}}"
+              bgcolor="#dddddd"
+              radius="50"
+              stroke="10"
+              duration="1000"
+              animation="easeInOutQuart"
+              animation-delay="0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <md-grid-list md-cols="15"
+                  md-row-height="60px"
+                  md-gutter="20px">
+      <md-grid-tile ui-sref="" ng-cloak ng-repeat="levelStat in levelStats">
+        <div ng-if="levelStat.completed"
+             ng-class="{ 'beginner-solid-circle': levelStat.difficulty === 'beginner',
+                         'intermediate-solid-circle': levelStat.difficulty === 'intermediate',
+                         'advanced-solid-circle': levelStat.difficulty === 'advanced',
+                         'expert-solid-circle': levelStat.difficulty === 'expert' }">
+          {{ levelStat.levelId }}
+        </div>
+        <div ng-if="levelStat.unlocked && !levelStat.completed"
+             ng-class="{ 'beginner-hollow-circle': levelStat.difficulty === 'beginner',
+                         'intermediate-hollow-circle': levelStat.difficulty === 'intermediate',
+                         'advanced-hollow-circle': levelStat.difficulty === 'advanced',
+                         'expert-hollow-circle': levelStat.difficulty === 'expert' }">
+          {{ levelStat.levelId }}
+        </div>
+        <div ng-if="!levelStat.unlocked"
+             ng-class="{ 'beginner-hollow-circle': levelStat.difficulty === 'beginner',
+                         'intermediate-hollow-circle': levelStat.difficulty === 'intermediate',
+                         'advanced-hollow-circle': levelStat.difficulty === 'advanced',
+                         'expert-hollow-circle': levelStat.difficulty === 'expert' }">
+          <img class="padlock" src="js/level-select/padlock.png">
+        </div>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>
+
