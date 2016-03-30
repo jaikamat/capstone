@@ -227,7 +227,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       });
 
       origin = $scope.game.scroll.pointer;
+      let gemsCollected = $scope.game.map.gemsCollected;
       $scope.game.advance();
+      if (gemsCollected !== $scope.game.map.gemsCollected) {
+        var coin = document.getElementById('coin');
+        coin.load();
+        coin.play();
+      }
       destination = $scope.game.scroll.pointer;
       animatePointer(origin, destination);
       animatePlayer();
