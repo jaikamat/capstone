@@ -130,10 +130,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
     var paths = [];
     for (let i = 0; i < allItems.length - 1; i++) {
+      debugger;
       if (i === 0) {
         paths.push({
-          pathBegin: 0,
-          pathEnd: 1,
           x1: allItems[0].coords[0] + TOKEN_WITDH / 2,
           y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
           x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
@@ -145,8 +144,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         if (allItems[allItems[i].next]) destination = allItems[allItems[i].next];
         else destination = allItems[i].next;
         paths.push({
-          pathBegin: i,
-          pathEnd: destination,
           x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: destination.coords[0] + TOKEN_WITDH / 2,
@@ -161,8 +158,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         if (allItems[allItems[i].falsePath]) falseDestination = allItems[allItems[i].falsePath];
         else falseDestination = allItems[i].falsePath;
         paths.push({
-          pathBegin: i,
-          pathEnd: allItems[i].truePath,
           x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
@@ -170,8 +165,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           color: 'green'
         });
         paths.push({
-          pathBegin: i,
-          pathEnd: allItems[i].falsePath,
           x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
