@@ -245,6 +245,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
   // }
 
+  // function checkState (stateString) {
+  //   if $state.includes(stateString) return 'white';
+  //   return null;
+  // }
+
+  // $scope.checkState = checkState;
+
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');

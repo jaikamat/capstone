@@ -3,6 +3,8 @@ $node-color-default: grey;
 $site-background-color: #EEEEEE;
 
 /*used for wireframing*/
+
+
 /** {
   border: 1px solid red;
 }*/
@@ -10,6 +12,31 @@ $site-background-color: #EEEEEE;
 body {
     background-color: $site-background-color;
 }
+
+/*#ultra-game-wrapper #scroll {
+    background-color: #D1D3CB;
+}*/
+
+/*-----STUFF IN BLOCS TEMPLATE-----*/
+
+#bloc-8 {
+    background-color: #444444;
+}
+
+#nav-bloc {
+    background-color: #444444;
+}
+
+#navBlocWhite {
+    background-color: #FFFFFF;
+}
+
+#bloc-2 {
+  background-color: #f0f0f0;
+}
+
+
+/*-----END STUFF IN BLOCS TEMPLATE-----*/
 
 .node-class,
 .token-container,
@@ -21,7 +48,6 @@ body {
 #scroll-lines {
     height: 80px;
     background-color: transparent;
-
 }
 
 #favicon-container {
@@ -203,18 +229,18 @@ svg {
 }
 
 #player {
-  width: 0px;
-  height: 0px;
-  border-radius: 50%;
-  background-color: #FFFFFF;
-  z-index: 3;
-  position: absolute;
-  transition: top 0.4s, left 0.4s;
-  opacity: 0;
-  text-align: middle;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    z-index: 3;
+    position: absolute;
+    transition: top 0.4s, left 0.4s;
+    opacity: 0;
+    text-align: middle;
 }
 
 #player-img {
-  width: 20px;
-  height: auto;
+    width: 20px;
+    height: auto;
 }
