@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="container">
   <div class="row">
     <div class="title">Level Selector</div>
@@ -29,8 +28,10 @@
     <md-grid-list md-cols="15"
                   md-row-height="60px"
                   md-gutter="20px">
-      <md-grid-tile ui-sref="level({ levelNum: levelStat.levelId })" ng-cloak ng-repeat="levelStat in levelStats">
+      <md-grid-tile ng-cloak ng-repeat="levelStat in levelStats">
         <div ng-if="levelStat.completed"
+             ui-sref="level({ levelNum: levelStat.levelId })"
+             class="clickable"
              ng-class="{ 'beginner-solid-circle': levelStat.difficulty === 'beginner',
                          'intermediate-solid-circle': levelStat.difficulty === 'intermediate',
                          'advanced-solid-circle': levelStat.difficulty === 'advanced',
@@ -38,6 +39,8 @@
           {{ levelStat.levelId }}
         </div>
         <div ng-if="levelStat.unlocked && !levelStat.completed"
+             ui-sref="level({ levelNum: levelStat.levelId })"
+             class="clickable"
              ng-class="{ 'beginner-hollow-circle': levelStat.difficulty === 'beginner',
                          'intermediate-hollow-circle': levelStat.difficulty === 'intermediate',
                          'advanced-hollow-circle': levelStat.difficulty === 'advanced',
