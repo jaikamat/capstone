@@ -56,7 +56,6 @@ app.run(function ($rootScope, AuthService, $state) {
         });
 
     });
-
 });
 
 

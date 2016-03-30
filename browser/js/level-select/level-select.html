@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container">
   <div class="row">
     <div class="title">Level Selector</div>
@@ -28,7 +29,7 @@
     <md-grid-list md-cols="15"
                   md-row-height="60px"
                   md-gutter="20px">
-      <md-grid-tile ui-sref="" ng-cloak ng-repeat="levelStat in levelStats">
+      <md-grid-tile ui-sref="level({ levelNum: levelStat.levelId })" ng-cloak ng-repeat="levelStat in levelStats">
         <div ng-if="levelStat.completed"
              ng-class="{ 'beginner-solid-circle': levelStat.difficulty === 'beginner',
                          'intermediate-solid-circle': levelStat.difficulty === 'intermediate',
@@ -54,4 +55,3 @@
     </md-grid-list>
   </div>
 </div>
-

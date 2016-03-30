@@ -9,7 +9,9 @@ function seedScrolls () {
 		scrollData.map(function (element, index) {
 			return {
 				scrollId: index + 1,
-				data: element
+				data: element.data,
+				scrollCoords: element.scrollCoords,
+				bezierData: element.bezierData
 			}
 		})
 	)

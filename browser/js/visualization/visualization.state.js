@@ -1,11 +1,12 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('visualization', {
-        url: '/visualization',
+        cache: false,
+        url: '/level/:levelNum',
         templateUrl: 'js/visualization/visualization.html',
         controller: 'VisualizationCtrl',
         resolve: {
-        	game: function (EvalFactory) {
-        		return EvalFactory.initializeGame(1)
+        	game: function (EvalFactory, $stateParams) {
+        		return EvalFactory.initializeGame($stateParams.levelNum)
         		.then(function(){
         			return EvalFactory;
         		})
