@@ -111,21 +111,76 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   }
 
   function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
-    var paths = {};
+    // var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
-    var arrayToIterateOver = [scroll.start].concat(arrayOfItems).concat(scroll.end);
+    var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
 
-    for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
-      paths[i] = {
-        pathBegin: i,
-        pathEnd: i + 1,
-        x1: arrayToIterateOver[i].coords[0] + TOKEN_WITDH / 2,
-        y1: arrayToIterateOver[i].coords[1] + TOKEN_WITDH / 2,
-        x2: arrayToIterateOver[i + 1].coords[0] + TOKEN_WITDH / 2,
-        y2: arrayToIterateOver[i + 1].coords[1] + TOKEN_WITDH / 2
+    console.log("allItems", allItems);
+
+    // for (let i = 0; i < allItems.length - 1; i++) {
+    //   paths[i] = {
+    //     pathBegin: i,
+    //     pathEnd: i + 1,
+    //     x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+    //     y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+    //     x2: allItems[i + 1].coords[0] + TOKEN_WITDH / 2,
+    //     y2: allItems[i + 1].coords[1] + TOKEN_WITDH / 2
+    //   };
+    // }
+
+    var paths = [];
+    for (let i = 0; i < allItems.length - 1; i++) {
+      if (i === 0) {
+        paths.push({
+          pathBegin: 0,
+          pathEnd: 1,
+          x1: allItems[0].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
+          x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
+          y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
+          color: 'gray'
+        });
+      } else if (allItems[i].hasOwnProperty('next')) {
+        let destination;
+        if (allItems[allItems[i].next]) destination = allItems[allItems[i].next];
+        else destination = allItems[i].next;
+        paths.push({
+          pathBegin: i,
+          pathEnd: destination,
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: destination.coords[0] + TOKEN_WITDH / 2,
+          y2: destination.coords[1] + TOKEN_WITDH / 2,
+          color: 'gray'
+        });
+      } else if (allItems[i].hasOwnProperty('truePath')) {
+        let trueDestination;
+        if (allItems[allItems[i].truePath]) trueDestination = allItems[allItems[i].truePath];
+        else trueDestination = allItems[i].truePath;
+        let falseDestination;
+        if (allItems[allItems[i].falsePath]) falseDestination = allItems[allItems[i].falsePath];
+        else falseDestination = allItems[i].falsePath;
+        paths.push({
+          pathBegin: i,
+          pathEnd: allItems[i].truePath,
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
+          y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
+          color: 'green'
+        });
+        paths.push({
+          pathBegin: i,
+          pathEnd: allItems[i].falsePath,
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
+          y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
+          color: 'red'
+        });
       }
     }
-
+    console.log("Paths:", paths);
     return paths;
   }
 
@@ -244,7 +299,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
         $timeout(function () {
-          $state.go('level', { levelNum: (Number($stateParams.levelNum)) + 1 }, { reload: true, inherit: false, notify: true });
+          $state.go('level', {
+            levelNum: (Number($stateParams.levelNum)) + 1
+          }, {
+            reload: true,
+            inherit: false,
+            notify: true
+          });
         }, 1000)
       }
     }
