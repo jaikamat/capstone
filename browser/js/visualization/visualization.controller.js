@@ -130,7 +130,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
     var paths = [];
     for (let i = 0; i < allItems.length - 1; i++) {
-      debugger;
       if (i === 0) {
         paths.push({
           x1: allItems[0].coords[0] + TOKEN_WITDH / 2,

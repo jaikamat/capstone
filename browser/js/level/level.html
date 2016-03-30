@@ -39,7 +39,7 @@
       <div id="item-end" class="item-class" style="background-color: grey; position: absolute; top: {{ game.scroll.end.coords[1] }}px; left: {{ game.scroll.end.coords[0] }}px">
       </div>
       <svg id="scroll-lines" class="animated fadeIn animDelay1">
-        <path id="scroll-path-{{ pathId }}" ng:attr:d="M {{ path.x1 }} {{ path.y1 }} L {{ path.x2 }} {{ path.y2 }}" ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="20px" />
+        <path id="scroll-path-{{ pathId }}" ng:attr:d="M {{ path.x1 }} {{ path.y1 }} L {{ path.x2 }} {{ path.y2 }}" ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="10px" />
       </svg>
     </div>
     <div id="tokens" class="animated fadeInUp animDelay08">
