@@ -1,4 +1,4 @@
-<div class="bloc bgc-white l-bloc sticky-nav" id="nav-bloc">
+<div class="bloc bgc-white d-bloc sticky-nav" id="nav-bloc">
     <div class="container bloc-sm">
         <nav class="navbar row">
             <div class="navbar-header">
@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse navbar-1">
                 <ul class="site-navigation nav navbar-nav">
                     <li>
-                        <a ui-sref="level({ levelNum: 1 })">Play Now</a>
+                        <a ui-sref="level({ levelNum: 1 })">Play Now {{state}}</a>
                     </li>
                     <li>
                         <a ng-show="isLoggedIn()" ui-sref="level-select({ userId: user._id })">Your Stats</a>
