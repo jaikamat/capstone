@@ -5,9 +5,9 @@ $site-background-color: #EEEEEE;
 /*used for wireframing*/
 
 
-* {
+/** {
   border: 1px solid red;
-}
+}*/
 
 body {
     background-color: $site-background-color;
@@ -87,7 +87,7 @@ svg {
     position: absolute;
     left: 50%;
     margin-left: -400px;
-    transform: translate(0, -25%);
+    /*transform: translate(0, -25%);*/
     margin-top: 50px;
 }
 
@@ -167,7 +167,7 @@ svg {
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
-    transform: translate(0%, 50%);
+    transform: translate(0%, -10%);
 }
 
 .vertically-centered {
