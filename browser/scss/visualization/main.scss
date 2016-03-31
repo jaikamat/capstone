@@ -278,6 +278,7 @@ svg {
     position: absolute;
     transition: top 0.4s, left 0.4s;
     text-align: middle;
+    transform: translate(-35%, -40%);
     @include clearfix;
 }
 

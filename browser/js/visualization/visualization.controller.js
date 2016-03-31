@@ -3,7 +3,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
-  var RUN_INTERVAL = 1000;
+  var RUN_INTERVAL = 400;
 
   var scrollCoords = $scope.game.scrollCoords;
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
@@ -253,6 +253,15 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     return Array(integer);
   }
 
+  function checkTokenInsertion () {
+    var items = [].slice.call($('.read-these'));
+    var conditionals = [].slice.call($('.item-class-conditional'));
+    var tokens = [].slice.call($('.read-these').children());
+    if (items.length !== tokens.length) return false;
+    return true;
+      
+  }
+
   function repeatFunc(func, interval) {
     var failure = "Goal not reached!";
     var success = "Level completed!";
@@ -265,23 +274,29 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         window.clearInterval($scope.intervalId);
         $scope.reset();
         $scope.$digest();
+        $scope.intervalId = null;
       }
       else if ($scope.game.gameMessage === success) {
         $scope.isRunning = false;
         window.clearInterval($scope.intervalId);
+        $scope.intervalId = null;
       }
     }, interval);
   }
 
   $scope.repeatRun = function () {
-    if (!$scope.isRunning) $scope.isRunning = true;
-    else return
+    if (!$scope.isRunning && checkTokenInsertion()) $scope.isRunning = true;
+    else {
+      console.log("Please insert all tokens to continue");
+      return;
+    };
     repeatFunc($scope.run, RUN_INTERVAL);
   }
 
   $scope.pause = function () {
     window.clearInterval($scope.intervalId);
     $scope.isRunning = false;
+    $scope.intervalId = null;
   }
 
   $scope.run = function () {
@@ -354,7 +369,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
     $scope.tokens = getTokens();
     $scope.conditionals = getConditionals();
-    
+
     var pointer = $('#pointer');
     pointer.animate({
       top: ($scope.game.scroll.start.coords[1] - 15) + 'px',
@@ -388,9 +403,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         left: (destinationCoords[0] + 30) + 'px'
       });
       playerImg.animate({
-        width: '100px'
+        width: '400px'
       }, 200).animate({
-        width: '20px'
+        width: '70px'
       }, 200);
       var jump = document.getElementById('jump');
       jump.load();
