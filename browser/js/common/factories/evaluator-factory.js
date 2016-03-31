@@ -28,10 +28,10 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 				return $http.get('/api/levels/' + levelNumber) //make a http request to the backend
 				.then(function (res) {
           if(res.data === 'tutorialEnd') {
-            $state.go('signup');
+            $state.go('trialEnded');
           }
           else if(res.data === 'playMore') {
-            $state.go('home');
+            $state.go('unauthorizedLevel');
           }
           else {
             self.map = MapFactory.createNewBoard(res.data.map.data); //create the map
@@ -45,6 +45,9 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
             mapCache = res.data.map.data;
             scrollCache = res.data.scroll.data;
             paramsCache = res.data.params.data;
+            self.stepCounter = 0;
+            self.validGame = true;
+            self.gameMessage = "";
           }
 				});
 			}
