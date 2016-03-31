@@ -38,6 +38,9 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 					mapCache = res.data.map.data;
 					scrollCache = res.data.scroll.data;
 					paramsCache = res.data.params.data;
+					self.stepCounter = 0;
+					self.validGame = true;
+					self.gameMessage = "";
 				});
 			}
 		},
