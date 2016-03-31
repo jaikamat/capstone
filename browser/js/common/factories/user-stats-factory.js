@@ -7,6 +7,9 @@ app.factory('UserStatsFactory', function($http) {
           .then(function(response) {
             return response.data;
           });
+    },
+    completeLevel: function(levelNum) {
+      return $http.put('/api/user-stats/', {level: levelNum});
     }
   }
 });
