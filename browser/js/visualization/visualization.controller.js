@@ -11,6 +11,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
   $scope.tokens = getTokens();
+  $scope.conditionals = getConditionals();
 
   //------------------------------------------
 
@@ -110,21 +111,68 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   }
 
   function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
-    var paths = {};
+    // var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
-    var arrayToIterateOver = [scroll.start].concat(arrayOfItems).concat(scroll.end);
+    var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
 
-    for (let i = 0; i < arrayToIterateOver.length - 1; i++) {
-      paths[i] = {
-        pathBegin: i,
-        pathEnd: i + 1,
-        x1: arrayToIterateOver[i].coords[0] + TOKEN_WITDH / 2,
-        y1: arrayToIterateOver[i].coords[1] + TOKEN_WITDH / 2,
-        x2: arrayToIterateOver[i + 1].coords[0] + TOKEN_WITDH / 2,
-        y2: arrayToIterateOver[i + 1].coords[1] + TOKEN_WITDH / 2
+    console.log("allItems", allItems);
+
+    // for (let i = 0; i < allItems.length - 1; i++) {
+    //   paths[i] = {
+    //     pathBegin: i,
+    //     pathEnd: i + 1,
+    //     x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+    //     y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+    //     x2: allItems[i + 1].coords[0] + TOKEN_WITDH / 2,
+    //     y2: allItems[i + 1].coords[1] + TOKEN_WITDH / 2
+    //   };
+    // }
+
+    var paths = [];
+    for (let i = 0; i < allItems.length - 1; i++) {
+      if (i === 0) {
+        paths.push({
+          x1: allItems[0].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
+          x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
+          y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
+          color: 'gray'
+        });
+      } else if (allItems[i].hasOwnProperty('next')) {
+        let destination;
+        if (allItems[allItems[i].next]) destination = arrayOfItems[allItems[i].next];
+        else destination = allItems[i].next;
+        paths.push({
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: destination.coords[0] + TOKEN_WITDH / 2,
+          y2: destination.coords[1] + TOKEN_WITDH / 2,
+          color: 'gray'
+        });
+      } else if (allItems[i].hasOwnProperty('truePath')) {
+        let trueDestination;
+        if (allItems[allItems[i].truePath]) trueDestination = arrayOfItems[allItems[i].truePath];
+        else trueDestination = allItems[i].truePath;
+        let falseDestination;
+        if (allItems[allItems[i].falsePath]) falseDestination = arrayOfItems[allItems[i].falsePath];
+        else falseDestination = allItems[i].falsePath;
+        paths.push({
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
+          y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
+          color: 'green'
+        });
+        paths.push({
+          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
+          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
+          x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
+          y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
+          color: 'red'
+        });
       }
     }
-
+    console.log("Paths:", paths);
     return paths;
   }
 
@@ -179,26 +227,60 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     return arr;
   }
 
+  function getConditionals() {
+    var arr = [];
+    $scope.game.params.conditionals.forEach(function (conditional) {
+      let text, color;
+      if (!isNaN(conditional)) {
+        text = conditional.toString();
+        color = 'white';
+      } else {
+        text = '';
+        color = conditional;
+      }
+      arr.push({
+        text: text,
+        color: color
+      });
+    });
+    return arr;
+  }
+
   function getNumberForNgRepeat(integer) { // hack for ng-repeat
     return Array(integer);
   }
 
   $scope.run = function () {
-    var items = [].slice.call($('.item-class'), 1, -1);
-    var tokens = [].slice.call($('.item-class').children());
+    var items = [].slice.call($('.read-these'));
+    var conditionals = [].slice.call($('.item-class-conditional'));
+    var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) {
       console.log("Please insert all tokens before clicking the Play button.");
     } else {
-      $('.item-class').children().removeAttr('draggable');
+      $('.read-these').children().removeAttr('draggable');
 
       var current, currentNode, last, origin, destination, previousOrigin;
 
       items.forEach(function (item, index) {
-        $scope.game.scroll.items[index].color = tokens[index].style.backgroundColor;
+        if (item.id.split('-')[0] === 'item') {
+          $scope.game.scroll.items[index].color = tokens[index].style.backgroundColor;
+        } else {
+          if (tokens[index].firstChild.innerHTML) {
+            $scope.game.scroll.items[index].condition = +tokens[index].firstChild.innerHTML;
+          } else {
+            $scope.game.scroll.items[index].condition = tokens[index].style.backgroundColor;
+          }
+        }
       });
 
       origin = $scope.game.scroll.pointer;
+      let gemsCollected = $scope.game.map.gemsCollected;
       $scope.game.advance();
+      if (gemsCollected !== $scope.game.map.gemsCollected) {
+        var coin = document.getElementById('coin');
+        coin.load();
+        coin.play();
+      }
       destination = $scope.game.scroll.pointer;
       animatePointer(origin, destination);
       animatePlayer();
@@ -209,7 +291,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
         $timeout(function () {
-          $state.go('level', { levelNum: (Number($stateParams.levelNum)) + 1 }, { reload: true, inherit: false, notify: true });
+          $state.go('level', {
+            levelNum: (Number($stateParams.levelNum)) + 1
+          }, {
+            reload: true,
+            inherit: false,
+            notify: true
+          });
         }, 1000)
       }
     }
@@ -225,10 +313,12 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     $scope.scrollItemConnections = getScrollCoordinates($scope.game.scroll);
 
     var items = [].slice.call($('.item-class'));
+    items = items.concat([].slice.call($('.item-class-conditional')));
     items.forEach(function (item) {
       if (item.firstChild) item.removeChild(item.firstChild);
     });
     $scope.tokens = getTokens();
+    $scope.conditionals = getConditionals();
 
     var pointer = $('#pointer');
     pointer.animate({

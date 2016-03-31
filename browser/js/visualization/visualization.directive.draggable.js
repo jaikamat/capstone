@@ -8,12 +8,12 @@ app.directive('draggable', function () {
       'dragstart',
       function (e) {
         e.dataTransfer.effectAllowed = 'move';
-        this.style.borderRadius = '50%';
+
         var clone = this.cloneNode(true);
         clone.id = 'clone';
-        clone.style.transform = 'translateX(-500px)';
+        clone.style.transform = 'translateX(-500px) rotate(-45deg)';
         document.body.appendChild(clone);
-        e.dataTransfer.setDragImage(clone, 20, 20);
+        e.dataTransfer.setDragImage(clone, 30, 30);
         this.style.backgroundColor = 'white';
         e.dataTransfer.setData('Text', this.id);
         e.dataTransfer.setData('Parent', this.parentNode.id);
@@ -84,13 +84,14 @@ app.directive('droppable', function () {
 
           var item = document.getElementById(e.dataTransfer.getData('Text'));
           var source = document.getElementById(e.dataTransfer.getData('Parent'));
-          if (this.firstChild) {
-            var oldChild = this.removeChild(this.firstChild);
-            source.appendChild(oldChild);
+          if ((item.id.split('-')[1] === 'token' && this.id.split('-')[0] !== 'conditional') || (item.id.split('-')[1] === 'conditional' && this.id.split('-')[0] === 'conditional')) {
+            if (this.firstChild) {
+              var oldChild = this.removeChild(this.firstChild);
+              source.appendChild(oldChild);
+            }
+            item.style.backgroundColor = item.id.split('-')[0];
+            this.appendChild(item);
           }
-          item.style.backgroundColor = item.id.split('-')[0];
-          this.appendChild(item);
-
 
           return false;
         },
