@@ -5,9 +5,9 @@ $site-background-color: #EEEEEE;
 /*used for wireframing*/
 
 
-* {
+/** {
   border: 1px solid red;
-}
+}*/
 
 body {
     background-color: $site-background-color;
@@ -86,9 +86,6 @@ svg {
 }
 
 #scroll-and-tokens {
-    position: absolute;
-    left: 50%;
-    margin-left: -400px;
     margin-top: 50px;
 }
 
@@ -98,6 +95,7 @@ svg {
   z-index: 0;
   text-align: center;
   padding-top: 10px;
+  margin: 0 auto;
 }
 
 #controls {
@@ -105,16 +103,18 @@ svg {
     height: 80px;
     z-index: 0;
     text-align: center;
+    margin: 0 auto;
 }
 
 #scroll {
     width: 800px;
     height: 80px;
     z-index: 0;
-    /*text-align: center;*/
-    transform: translate(0, -25%);
-    /*margin-left: 15px;*/
+    text-align: center;
+    margin-left: 15px;
     background-color: transparent;
+    margin: 0 auto;
+    @include clearfix;
 }
 
 .orangeTroll {
@@ -144,19 +144,21 @@ svg {
 }
 
 .item-class-conditional {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #ffffff;
   z-index: 2;
   border: 5px solid $node-color-default;
   display: inline-block;
   text-align: center;
-  -webkit-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg) translate(0%, 20%);
 }
 
 .item-class.over {
     border: 5px dashed $node-color-default;
 }
+
+
 
 .token-container {
     width: 50px;
@@ -172,22 +174,22 @@ svg {
 }
 
 .token-container-conditional {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #ffffff;
   z-index: 2;
   border: 5px solid $node-color-default;
   margin-left: 10px;
   margin-right: 10px;
   display: inline-block;
-  -webkit-transform: rotate(-45deg) translate(0%, 50%);
+  -webkit-transform: rotate(-45deg) translate(0%, 85%);
   -webkit-transform-origin: 50% 90%;
   vertical-align: top;
 }
 
 .token-conditional {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   text-align: center;
 }
 
@@ -206,7 +208,7 @@ svg {
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
-    transform: translate(0%, -10%);
+    transform: translate(0%, 50%);
 }
 
 .vertically-centered {
@@ -268,18 +270,18 @@ svg {
 }
 
 #player {
-    width: 0px;
-    height: 0px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    background-color: #FFFFFF;
+    background-color: transparent;
     z-index: 3;
     position: absolute;
     transition: top 0.4s, left 0.4s;
-    opacity: 0;
     text-align: middle;
+    @include clearfix;
 }
 
 #player-img {
-    width: 20px;
-    height: auto;
+    width: 100%;
+    display: block;
 }

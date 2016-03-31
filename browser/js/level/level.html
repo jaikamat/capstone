@@ -18,7 +18,7 @@
 </audio>
 <div id='game-container'>
   <div id="board">
-    <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="hero.png"></div>
+    <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="./img/hero.png"></div>
     <div id="node-{{ nodeId }}" ng-repeat="(nodeId, node) in game.map.nodes" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null, endNode: node.id === game.map.end.id }" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
       <div id="favicon-container" class="animated fadeIn animDelay1">
         <i class="fa fa-circle" ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index"></i>
@@ -43,9 +43,8 @@
       </svg>
         <div id="tokens" class="animated fadeInUp animDelay08">
             <div id="reset" class="control" ng-click="reset()"><span class="glyphicon glyphicon-refresh vertically-centered" /></div>
-            <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
-                <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
-            </div>
+<div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable><div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div></div><div id="conditional-container-{{ $index }}" class="token-container-conditional" ng-repeat="conditional in conditionals" droppable><div id="{{ conditional.color }}-conditional-{{ $index }}" class="token-conditional" style="background-color: {{ conditional.color }}" draggable><div>{{ conditional.text }}</div></div></div>
+            <div id="run" class="control" ng-click="repeatRun()"><span ng-class="{ 'glyphicon-play': !isRunning, 'glyphicon-pause': isRunning }" class="glyphicon vertically-centered" /></div>
             <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-play vertically-centered" /></div>
         </div>
     </div>

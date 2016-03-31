@@ -3,6 +3,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
+  var RUN_INTERVAL = 1000;
 
   var scrollCoords = $scope.game.scrollCoords;
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
@@ -12,6 +13,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
   $scope.tokens = getTokens();
   $scope.conditionals = getConditionals();
+  $scope.isRunning = false;
+  $scope.intervalId = null;
 
   //------------------------------------------
 
@@ -250,6 +253,37 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     return Array(integer);
   }
 
+  function repeatFunc(func, interval) {
+    var failure = "Goal not reached!";
+    var success = "Level completed!";
+
+    $scope.intervalId = setInterval(function () {
+      $scope.isRunning = true;
+      func();
+      if ($scope.game.gameMessage === failure) {
+        $scope.isRunning = false;
+        window.clearInterval($scope.intervalId);
+        $scope.reset();
+        $scope.$digest();
+      }
+      else if ($scope.game.gameMessage === success) {
+        $scope.isRunning = false;
+        window.clearInterval($scope.intervalId);
+      }
+    }, interval);
+  }
+
+  $scope.repeatRun = function () {
+    if (!$scope.isRunning) $scope.isRunning = true;
+    else return
+    repeatFunc($scope.run, RUN_INTERVAL);
+  }
+
+  $scope.pause = function () {
+    window.clearInterval($scope.intervalId);
+    $scope.isRunning = false;
+  }
+
   $scope.run = function () {
     var items = [].slice.call($('.read-these'));
     var conditionals = [].slice.call($('.item-class-conditional'));
@@ -299,16 +333,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
             notify: true
           });
         }, 1000)
-        // $timeout(function () {
-        //   $state.reload();
-        // }, 1100)
       }
     }
   };
 
   $scope.reset = function () {
 
-    EvalFactory.resetGame();
+    $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
     drawMapConnections(getAllConnections($scope.game.map.nodes));
@@ -320,9 +351,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     items.forEach(function (item) {
       if (item.firstChild) item.removeChild(item.firstChild);
     });
+
     $scope.tokens = getTokens();
     $scope.conditionals = getConditionals();
-
+    
     var pointer = $('#pointer');
     pointer.animate({
       top: ($scope.game.scroll.start.coords[1] - 15) + 'px',
