@@ -48,8 +48,8 @@ body {
 }
 
 #scroll-lines {
-    height: 80px;
-    background-color: transparent;
+    height: 200px;
+    /*background-color: transparent;*/
 }
 
 #favicon-container {
@@ -108,7 +108,7 @@ svg {
 
 #scroll {
     width: 800px;
-    height: 80px;
+    height: 200px;
     z-index: 0;
     text-align: center;
     margin-left: 15px;

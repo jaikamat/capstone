@@ -1,9 +1,9 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeout, $state, $stateParams) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeout, $location, $state, $stateParams) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
-  var RUN_INTERVAL = 400;
+  var RUN_INTERVAL = 1000;
 
   var scrollCoords = $scope.game.scrollCoords;
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
@@ -15,6 +15,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   $scope.conditionals = getConditionals();
   $scope.isRunning = false;
   $scope.intervalId = null;
+  // this allows the svg arrowheads to work, by exposing the absolute URL
+  $scope.absUrl = $location.absUrl();
 
   //------------------------------------------
 
@@ -136,6 +138,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
           x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
           y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[1].coords[0] + TOKEN_WITDH / 2) + (allItems[0].coords[0] + TOKEN_WITDH / 2)) / 2,
+          y3: ((allItems[1].coords[1] + TOKEN_WITDH / 2) + (allItems[0].coords[1] + TOKEN_WITDH / 2)) / 2,
           color: 'gray'
         });
       } else if (allItems[i].hasOwnProperty('next')) {
@@ -147,6 +151,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: destination.coords[0] + TOKEN_WITDH / 2,
           y2: destination.coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) + (destination.coords[0] + TOKEN_WITDH / 2)) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) + (destination.coords[1] + TOKEN_WITDH / 2)) / 2,
           color: 'gray'
         });
       } else if (allItems[i].hasOwnProperty('truePath')) {
@@ -161,6 +167,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
           y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) + (trueDestination.coords[0] + TOKEN_WITDH / 2)) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) + (trueDestination.coords[1] + TOKEN_WITDH / 2)) / 2,
           color: 'green'
         });
         paths.push({
@@ -168,12 +176,16 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
           y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) + (falseDestination.coords[0] + TOKEN_WITDH / 2)) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) + (falseDestination.coords[1] + TOKEN_WITDH / 2)) / 2,
           color: 'red'
         });
       }
     }
     return paths;
   }
+
+  $scope.zero = 0;
 
   function setScrollCoordinates(object) { //is invoked with an object of key id and value array { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
     var sW = document.getElementById('scroll').offsetWidth;
@@ -369,20 +381,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
 
   };
 
-  // function initMap () { // lables nodes as start and end and applies styles with animations
-  //   var startNode, endNode;
-
-  //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
-  //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
-  // }
-
-  // function checkState (stateString) {
-  //   if $state.includes(stateString) return 'white';
-  //   return null;
-  // }
-
-  // $scope.checkState = checkState;
-
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');
@@ -394,7 +392,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         left: (destinationCoords[0] + 30) + 'px'
       });
       playerImg.animate({
-        width: '400px'
+        width: '300px'
       }, 200).animate({
         width: '70px'
       }, 200);
