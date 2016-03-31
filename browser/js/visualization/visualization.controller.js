@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeout, $location, $state, $stateParams) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserStatsFactory, $timeout, $state, $stateParams) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
@@ -349,6 +349,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       // this is a terrible, idea, just hacked for visuals
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
+        UserStatsFactory.completeLevel(Number($stateParams.levelNum));
         $timeout(function () {
           $state.go('level', {
             levelNum: (Number($stateParams.levelNum)) + 1
