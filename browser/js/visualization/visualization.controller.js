@@ -115,8 +115,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
     var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
 
-    console.log("allItems", allItems);
-
     // for (let i = 0; i < allItems.length - 1; i++) {
     //   paths[i] = {
     //     pathBegin: i,
@@ -172,7 +170,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         });
       }
     }
-    console.log("Paths:", paths);
     return paths;
   }
 
@@ -284,7 +281,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       destination = $scope.game.scroll.pointer;
       animatePointer(origin, destination);
       animatePlayer();
-      console.log("Game message: ", $scope.game.gameMessage);
 
       // experimental addition for player interaction
       // this is a terrible, idea, just hacked for visuals
@@ -293,10 +289,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
         $timeout(function () {
           $state.go('level', {
             levelNum: (Number($stateParams.levelNum)) + 1
-          }, {
-            reload: true,
-            inherit: false,
-            notify: true
           });
         }, 1000)
       }
@@ -391,7 +383,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
       duration: 1000,
       iterations: 1
     };
-
     var originCoords, destinationCoords;
     if (origin.id === 'start') originCoords = $scope.game.scroll.start.coords;
     else if (origin.id === -1) originCoords = $scope.game.scroll.end.coords;
@@ -409,8 +400,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     });
     // pointer.style.top = destinationCoords[1] + 'px';
     // pointer.style.left = destinationCoords[0] + 'px';
-    console.log("LEFT: ", pointer[0].style.left);
-    console.log("DEST: ", destinationCoords[0]);
   }
 
   (function () {
