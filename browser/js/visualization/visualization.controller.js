@@ -20,7 +20,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
   // draws map connections
   drawMapConnections(getAllConnections($scope.game.map.nodes));
 
-  // for each element, if another object exists with those start and 
+  // for each element, if another object exists with those start and
   // ends swapped, remove it and label bidirectional
   function filterDirection(arrOfConnections) {
     arrOfConnections.forEach(function (singleConnection) {
@@ -35,7 +35,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     })
     return arrOfConnections;
   }
-
   function getAllConnections(nodes) {
     var connections = [];
 
