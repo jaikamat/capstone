@@ -145,7 +145,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
           x3: ((allItems[0].coords[0] + TOKEN_WITDH / 2)*P1 + (allItems[1].coords[0] + TOKEN_WITDH / 2)*P2) / 2,
           y3: ((allItems[0].coords[1] + TOKEN_WITDH / 2)*P1 + (allItems[1].coords[1] + TOKEN_WITDH / 2)*P2) / 2,
-          color: 'gray'
+          color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('next')) {
         let destination;
@@ -158,7 +158,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
           y2: destination.coords[1] + TOKEN_WITDH / 2,
           x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2)*P1 + (destination.coords[0] + TOKEN_WITDH / 2)*P2) / 2,
           y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2)*P1 + (destination.coords[1] + TOKEN_WITDH / 2)*P2) / 2,
-          color: 'gray'
+          color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('truePath')) {
         let trueDestination;

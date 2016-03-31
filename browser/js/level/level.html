@@ -40,12 +40,22 @@
                 </div>
                 <svg id="scroll-lines" class="animated fadeIn animDelay1">
                     <defs>
-                        <marker id="arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                        <marker id="grey-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
                             <path d="M0,0 L0,2 L2,1 z" fill="grey" />
                         </marker>
                     </defs>
+                    <defs>
+                        <marker id="green-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,2 L2,1 z" fill="green" />
+                        </marker>
+                    </defs>
+                    <defs>
+                        <marker id="red-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,2 L2,1 z" fill="red" />
+                        </marker>
+                    </defs>
                     <path id="scroll-path-{{ pathId }}" ng:attr:d="M {{ path.x1 }}, {{ path.y1 }} L {{ path.x3 }}, {{ path.y3 }}, {{ path.x2 }}, {{ path.y2 }}"
-                    ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="8px" marker-mid="url({{ absUrl }}#arrow)" />
+                    ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="8px" marker-mid="url({{ absUrl }}#{{ path.color }}-arrow)" />
                 </svg>
                 <div id="tokens" class="animated fadeInUp animDelay08">
                     <div id="reset" class="control" ng-click="reset()"><span class="glyphicon glyphicon-refresh vertically-centered" /></div>
@@ -58,7 +68,7 @@
                         </div>
                     </div>
                     <div id="run" class="control" ng-click=" isRunning ? pause() : repeatRun()"><span ng-class="{ 'glyphicon-play': !isRunning, 'glyphicon-pause': isRunning }" class="glyphicon vertically-centered" /></div>
-                    <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-play vertically-centered" /></div>
+                    <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-step-forward vertically-centered" /></div>
                 </div>
             </div>
         </div>
