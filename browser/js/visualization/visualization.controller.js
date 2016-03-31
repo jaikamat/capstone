@@ -35,7 +35,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, $timeou
     })
     return arrOfConnections;
   }
-  debugger;
   function getAllConnections(nodes) {
     var connections = [];
 
