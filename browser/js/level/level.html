@@ -18,7 +18,7 @@
 </audio>
 <div id='game-container'>
   <div id="board">
-    <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="hero.png"></div>
+    <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="./img/hero.png"></div>
     <div id="node-{{ nodeId }}" ng-repeat="(nodeId, node) in game.map.nodes" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null, endNode: node.id === game.map.end.id }" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
       <div id="favicon-container" class="animated fadeIn animDelay1">
         <i class="fa fa-circle" ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index"></i>
