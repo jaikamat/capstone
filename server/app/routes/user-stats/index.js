@@ -13,8 +13,7 @@ router.get('/:userId', function(req, res, next) {
 
 router.put('/', function(req, res, next) {
     if(!req.user) {
-      console.log(req.session);
-      res.send("Not logged in");
+      res.status(401).end();
     }
     else {
       UserStats.getUserStatsByUserId(req.user._id)
