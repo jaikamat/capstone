@@ -38,10 +38,8 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
       $scope.error = null;
 
       AuthService.signup(loginInfo).then(function (user) {
-        console.log(user);
         $state.go('home');
       }).catch(function () {
-        console.error("ERROR");
         $scope.error = 'A user already exists for that email.'
       });
     }

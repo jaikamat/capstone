@@ -1,4 +1,4 @@
-app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, ScrollFactory) {
+app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, ScrollFactory, $state) {
 	//These cached objects are used to reset the game so another http request is not required.
 	var mapCache, scrollCache, paramsCache;
 
@@ -19,28 +19,36 @@ app.factory('EvalFactory', function ($http, ParametersFactory, MapFactory, Scrol
 		initializeGame: function (levelNumber) {
 			var self = this;
 			if(levelNumber === 0){
-				self.map = mapCache = MapFactory.createNewBoard(0); 
-				self.scroll = scrollCache = ScrollFactory.createScroll(); 
-				self.params = paramsCache = ParametersFactory.createParameters(); 
+				self.map = mapCache = MapFactory.createNewBoard(0);
+				self.scroll = scrollCache = ScrollFactory.createScroll();
+				self.params = paramsCache = ParametersFactory.createParameters();
 				paramsCache.initBoard(mapCache);
 			}
 			else {
 				return $http.get('/api/levels/' + levelNumber) //make a http request to the backend
 				.then(function (res) {
-					self.map = MapFactory.createNewBoard(res.data.map.data); //create the map
-					self.nodeCoords = res.data.map.nodeCoords; //set the node coordinates
-					self.bezierData = res.data.map.bezierData; //set the svg bezier curve data for the nodes
-					self.scroll = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
-					self.scrollCoords = res.data.scroll.scrollCoords; //set the scroll coordinates
-					self.scrollbezierData = res.data.scroll.bezierData; //set the svg bezier curve data for the scroll
-					self.params = ParametersFactory.createParameters(res.data.params.data); //create the parameters
-					self.params.initBoard(self.map); //initialize the board with the parameters given
-					mapCache = res.data.map.data;
-					scrollCache = res.data.scroll.data;
-					paramsCache = res.data.params.data;
-					self.stepCounter = 0;
-					self.validGame = true;
-					self.gameMessage = "";
+          if(res.data === 'tutorialEnd') {
+            $state.go('trialEnded');
+          }
+          else if(res.data === 'playMore') {
+            $state.go('unauthorizedLevel');
+          }
+          else {
+            self.map = MapFactory.createNewBoard(res.data.map.data); //create the map
+            self.nodeCoords = res.data.map.nodeCoords; //set the node coordinates
+            self.bezierData = res.data.map.bezierData; //set the svg bezier curve data for the nodes
+            self.scroll = ScrollFactory.createScroll(res.data.scroll.data); //create the scroll
+            self.scrollCoords = res.data.scroll.scrollCoords; //set the scroll coordinates
+            self.scrollbezierData = res.data.scroll.bezierData; //set the svg bezier curve data for the scroll
+            self.params = ParametersFactory.createParameters(res.data.params.data); //create the parameters
+            self.params.initBoard(self.map); //initialize the board with the parameters given
+            mapCache = res.data.map.data;
+            scrollCache = res.data.scroll.data;
+            paramsCache = res.data.params.data;
+            self.stepCounter = 0;
+            self.validGame = true;
+            self.gameMessage = "";
+          }
 				});
 			}
 		},
