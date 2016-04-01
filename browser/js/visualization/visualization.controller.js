@@ -15,7 +15,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   $scope.conditionals = getConditionals();
   $scope.isRunning = false;
   $scope.intervalId = null;
-  // this allows the svg arrowheads to work, by exposing the absolute URL
+  // this allows the SVG arrowheads to work, by exposing the absolute URL
   $scope.absUrl = $location.absUrl();
   $scope.repeatRun = repeatRun;
   $scope.reset = reset;
@@ -121,7 +121,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   }
 
-  function createScrollCoordObj(source, destination, color, tokenWidth, arrowPosition) { 
+  function createScrollCoordObj(source, destination, color, tokenWidth, arrowPosition) {
     var destination, P1, P2;
     P1 = 1 + arrowPosition;
     P2 = 1 - arrowPosition;
@@ -151,9 +151,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         dest = allItems[allItems[i].next] ? arrayOfItems[allItems[i].next] : allItems[i].next;
         paths.push(createScrollCoordObj(allItems[i], dest, 'grey', TOKEN_WIDTH, 0.1));
       } else if (allItems[i].hasOwnProperty('truePath')) {
-        let trueDest;
+        let trueDest, falseDest;
         trueDest = allItems[allItems[i].truePath] ? arrayOfItems[allItems[i].truePath] : allItems[i].truePath;
-        let falseDest;
         falseDest = allItems[allItems[i].falsePath] ? arrayOfItems[allItems[i].falsePath] : allItems[i].falsePath;
         paths.push(createScrollCoordObj(allItems[i], trueDest, 'green', TOKEN_WIDTH, 0.1));
         paths.push(createScrollCoordObj(allItems[i], falseDest, 'red', TOKEN_WIDTH, 0.1));
@@ -165,14 +164,12 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   function setScrollCoordinates(object) { //is invoked with an object of key id and value array { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
     var sW = document.getElementById('scroll').offsetWidth;
     var sH = document.getElementById('scroll').offsetHeight;
+    var calc = (param, w, h) => [w * object[param][0] - NODE_WIDTH / 2, h * object[param][1]]
     for (var key in object) {
-      if (key === 'start') {
-        $scope.game.scroll.start.coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
-      } else if (key === 'end') {
-        $scope.game.scroll.end.coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
-      } else {
-        $scope.game.scroll.items[key].coords = [sW * object[key][0] - NODE_WIDTH / 2, sH * object[key][1]];
+      if (key === 'start' || key === 'end') {
+        $scope.game.scroll[key].coords = calc(key, sW, sH);
       }
+      else $scope.game.scroll.items[key].coords = calc(key, sW, sH);
     }
   }
 
@@ -200,8 +197,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     });
   }
 
-  // find all the token nodes and their coords (done)
-  // draw an svg line for each coordinate pair using ng-repeat
   function getTokens() {
     var arr = [];
     ["red", "green", "blue"].forEach(function (color) {
@@ -244,7 +239,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) return false;
     return true;
-
   }
 
   function repeatFunc(func, interval) {
@@ -268,7 +262,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }, interval);
   }
 
-  function repeatRun () {
+  function repeatRun() {
     if (!$scope.isRunning && checkTokenInsertion()) $scope.isRunning = true;
     else {
       console.log("Please insert all tokens to continue");
@@ -277,13 +271,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     repeatFunc($scope.run, RUN_INTERVAL);
   }
 
-  function pause () {
+  function pause() {
     window.clearInterval($scope.intervalId);
     $scope.isRunning = false;
     $scope.intervalId = null;
   }
 
-  function run () {
+  function run() {
     var items = [].slice.call($('.read-these'));
     var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
@@ -319,7 +313,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       animatePlayer();
 
       // experimental addition for player interaction
-      // this is a terrible, idea, just hacked for visuals
+      // this is a terrible idea, just hacked for visuals
       if ($scope.game.gameMessage === 'Level completed!') {
         $('#game-container').fadeOut('slow');
         UserStatsFactory.completeLevel(Number($stateParams.levelNum));
@@ -332,7 +326,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   };
 
-  function reset () {
+  function reset() {
     $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
@@ -354,12 +348,12 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       top: ($scope.game.scroll.start.coords[1] - 27) + 'px',
       left: ($scope.game.scroll.start.coords[0] - 140) + 'px'
     });
-
   };
 
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');
+    var jump, fanfare, warpPipe, gameOver;
 
     if ($scope.game.stepCounter >= 1 && $scope.game.validGame) {
       var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
@@ -372,22 +366,22 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       }, 200).animate({
         width: '70px'
       }, 200);
-      var jump = document.getElementById('jump');
+      jump = document.getElementById('jump');
       jump.load();
       jump.play();
     } else if ($scope.game.stepCounter === 0) {
-      var fanfare = document.getElementById('fanfare');
+      fanfare = document.getElementById('fanfare');
       fanfare.load();
       fanfare.play();
     } else if ($scope.game.gameMessage === 'Level completed!') {
-      var warpPipe = document.getElementById('warp-pipe');
+      warpPipe = document.getElementById('warp-pipe');
       warpPipe.load();
       warpPipe.play();
       playerImg.animate({
         width: '0px'
       });
     } else {
-      var gameOver = document.getElementById('game-over');
+      gameOver = document.getElementById('game-over');
       gameOver.load();
       gameOver.play();
       $scope.reset();
@@ -396,7 +390,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function animatePointer(origin, destination) {
     var pointer = $('#pointer');
-    // var pointer = document.getElementById('pointer');
     var positionKeyframes = [{
       motionOffset: '0%'
     }, {
@@ -413,16 +406,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     if (destination.id === -1) destinationCoords = $scope.game.scroll.end.coords;
     else destinationCoords = $scope.game.scroll.items[destination.id].coords;
 
-    //animate the dot
-    // var motionPath = `M ${originCoords[0]}, ${originCoords[1]} L ${destinationCoords[0]}, ${destinationCoords[1]}`;
-    // pointer.style.motionPath = `path("${motionPath}")`;
-    // pointer.animate(positionKeyframes, positionTiming);
     pointer.animate({
       top: (destinationCoords[1] - 27) + 'px',
       left: (destinationCoords[0] - 140) + 'px'
     });
-    // pointer.style.top = destinationCoords[1] + 'px';
-    // pointer.style.left = destinationCoords[0] + 'px';
   }
 
   (function () {
