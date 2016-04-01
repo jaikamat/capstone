@@ -115,63 +115,36 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   }
 
+  function createScrollCoordObj(source, destination, color, tokenWidth, arrowPosition) { 
+    var destination, P1, P2;
+    P1 = 1 + arrowPosition;
+    P2 = 1 - arrowPosition;
 
-  function conditionalScrollCoordObj(tokenWidth, conditional, arrowPosition) {
     return {
-
+      x1: source.coords[0] + tokenWidth / 2,
+      y1: source.coords[1] + tokenWidth / 2,
+      x2: destination.coords[0] + tokenWidth / 2,
+      y2: destination.coords[1] + tokenWidth / 2,
+      x3: ((source.coords[0] + tokenWidth / 2) * P1 + (destination.coords[0] + tokenWidth / 2) * P2) / 2,
+      y3: ((source.coords[1] + tokenWidth / 2) * P1 + (destination.coords[1] + tokenWidth / 2) * P2) / 2,
+      color: color
     }
   };
 
-  // function instructionScrollCoordObj(item, tokenWidth, instruction, arrowPosition, color) {
-  //   let destination;
-  //   destination = item.next;
-  //   return {
-  //     x1: item.coords[0] + tokenWidth / 2,
-  //     y1: item.coords[1] + tokenWidth / 2,
-  //     x2: destination.coords[0] + tokenWidth / 2,
-  //     y2: destination.coords[1] + tokenWidth / 2,
-  //     x3: ((item.coords[0] + tokenWidth / 2) * P1 + (destination.coords[0] + tokenWidth / 2) * P2) / 2,
-  //     y3: ((item.coords[1] + tokenWidth / 2) * P1 + (destination.coords[1] + tokenWidth / 2) * P2) / 2,
-  //     color: color
-  //   }
-  // };
-
-
   function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
-    // var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
     var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
-
-    // write a function that takes an object, condition or instruction, that outputs those objects and pushes them
-    // TODO: refactor this UGLEE BEAST
-    var P1 = 1.1;
-    var P2 = 0.9;
 
     var paths = [];
     for (let i = 0; i < allItems.length - 1; i++) {
       if (i === 0) {
-        paths.push({
-          x1: allItems[0].coords[0] + TOKEN_WITDH / 2,
-          y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
-          x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
-          y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[0].coords[0] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[0] + TOKEN_WITDH / 2) * P2) / 2,
-          y3: ((allItems[0].coords[1] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[1] + TOKEN_WITDH / 2) * P2) / 2,
-          color: 'grey'
-        });
+        let afterStart = allItems[1];
+        paths.push(createScrollCoordObj(allItems[i], afterStart, 'grey', TOKEN_WITDH, 0.1));
       } else if (allItems[i].hasOwnProperty('next')) {
         let destination;
         if (allItems[allItems[i].next]) destination = arrayOfItems[allItems[i].next];
         else destination = allItems[i].next;
-        paths.push({
-          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
-          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
-          x2: destination.coords[0] + TOKEN_WITDH / 2,
-          y2: destination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (destination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (destination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
-          color: 'grey'
-        });
+        paths.push(createScrollCoordObj(allItems[i], destination, 'grey', TOKEN_WITDH, 0.1));
       } else if (allItems[i].hasOwnProperty('truePath')) {
         let trueDestination;
         if (allItems[allItems[i].truePath]) trueDestination = arrayOfItems[allItems[i].truePath];
@@ -179,24 +152,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         let falseDestination;
         if (allItems[allItems[i].falsePath]) falseDestination = arrayOfItems[allItems[i].falsePath];
         else falseDestination = allItems[i].falsePath;
-        paths.push({
-          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
-          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
-          x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
-          y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
-          color: 'green'
-        });
-        paths.push({
-          x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
-          y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
-          x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
-          y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
-          color: 'red'
-        });
+        paths.push(createScrollCoordObj(allItems[i], trueDestination, 'green', TOKEN_WITDH, 0.1));
+        paths.push(createScrollCoordObj(allItems[i], falseDestination, 'red', TOKEN_WITDH, 0.1));
       }
     }
     return paths;
