@@ -2,7 +2,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   $scope.game = game;
 
   var NODE_WIDTH = 80;
-  var TOKEN_WITDH = 50;
+  var TOKEN_WIDTH = 50;
   var RUN_INTERVAL = 1000;
 
   var scrollCoords = $scope.game.scrollCoords;
@@ -17,6 +17,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   $scope.intervalId = null;
   // this allows the svg arrowheads to work, by exposing the absolute URL
   $scope.absUrl = $location.absUrl();
+  $scope.repeatRun = repeatRun;
+  $scope.reset = reset;
+  $scope.run = run;
+  $scope.pause = pause;
 
   //------------------------------------------
 
@@ -63,7 +67,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   function specifyBezierCurves(arrOfConnections) {
     arrOfConnections.forEach(function (aConnection) {
       $scope.game.bezierData.forEach(function (element) {
-        if (aConnection.start === element.start && aConnection.end === element.end && aConnection.color === element.color) {
+        if (aConnection.start === element.start 
+          && aConnection.end === element.end 
+          && aConnection.color === element.color) {
           aConnection.curvature = element.curvature;
         }
       });
@@ -107,7 +113,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     $("#lines").append(newPath);
   }
 
-  function setNodeCoordinates(objOfNodeCoords) { //is invoked with an objOfNodeCoords of key id and value array { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
+  function setNodeCoordinates(objOfNodeCoords) { //is invoked with an objOfNodeCoords ex. { 0: [0.5, 0.6], 1: [0.5, 0.6], 2: [0.5, 0.6] }
     var bW = document.getElementById('board').offsetWidth;
     var bH = document.getElementById('board').offsetHeight;
     for (var nodeCoords in objOfNodeCoords) {
@@ -139,21 +145,18 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     for (let i = 0; i < allItems.length - 1; i++) {
       if (i === 0) {
         let afterStart = allItems[1];
-        paths.push(createScrollCoordObj(allItems[i], afterStart, 'grey', TOKEN_WITDH, 0.1));
+        paths.push(createScrollCoordObj(allItems[i], afterStart, 'grey', TOKEN_WIDTH, 0.1));
       } else if (allItems[i].hasOwnProperty('next')) {
-        let destination;
-        if (allItems[allItems[i].next]) destination = arrayOfItems[allItems[i].next];
-        else destination = allItems[i].next;
-        paths.push(createScrollCoordObj(allItems[i], destination, 'grey', TOKEN_WITDH, 0.1));
+        let dest;
+        dest = allItems[allItems[i].next] ? arrayOfItems[allItems[i].next] : allItems[i].next;
+        paths.push(createScrollCoordObj(allItems[i], dest, 'grey', TOKEN_WIDTH, 0.1));
       } else if (allItems[i].hasOwnProperty('truePath')) {
-        let trueDestination;
-        if (allItems[allItems[i].truePath]) trueDestination = arrayOfItems[allItems[i].truePath];
-        else trueDestination = allItems[i].truePath;
-        let falseDestination;
-        if (allItems[allItems[i].falsePath]) falseDestination = arrayOfItems[allItems[i].falsePath];
-        else falseDestination = allItems[i].falsePath;
-        paths.push(createScrollCoordObj(allItems[i], trueDestination, 'green', TOKEN_WITDH, 0.1));
-        paths.push(createScrollCoordObj(allItems[i], falseDestination, 'red', TOKEN_WITDH, 0.1));
+        let trueDest;
+        trueDest = allItems[allItems[i].truePath] ? arrayOfItems[allItems[i].truePath] : allItems[i].truePath;
+        let falseDest;
+        falseDest = allItems[allItems[i].falsePath] ? arrayOfItems[allItems[i].falsePath] : allItems[i].falsePath;
+        paths.push(createScrollCoordObj(allItems[i], trueDest, 'green', TOKEN_WIDTH, 0.1));
+        paths.push(createScrollCoordObj(allItems[i], falseDest, 'red', TOKEN_WIDTH, 0.1));
       }
     }
     return paths;
@@ -192,7 +195,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
       console.log(object)
       if (object.curvature) drawSvgLine(x1, y1, x2, y2, color, object.curvature);
-      // if the object in question has bidirectional: false
+      // TODO: if the object in question has bidirectional: false
       else drawSvgLine(x1, y1, x2, y2, color);
     });
   }
@@ -265,7 +268,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }, interval);
   }
 
-  $scope.repeatRun = function () {
+  function repeatRun () {
     if (!$scope.isRunning && checkTokenInsertion()) $scope.isRunning = true;
     else {
       console.log("Please insert all tokens to continue");
@@ -274,13 +277,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     repeatFunc($scope.run, RUN_INTERVAL);
   }
 
-  $scope.pause = function () {
+  function pause () {
     window.clearInterval($scope.intervalId);
     $scope.isRunning = false;
     $scope.intervalId = null;
   }
 
-  $scope.run = function () {
+  function run () {
     var items = [].slice.call($('.read-these'));
     var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
@@ -329,7 +332,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   };
 
-  $scope.reset = function () {
+  function reset () {
     $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
