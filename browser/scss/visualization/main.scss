@@ -61,6 +61,7 @@ body {
 
 #scroll-lines {
     height: 200px;
+    margin: 0px;
     /*background-color: transparent;*/
 }
 
@@ -102,6 +103,7 @@ svg {
 
 #scroll-and-tokens {
     margin-top: -90px;
+    text-align: center;
 }
 
 #tokens {
@@ -305,4 +307,21 @@ svg {
 #pointer-img {
     width: 50px;
     height: auto;
+}
+
+.inventory {
+    width: 90px;
+    height: 35px;
+    border-radius: 500px;
+    background-color: #BBBBBB;
+    z-index: 2;
+    border: 5px solid $node-color-default;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#label {
+    display: block;
 }
