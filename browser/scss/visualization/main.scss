@@ -7,8 +7,8 @@ $site-background-color: #EEEEEE;
 
 /** {
   border: 1px solid red;
-}
-*/
+}*/
+
 body {
     background-color: $site-background-color;
 }
@@ -85,7 +85,6 @@ body {
 }
 
 #game-container {
-    /*background: url(http://i.imgur.com/tQie8G2.gif) no-repeat center center fixed;*/
     display: inline-block;
     position: absolute;
     width: 100%;
@@ -184,7 +183,7 @@ svg {
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
-    transform: translate(0%, 50%);
+    transform: translate(0%, 10%);
 }
 
 .token-container-conditional {
@@ -196,7 +195,7 @@ svg {
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
-    -webkit-transform: rotate(-45deg) translate(0%, 85%);
+    -webkit-transform: rotate(-45deg) translate(0%, 25%);
     -webkit-transform-origin: 50% 90%;
     vertical-align: top;
 }
@@ -223,7 +222,7 @@ svg {
     margin-right: 10px;
     display: inline-block;
     /*centers the control nodes*/
-    transform: translate(0%, -10%);
+    transform: translate(0%, -50%);
 }
 
 .vertically-centered {
