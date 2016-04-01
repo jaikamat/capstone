@@ -69,6 +69,14 @@
                 <div id="run" class="control" ng-click=" isRunning ? pause() : repeatRun()"><span ng-class="{ 'glyphicon-play': !isRunning, 'glyphicon-pause': isRunning }" class="glyphicon vertically-centered" /></div>
                 <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-step-forward vertically-centered" /></div>
             </div>
+            <div id="inventory" class="inventory" ng-show="game.params.gems.length > 0">
+                <img id="key" src="./img/keys.png" />
+                <span>x {{ game.map.gemsCollected }}/{{ game.params.gems.length }}</span>
+            </div>
         </div>
-    </div>
 </div>
+
+
+
+
+
