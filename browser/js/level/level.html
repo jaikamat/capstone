@@ -1,4 +1,3 @@
-<div id="ultra-game-wrapper">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="style.css" />
 <audio id="jump">
@@ -14,38 +13,62 @@
     <source src="./img/game over.mp3">
 </audio>
 <audio id="coin">
-  <source src="./img/coin.ogg">
+    <source src="./img/coin.ogg">
 </audio>
 <div id='game-container'>
-  <div id="board">
-    <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="./img/hero.png"></div>
-    <div id="node-{{ nodeId }}" ng-repeat="(nodeId, node) in game.map.nodes" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null, endNode: node.id === game.map.end.id }" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
-      <div id="favicon-container" class="animated fadeIn animDelay1">
-        <img ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index" id="key" src="./img/keys.png"/>
-      </div>
+    <img id="bg" src="./img/background7.png" class="animated fadeIn animDelay08">
+    <div id="board">
+        <div id="player" class="animated fadeIn animDelay08" style="position: absolute; top: {{ game.map.nodes[game.map.current.id].coords[1] + 26 }}px; left: {{ game.map.nodes[game.map.current.id].coords[0] + 30 }}px"><img id="player-img" src="./img/hero.png"></div>
+        <div id="node-{{ nodeId }}" ng-repeat="(nodeId, node) in game.map.nodes" class="node-class animated fadeInUp animDelay04" ng-class="{ orangeTroll: node.troll === 'orange', purpleTroll: node.troll === 'purple', noTroll: node.troll === null, endNode: node.id === game.map.end.id }" style="position: absolute; top: {{ node.coords[1] }}px; left: {{ node.coords[0] }}px;">
+            <div id="favicon-container" class="animated fadeIn animDelay1">
+                <img ng-repeat="gem in getNumberForNgRepeat(node.gems) track by $index" id="key" src="./img/keys.png" />
+            </div>
+        </div>
+        <svg id="lines" class="animated fadeIn animDelay1">
+        </svg>
     </div>
-    <svg id="lines" class="animated fadeIn animDelay1">
-    </svg>
-  </div>
-  <div id="scroll-and-tokens">
-    <div id="scroll" class="animated fadeInUp animDelay06">
-      <div id="pointer" style="position: absolute; top: {{ game.scroll.start.coords[1] - 27 }}px; left: {{ game.scroll.start.coords[0] - 140 }}px"><img id="pointer-img" src="./img/pointer.png"></div>
-      <div id="item-start" class="item-class" style="background-color: grey; position: absolute; top: {{ game.scroll.start.coords[1] }}px; left: {{ game.scroll.start.coords[0] }}px">
-      </div>
-      <div id="item-{{ itemId }}" class="item-class read-these" ng-repeat="(itemId, item) in game.scroll.items | items:'Instruction'" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable>
-      </div>
-      <div id="conditional-{{ itemId }}" class="item-class-conditional read-these" ng-repeat="(itemId, item) in game.scroll.items | items:'Conditional'" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable>
-      </div>
-      <div id="item-end" class="item-class" style="background-color: grey; position: absolute; top: {{ game.scroll.end.coords[1] }}px; left: {{ game.scroll.end.coords[0] }}px">
-      </div>
-      <svg id="scroll-lines" class="animated fadeIn animDelay1">
-        <path id="scroll-path-{{ pathId }}" ng:attr:d="M {{ path.x1 }} {{ path.y1 }} L {{ path.x2 }} {{ path.y2 }}" ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="10px" />
-      </svg>
+    <div id="scroll-and-tokens">
+        <div id="scroll" class="animated fadeInUp animDelay06">
+            <div id="pointer" style="position: absolute; top: {{ game.scroll.start.coords[1] - 27 }}px; left: {{ game.scroll.start.coords[0] - 140 }}px"><img id="pointer-img" src="./img/pointer.png"></div>
+            <div id="item-start" class="item-class" style="background-color: grey; position: absolute; top: {{ game.scroll.start.coords[1] }}px; left: {{ game.scroll.start.coords[0] }}px">
+            </div>
+            <div id="item-{{ itemId }}" class="item-class read-these" ng-repeat="(itemId, item) in game.scroll.items | items:'Instruction'" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable>
+            </div>
+            <div id="conditional-{{ itemId }}" class="item-class-conditional read-these" ng-repeat="(itemId, item) in game.scroll.items | items:'Conditional'" style="position: absolute; top: {{ item.coords[1] }}px; left: {{ item.coords[0] }}px" droppable>
+            </div>
+            <div id="item-end" class="item-class" style="background-color: grey; position: absolute; top: {{ game.scroll.end.coords[1] }}px; left: {{ game.scroll.end.coords[0] }}px">
+            </div>
+            <svg id="scroll-lines" class="animated fadeIn animDelay1">
+                <defs>
+                    <marker id="grey-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,2 L2,1 z" fill="grey" />
+                    </marker>
+                </defs>
+                <defs>
+                    <marker id="green-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,2 L2,1 z" fill="green" />
+                    </marker>
+                </defs>
+                <defs>
+                    <marker id="red-arrow" markerWidth="10" markerHeight="10" refx="0" refy="1" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,2 L2,1 z" fill="red" />
+                    </marker>
+                </defs>
+                <path id="scroll-path-{{ pathId }}" ng:attr:d="M {{ path.x1 }}, {{ path.y1 }} L {{ path.x3 }}, {{ path.y3 }}, {{ path.x2 }}, {{ path.y2 }}" ng-repeat="(pathId, path) in scrollItemConnections" stroke="{{ path.color }}" stroke-width="8px" marker-mid="url({{ absUrl }}#{{ path.color }}-arrow)" />
+            </svg>
+            <div id="tokens" class="animated fadeInUp animDelay08">
+                <div id="reset" class="control" ng-click="reset()"><span class="glyphicon glyphicon-refresh vertically-centered" /></div>
+                <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable>
+                    <div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div>
+                </div>
+                <div id="conditional-container-{{ $index }}" class="token-container-conditional" ng-repeat="conditional in conditionals" droppable>
+                    <div id="{{ conditional.color }}-conditional-{{ $index }}" class="token-conditional" style="background-color: {{ conditional.color }}" draggable>
+                        <div>{{ conditional.text }}</div>
+                    </div>
+                </div>
+                <div id="run" class="control" ng-click=" isRunning ? pause() : repeatRun()"><span ng-class="{ 'glyphicon-play': !isRunning, 'glyphicon-pause': isRunning }" class="glyphicon vertically-centered" /></div>
+                <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-step-forward vertically-centered" /></div>
+            </div>
+        </div>
     </div>
-    <div id="tokens" class="animated fadeInUp animDelay08">
-      <div id="{{token.color}}-container-{{ token.id }}" class="token-container" ng-repeat="token in tokens" droppable><div id="{{token.color}}-token-{{ token.id }}" class="token" style="background-color: {{ token.color }}" draggable></div></div><div id="conditional-container-{{ $index }}" class="token-container-conditional" ng-repeat="conditional in conditionals" droppable><div id="{{ conditional.color }}-conditional-{{ $index }}" class="token-conditional" style="background-color: {{ conditional.color }}" draggable><div>{{ conditional.text }}</div></div></div>
-      <div id="controls" class="animated fadeInUp animDelay08">
-        <div id="run" class="control" ng-click="run()"><span class="glyphicon glyphicon-play vertically-centered" /></div><div id="reset" class="control" ng-click="reset()"><span class="glyphicon glyphicon-refresh vertically-centered" /></div>
-      </div>
-    </div>
-  </div>
+</div>

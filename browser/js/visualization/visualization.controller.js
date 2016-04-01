@@ -1,8 +1,9 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserStatsFactory, $timeout, $state, $stateParams) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserStatsFactory, $location, $timeout, $state, $stateParams) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
   var TOKEN_WITDH = 50;
+  var RUN_INTERVAL = 1000;
 
   var scrollCoords = $scope.game.scrollCoords;
   $scope.getNumberForNgRepeat = getNumberForNgRepeat;
@@ -12,6 +13,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   $scope.tokens = getTokens();
   $scope.conditionals = getConditionals();
+  $scope.isRunning = false;
+  $scope.intervalId = null;
+  // this allows the svg arrowheads to work, by exposing the absolute URL
+  $scope.absUrl = $location.absUrl();
 
   //------------------------------------------
 
@@ -35,6 +40,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     })
     return arrOfConnections;
   }
+
   function getAllConnections(nodes) {
     var connections = [];
 
@@ -109,21 +115,37 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   }
 
+
+  function conditionalScrollCoordObj(tokenWidth, conditional, arrowPosition) {
+    return {
+
+    }
+  };
+
+  // function instructionScrollCoordObj(item, tokenWidth, instruction, arrowPosition, color) {
+  //   let destination;
+  //   destination = item.next;
+  //   return {
+  //     x1: item.coords[0] + tokenWidth / 2,
+  //     y1: item.coords[1] + tokenWidth / 2,
+  //     x2: destination.coords[0] + tokenWidth / 2,
+  //     y2: destination.coords[1] + tokenWidth / 2,
+  //     x3: ((item.coords[0] + tokenWidth / 2) * P1 + (destination.coords[0] + tokenWidth / 2) * P2) / 2,
+  //     y3: ((item.coords[1] + tokenWidth / 2) * P1 + (destination.coords[1] + tokenWidth / 2) * P2) / 2,
+  //     color: color
+  //   }
+  // };
+
+
   function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
     // var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
     var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
 
-    // for (let i = 0; i < allItems.length - 1; i++) {
-    //   paths[i] = {
-    //     pathBegin: i,
-    //     pathEnd: i + 1,
-    //     x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
-    //     y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
-    //     x2: allItems[i + 1].coords[0] + TOKEN_WITDH / 2,
-    //     y2: allItems[i + 1].coords[1] + TOKEN_WITDH / 2
-    //   };
-    // }
+    // write a function that takes an object, condition or instruction, that outputs those objects and pushes them
+    // TODO: refactor this UGLEE BEAST
+    var P1 = 1.1;
+    var P2 = 0.9;
 
     var paths = [];
     for (let i = 0; i < allItems.length - 1; i++) {
@@ -133,7 +155,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
           x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
           y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
-          color: 'gray'
+          x3: ((allItems[0].coords[0] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[0].coords[1] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[1] + TOKEN_WITDH / 2) * P2) / 2,
+          color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('next')) {
         let destination;
@@ -144,7 +168,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: destination.coords[0] + TOKEN_WITDH / 2,
           y2: destination.coords[1] + TOKEN_WITDH / 2,
-          color: 'gray'
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (destination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (destination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
+          color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('truePath')) {
         let trueDestination;
@@ -158,6 +184,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
           y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'green'
         });
         paths.push({
@@ -165,6 +193,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
           y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'red'
         });
       }
@@ -203,7 +233,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       var y2 = endCoords[1] + divDiameter;
       var color = object.color;
 
+      console.log(object)
       if (object.curvature) drawSvgLine(x1, y1, x2, y2, color, object.curvature);
+      // if the object in question has bidirectional: false
       else drawSvgLine(x1, y1, x2, y2, color);
     });
   }
@@ -244,6 +276,51 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function getNumberForNgRepeat(integer) { // hack for ng-repeat
     return Array(integer);
+  }
+
+  function checkTokenInsertion() {
+    var items = [].slice.call($('.read-these'));
+    var conditionals = [].slice.call($('.item-class-conditional'));
+    var tokens = [].slice.call($('.read-these').children());
+    if (items.length !== tokens.length) return false;
+    return true;
+
+  }
+
+  function repeatFunc(func, interval) {
+    var failure = "Goal not reached!";
+    var success = "Level completed!";
+
+    $scope.intervalId = setInterval(function () {
+      $scope.isRunning = true;
+      func();
+      if ($scope.game.gameMessage === failure) {
+        $scope.isRunning = false;
+        window.clearInterval($scope.intervalId);
+        $scope.reset();
+        $scope.$digest();
+        $scope.intervalId = null;
+      } else if ($scope.game.gameMessage === success) {
+        $scope.isRunning = false;
+        window.clearInterval($scope.intervalId);
+        $scope.intervalId = null;
+      }
+    }, interval);
+  }
+
+  $scope.repeatRun = function () {
+    if (!$scope.isRunning && checkTokenInsertion()) $scope.isRunning = true;
+    else {
+      console.log("Please insert all tokens to continue");
+      return;
+    };
+    repeatFunc($scope.run, RUN_INTERVAL);
+  }
+
+  $scope.pause = function () {
+    window.clearInterval($scope.intervalId);
+    $scope.isRunning = false;
+    $scope.intervalId = null;
   }
 
   $scope.run = function () {
@@ -296,8 +373,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   };
 
   $scope.reset = function () {
-
-    EvalFactory.resetGame();
+    $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
     drawMapConnections(getAllConnections($scope.game.map.nodes));
@@ -309,6 +385,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     items.forEach(function (item) {
       if (item.firstChild) item.removeChild(item.firstChild);
     });
+
     $scope.tokens = getTokens();
     $scope.conditionals = getConditionals();
 
@@ -319,20 +396,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     });
 
   };
-
-  // function initMap () { // lables nodes as start and end and applies styles with animations
-  //   var startNode, endNode;
-
-  //   startNode = document.getElementById('node-' + EvalFactory.map.current.id);
-  //   endNode = document.getElementById('node-' + EvalFactory.map.end.id);
-  // }
-
-  // function checkState (stateString) {
-  //   if $state.includes(stateString) return 'white';
-  //   return null;
-  // }
-
-  // $scope.checkState = checkState;
 
   function animatePlayer() {
     var player = $('#player');
@@ -345,9 +408,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         left: (destinationCoords[0] + 30) + 'px'
       });
       playerImg.animate({
-        width: '100px'
+        width: '300px'
       }, 200).animate({
-        width: '20px'
+        width: '70px'
       }, 200);
       var jump = document.getElementById('jump');
       jump.load();

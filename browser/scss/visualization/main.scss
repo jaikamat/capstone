@@ -7,15 +7,17 @@ $site-background-color: #EEEEEE;
 
 /** {
   border: 1px solid red;
-}*/
-
+}
+*/
 body {
     background-color: $site-background-color;
 }
 
+
 /*#ultra-game-wrapper #scroll {
     background-color: #D1D3CB;
 }*/
+
 
 /*-----STUFF IN BLOCS TEMPLATE-----*/
 
@@ -32,11 +34,21 @@ body {
 }
 
 #bloc-2 {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 
 /*-----END STUFF IN BLOCS TEMPLATE-----*/
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+}
 
 .node-class,
 .token-container,
@@ -48,8 +60,8 @@ body {
 }
 
 #scroll-lines {
-    height: 80px;
-    background-color: transparent;
+    height: 200px;
+    /*background-color: transparent;*/
 }
 
 #favicon-container {
@@ -73,6 +85,7 @@ body {
 }
 
 #game-container {
+    /*background: url(http://i.imgur.com/tQie8G2.gif) no-repeat center center fixed;*/
     display: inline-block;
     position: absolute;
     width: 100%;
@@ -85,36 +98,39 @@ svg {
     height: 550px;
 }
 
+
+/*changing this value changes the scroll distance from the board*/
+
 #scroll-and-tokens {
-    position: absolute;
-    left: 50%;
-    margin-left: -400px;
-    transform: translate(0, -25%);
-    margin-top: 50px;
+    margin-top: -90px;
 }
 
 #tokens {
-  width: 800px;
-  height: 80px;
-  z-index: 0;
-  text-align: center;
-  padding-top: 10px;
-}
-
-#controls {
     width: 800px;
     height: 80px;
     z-index: 0;
     text-align: center;
+    padding-top: 10px;
+    margin: 0 auto;
 }
+
+
+/*#controls {
+    width: 800px;
+    height: 80px;
+    z-index: 0;
+    text-align: center;
+    margin: 0 auto;
+}*/
 
 #scroll {
     width: 800px;
-    height: 80px;
+    height: 200px;
     z-index: 0;
     text-align: center;
-    margin-left: 15px;
     background-color: transparent;
+    margin: 0 auto;
+    @include clearfix;
 }
 
 .orangeTroll {
@@ -144,14 +160,14 @@ svg {
 }
 
 .item-class-conditional {
-  width: 50px;
-  height: 50px;
-  background-color: #ffffff;
-  z-index: 2;
-  border: 5px solid $node-color-default;
-  display: inline-block;
-  text-align: center;
-  -webkit-transform: rotate(-45deg);
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    z-index: 2;
+    border: 5px solid $node-color-default;
+    display: inline-block;
+    text-align: center;
+    -webkit-transform: rotate(-45deg) translate(0%, 20%);
 }
 
 .item-class.over {
@@ -172,28 +188,28 @@ svg {
 }
 
 .token-container-conditional {
-  width: 50px;
-  height: 50px;
-  background-color: #ffffff;
-  z-index: 2;
-  border: 5px solid $node-color-default;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: inline-block;
-  -webkit-transform: rotate(-45deg) translate(0%, 50%);
-  -webkit-transform-origin: 50% 90%;
-  vertical-align: top;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    z-index: 2;
+    border: 5px solid $node-color-default;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    -webkit-transform: rotate(-45deg) translate(0%, 85%);
+    -webkit-transform-origin: 50% 90%;
+    vertical-align: top;
 }
 
 .token-conditional {
-  width: 40px;
-  height: 40px;
-  text-align: center;
+    width: 30px;
+    height: 30px;
+    text-align: center;
 }
 
 .token-conditional > div {
-  -webkit-transform: rotate(45deg) translate(0%, 50%);
-  -webkit-transform-origin: 50% 90%;
+    -webkit-transform: rotate(45deg) translate(0%, 50%);
+    -webkit-transform-origin: 50% 90%;
 }
 
 .control {
@@ -206,7 +222,8 @@ svg {
     margin-left: 10px;
     margin-right: 10px;
     display: inline-block;
-    transform: translate(0%, 50%);
+    /*centers the control nodes*/
+    transform: translate(0%, -10%);
 }
 
 .vertically-centered {
@@ -268,19 +285,21 @@ svg {
 }
 
 #player {
-    width: 0px;
-    height: 0px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    background-color: #FFFFFF;
+    background-color: transparent;
     z-index: 3;
     position: absolute;
     transition: top 0.4s, left 0.4s;
-    opacity: 0;
     text-align: middle;
+    transform: translate(-35%, -40%);
+    @include clearfix;
 }
 
 #player-img {
-    width: 20px;
+    width: 100%;
+    display: block;
     height: auto;
 }
 

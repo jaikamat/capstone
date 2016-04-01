@@ -1,28 +1,25 @@
-[
-	{
-		"map": 1,
-		"scroll": 1,
-		"difficulty": "Beginner"
-	},
-	{
-		"map": 2,
-		"scroll": 1,
-		"difficulty": "Beginner"
-	},
-	{
-		"map": 3,
-		"scroll": 1,
-		"difficulty": "Beginner"
-	},
-	{
-		"map": 4,
-		"scroll": 2,
-		"difficulty": "Beginner"
-	},
-	{
-		"map": 3,
-		"scroll": 4,
-		"difficulty": "Intermediate"
-	}
-
-]
+[{
+  "map": 1,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 2,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 3,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 4,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 3,
+  "scroll": 4,
+  "difficulty": "Intermediate"
+}, {
+  "map": 1,
+  "scroll": 8,
+  "difficulty": "Intermediate"
+}]
