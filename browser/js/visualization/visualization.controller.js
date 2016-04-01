@@ -391,8 +391,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
     var pointer = $('#pointer');
     pointer.animate({
-      top: ($scope.game.scroll.start.coords[1] - 15) + 'px',
-      left: ($scope.game.scroll.start.coords[0] - 135) + 'px'
+      top: ($scope.game.scroll.start.coords[1] - 27) + 'px',
+      left: ($scope.game.scroll.start.coords[0] - 140) + 'px'
     });
 
   };
@@ -458,8 +458,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     // pointer.style.motionPath = `path("${motionPath}")`;
     // pointer.animate(positionKeyframes, positionTiming);
     pointer.animate({
-      top: (destinationCoords[1] - 15) + 'px',
-      left: (destinationCoords[0] - 135) + 'px'
+      top: (destinationCoords[1] - 27) + 'px',
+      left: (destinationCoords[0] - 140) + 'px'
     });
     // pointer.style.top = destinationCoords[1] + 'px';
     // pointer.style.left = destinationCoords[0] + 'px';

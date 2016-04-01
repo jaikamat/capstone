@@ -261,7 +261,7 @@ svg {
 }
 
 .endNode {
-    background-color: #444444;
+    background-image: url('./img/gate.png');
 }
 
 #straight-routes {
@@ -277,7 +277,7 @@ svg {
     width: 2px;
     height: 2px;
     border-radius: 50%;
-    background-color: #FFFFFF;
+
     z-index: 3;
     position: absolute;
     padding: 8px;
@@ -300,4 +300,11 @@ svg {
 #player-img {
     width: 100%;
     display: block;
+    width: 20px;
+    height: auto;
+}
+
+#pointer-img {
+    width: 50px;
+    height: auto;
 }
