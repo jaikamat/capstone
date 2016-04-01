@@ -1,73 +1,88 @@
+$green: #4CAF50;
+$yellow: #FFEB3B;
+$orange: #FFC107;
+$red: #F44336;
+
+.level-select {
+
+}
+
 .title {
   text-align: center;
-  margin: 0 auto;
+  margin: 5px auto;
   font-size: 48px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
 }
 
 .difficulty-level-progress {
   text-align: center;
-  margin: 50px auto;
+  margin: 30px auto;
 }
 
 .circle {
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
   text-align: center;
   font-weight: bold;
 }
 
+.levels-container {
+  margin-bottom: 30px;
+}
+
 @mixin solid-circle($color) {
   background-color: $color;
-  line-height: 60px;
+  line-height: 50px;
 }
 
 @mixin hollow-circle($color) {
   border: 5px solid $color;
-  line-height: 50px;
+  line-height: 40px;
 }
 
 .beginner-solid-circle {
   @extend .circle;
-  @include solid-circle(#00ff00);
+  @include solid-circle($green);
 }
 
 .intermediate-solid-circle {
   @extend .circle;
-  @include solid-circle(yellow);
+  @include solid-circle($yellow);
 }
 
 .advanced-solid-circle {
   @extend .circle;
-  @include solid-circle(orange);
+  @include solid-circle($orange);
 }
 
 .expert-solid-circle {
   @extend .circle;
-  @include solid-circle(red);
+  @include solid-circle($red);
 }
 
 .beginner-hollow-circle {
   @extend .circle;
-  @include hollow-circle(lime);
+  @include hollow-circle($green);
 }
 
 .intermediate-hollow-circle {
   @extend .circle;
-  @include hollow-circle(yellow);
+  @include hollow-circle($yellow);
 }
 
 .advanced-hollow-circle {
   @extend .circle;
-  @include hollow-circle(orange);
+  @include hollow-circle($orange);
 }
 
 .expert-hollow-circle {
   @extend .circle;
-  @include hollow-circle(red);
+  @include hollow-circle($red);
 }
 
 .padlock {
@@ -85,4 +100,20 @@
 
 .clickable:hover {
   cursor: pointer;
+}
+
+.fa-lock-green {
+  color: $green;
+}
+
+.fa-lock-yellow {
+  color: $yellow;
+}
+
+.fa-lock-orange {
+  color: $orange;
+}
+
+.fa-lock-red {
+  color: $red;
 }
