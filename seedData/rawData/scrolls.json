@@ -298,6 +298,195 @@
     "itemType": "c",
     "conn": {
       "truePath": 1,
+      "falsePath": 3
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 2
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 4
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 2
+    }
+  }, {
+    "itemType": "c",
+    "conn": {
+      "truePath": -1,
+      "falsePath": 0
+    }
+  }],
+  "scrollCoords": {
+    "start": [0.2, 0.8],
+    "0": [0.4, 0.8],
+    "1": [0.3, 0.4],
+    "2": [0.4, 0],
+    "3": [0.5, 0.4],
+    "4": [0.8, 0.8],
+    "end": [0.9, 0.8]
+  },
+  "bezierData": {
+
+  }
+
+}, {
+  "data": [{
+    "itemType": "c",
+    "conn": {
+      "truePath": 1,
+      "falsePath": 4
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 2
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 3
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": -1
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 5
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 6
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 7
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 0
+    }
+  }],
+  "scrollCoords": {
+    "start": [0.25, 0.4],
+    "0": [0.35, 0.4],
+    "1": [0.45, 0],
+    "2": [0.55, 0],
+    "3": [0.65, 0],
+    "4": [0.45, 0.8],
+    "5": [0.55, 0.8],
+    "6": [0.65, 0.8],
+    "7": [0.65, 0.4],
+    "end": [0.75, 0]
+  },
+  "bezierData": {
+
+  }
+
+}, {
+  "data": [{
+    "itemType": "i",
+    "conn": {
+      "next": 1
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 2
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 3
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 4
+    }
+  }, {
+    "itemType": "c",
+    "conn": {
+      "truePath": -1,
+      "falsePath": 0
+    }
+  }],
+  "scrollCoords": {
+    "start": [0.25, 0.5],
+    "0": [0.35, 0.5],
+    "1": [0.45, 0.5],
+    "2": [0.55, 0.5],
+    "3": [0.65, 0.5],
+    "4": [0.65, -0.4],
+    "end": [0.75, 0.5]
+  },
+  "bezierData": {
+
+  }
+}, {
+  "data": [{
+    "itemType": "i",
+    "conn": {
+      "next": 1
+    }
+  }, {
+    "itemType": "c",
+    "conn": {
+      "truePath": 2,
+      "falsePath": 4
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 3
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 5
+    }
+  }, {
+    "itemType": "i",
+    "conn": {
+      "next": 3
+    }
+  }, {
+    "itemType": "c",
+    "conn": {
+      "truePath": -1,
+      "falsePath": 0
+    }
+  }],
+  "scrollCoords": {
+    "start": [0.1, 0.8],
+    "0": [0.4, 0.8],
+    "1": [0.3, 0.4],
+    "2": [0.5, 0.2],
+    "3": [0.7, 0.4],
+    "4": [0.5, 0.6],
+    "5": [0.6, 0.8],
+    "end": [0.9, 0.8]
+  },
+  "bezierData": {
+
+  }
+
+}, {
+  "data": [{
+    "itemType": "c",
+    "conn": {
+      "truePath": 1,
       "falsePath": 4
     }
   }, {

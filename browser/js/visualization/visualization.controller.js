@@ -1,4 +1,4 @@
-app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserStatsFactory, $timeout, $state, $stateParams) {
+app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserStatsFactory, $location, $timeout, $state, $stateParams) {
   $scope.game = game;
 
   var NODE_WIDTH = 80;
@@ -40,6 +40,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     })
     return arrOfConnections;
   }
+
   function getAllConnections(nodes) {
     var connections = [];
 
@@ -114,21 +115,32 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
   }
 
+
+  function conditionalScrollCoordObj(tokenWidth, conditional, arrowPosition) {
+    return {
+
+    }
+  };
+
+  // function instructionScrollCoordObj(item, tokenWidth, instruction, arrowPosition, color) {
+  //   let destination;
+  //   destination = item.next;
+  //   return {
+  //     x1: item.coords[0] + tokenWidth / 2,
+  //     y1: item.coords[1] + tokenWidth / 2,
+  //     x2: destination.coords[0] + tokenWidth / 2,
+  //     y2: destination.coords[1] + tokenWidth / 2,
+  //     x3: ((item.coords[0] + tokenWidth / 2) * P1 + (destination.coords[0] + tokenWidth / 2) * P2) / 2,
+  //     y3: ((item.coords[1] + tokenWidth / 2) * P1 + (destination.coords[1] + tokenWidth / 2) * P2) / 2,
+  //     color: color
+  //   }
+  // };
+
+
   function getScrollCoordinates(scroll) { //takes in the $scope.scroll object
     // var paths = {};
     var arrayOfItems = Object.keys(scroll.items).map(k => scroll.items[k]);
     var allItems = [scroll.start].concat(arrayOfItems).concat(scroll.end);
-
-    // for (let i = 0; i < allItems.length - 1; i++) {
-    //   paths[i] = {
-    //     pathBegin: i,
-    //     pathEnd: i + 1,
-    //     x1: allItems[i].coords[0] + TOKEN_WITDH / 2,
-    //     y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
-    //     x2: allItems[i + 1].coords[0] + TOKEN_WITDH / 2,
-    //     y2: allItems[i + 1].coords[1] + TOKEN_WITDH / 2
-    //   };
-    // }
 
     // write a function that takes an object, condition or instruction, that outputs those objects and pushes them
     // TODO: refactor this UGLEE BEAST
@@ -143,8 +155,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[0].coords[1] + TOKEN_WITDH / 2,
           x2: allItems[1].coords[0] + TOKEN_WITDH / 2,
           y2: allItems[1].coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[0].coords[0] + TOKEN_WITDH / 2)*P1 + (allItems[1].coords[0] + TOKEN_WITDH / 2)*P2) / 2,
-          y3: ((allItems[0].coords[1] + TOKEN_WITDH / 2)*P1 + (allItems[1].coords[1] + TOKEN_WITDH / 2)*P2) / 2,
+          x3: ((allItems[0].coords[0] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[0].coords[1] + TOKEN_WITDH / 2) * P1 + (allItems[1].coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('next')) {
@@ -156,8 +168,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: destination.coords[0] + TOKEN_WITDH / 2,
           y2: destination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2)*P1 + (destination.coords[0] + TOKEN_WITDH / 2)*P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2)*P1 + (destination.coords[1] + TOKEN_WITDH / 2)*P2) / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (destination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (destination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'grey'
         });
       } else if (allItems[i].hasOwnProperty('truePath')) {
@@ -172,8 +184,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: trueDestination.coords[0] + TOKEN_WITDH / 2,
           y2: trueDestination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2)*P1 + (trueDestination.coords[0] + TOKEN_WITDH / 2)*P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2)*P1 + (trueDestination.coords[1] + TOKEN_WITDH / 2)*P2) / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (trueDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'green'
         });
         paths.push({
@@ -181,8 +193,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           y1: allItems[i].coords[1] + TOKEN_WITDH / 2,
           x2: falseDestination.coords[0] + TOKEN_WITDH / 2,
           y2: falseDestination.coords[1] + TOKEN_WITDH / 2,
-          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2)*P1 + (falseDestination.coords[0] + TOKEN_WITDH / 2)*P2) / 2,
-          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2)*P1 + (falseDestination.coords[1] + TOKEN_WITDH / 2)*P2) / 2,
+          x3: ((allItems[i].coords[0] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[0] + TOKEN_WITDH / 2) * P2) / 2,
+          y3: ((allItems[i].coords[1] + TOKEN_WITDH / 2) * P1 + (falseDestination.coords[1] + TOKEN_WITDH / 2) * P2) / 2,
           color: 'red'
         });
       }
@@ -221,7 +233,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       var y2 = endCoords[1] + divDiameter;
       var color = object.color;
 
+      console.log(object)
       if (object.curvature) drawSvgLine(x1, y1, x2, y2, color, object.curvature);
+      // if the object in question has bidirectional: false
       else drawSvgLine(x1, y1, x2, y2, color);
     });
   }
@@ -264,13 +278,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     return Array(integer);
   }
 
-  function checkTokenInsertion () {
+  function checkTokenInsertion() {
     var items = [].slice.call($('.read-these'));
     var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) return false;
     return true;
-      
+
   }
 
   function repeatFunc(func, interval) {
@@ -286,8 +300,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         $scope.reset();
         $scope.$digest();
         $scope.intervalId = null;
-      }
-      else if ($scope.game.gameMessage === success) {
+      } else if ($scope.game.gameMessage === success) {
         $scope.isRunning = false;
         window.clearInterval($scope.intervalId);
         $scope.intervalId = null;
@@ -360,7 +373,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   };
 
   $scope.reset = function () {
-
     $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
