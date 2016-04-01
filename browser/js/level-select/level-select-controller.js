@@ -33,25 +33,25 @@ app.controller('LevelSelectCtrl', function($scope, userStats) {
       difficulty: 'Beginner',
       numComplete: numBeginnerComplete,
       numLevels: numLevelsPerDifficulty,
-      fontColor: 'lime'
+      fontColor: '#4CAF50'
     },
     {
       difficulty: 'Intermediate',
       numComplete: numIntermediateComplete,
       numLevels: numLevelsPerDifficulty,
-      fontColor: 'yellow'
+      fontColor: '#FFEB3B'
     },
     {
       difficulty: 'Advanced',
       numComplete: numAdvancedComplete,
       numLevels: numLevelsPerDifficulty,
-      fontColor: 'orange'
+      fontColor: '#FFC107'
     },
     {
       difficulty: 'Expert',
       numComplete: numExpertComplete,
       numLevels: numLevelsPerDifficulty,
-      fontColor: 'red'
+      fontColor: '#F44336'
     }
   ];
 
