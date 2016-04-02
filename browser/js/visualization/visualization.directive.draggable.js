@@ -9,6 +9,10 @@ app.directive('draggable', function () {
       function (e) {
         e.dataTransfer.effectAllowed = 'move';
 
+        var drag = document.getElementById('drag');
+        drag.load();
+        drag.play();
+
         var clone = this.cloneNode(true);
         clone.id = 'clone';
         clone.style.transform = 'translateX(-500px) rotate(-45deg)';
@@ -26,6 +30,11 @@ app.directive('draggable', function () {
     el.addEventListener(
       'dragend',
       function (e) {
+
+        var drop = document.getElementById('drop');
+        drop.load();
+        drop.play();
+
         this.classList.remove('drag');
         this.style.backgroundColor = this.id.split('-')[0];
         document.getElementById('clone').remove();
