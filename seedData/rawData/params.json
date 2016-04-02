@@ -60,7 +60,7 @@
   "endNode": 4,
   "redTokens": 2,
   "greenTokens": 1,
-  "blueTokens": 0,
+  "blueTokens": 1,
   "gems": [],
   "conditionals": []
 }, {
@@ -104,12 +104,12 @@
   "gems": [4, 4],
   "conditionals": []
 }, { 
-  "startNode": 1,
-  "endNode": 5,
-  "redTokens": 2,
-  "greenTokens": 1,
+  "startNode": 0,
+  "endNode": 4,
+  "redTokens": 1,
+  "greenTokens": 2,
   "blueTokens": 2,
-  "gems": [3, 4],
+  "gems": [4, 4, 5],
   "conditionals": []
 }, { 
   "startNode": 4,

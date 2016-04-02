@@ -302,15 +302,17 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         if (item.id.split('-')[0] === 'item') {
           $scope.game.scroll.items[index].color = tokens[index].style.backgroundColor;
         } else {
-          if (tokens[index].firstChild.innerHTML) {
-            $scope.game.scroll.items[index].condition = +tokens[index].firstChild.innerHTML;
+          if (tokens[index].firstElementChild.innerHTML) {
+            $scope.game.scroll.items[index].condition = +tokens[index].firstElementChild.innerHTML;
           } else {
             $scope.game.scroll.items[index].condition = tokens[index].style.backgroundColor;
+            console.log("Conditional", $scope.game.scroll.items[index]);
           }
         }
       });
 
       origin = $scope.game.scroll.pointer;
+      console.log("Origin", origin);
       let gemsCollected = $scope.game.map.gemsCollected;
       $scope.game.advance();
       if (gemsCollected !== $scope.game.map.gemsCollected) {
