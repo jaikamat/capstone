@@ -309,20 +309,10 @@
     "color": "red",
     "curvature": 50
   }, {
-    "start": 2,
-    "end": 1,
-    "color": "green",
-    "curvature": -50
-  }, {
-    "start": 4,
-    "end": 3,
-    "color": "green",
-    "curvature": -50
-  }, {
     "start": 3,
     "end": 4,
     "color": "red",
-    "curvature": 50
+    "curvature": -50
   }]
 }, {
   "data": [{

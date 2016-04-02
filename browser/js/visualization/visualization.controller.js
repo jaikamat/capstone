@@ -35,8 +35,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     arrOfConnections.forEach(function (singleConnection) {
       var nstart = singleConnection.end;
       var nend = singleConnection.start;
+      var ncolor = singleConnection.color;
       arrOfConnections.forEach(function (e, idx) {
-        if (e.start === nstart && e.end === nend && nstart !== nend) {
+        if (e.start === e.end) singleConnection.bidirectional = true;
+        else if (e.start === nstart && e.end === nend && nstart !== nend && e.color === ncolor) {
           singleConnection.bidirectional = true;
           arrOfConnections.splice(idx, 1);
         }
@@ -52,12 +54,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       let node = nodes[nodeId];
       ['red', 'green', 'blue'].forEach(function (color) {
         if (node[color] !== null) {
-          connections.push({
+          var obj = {
             start: +nodeId,
             end: node[color],
             color: color,
             bidirectional: false
-          });
+          }
+          connections.push(obj);
         }
       });
     }
@@ -108,58 +111,30 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     newPath.setAttribute('stroke', color);
     newPath.setAttribute('stroke-width', 20);
 
-    // if (isUnidirectional) {
-    //   var uniPath = newPath;
-    //   var uniAttr = "";
-    //   var baseUniAttrStart = "M " + x1 + " " + y1 + " ";
-    //   var baseUniAttrEnd = " " + x2 + " " + y2;
-    //   var totalLength = uniPath.getTotalLength();
-    //   var increment = 15;
-    //   var queryString = '#routes' + attr;
-
-    //   uniPath.setAttribute('d', baseUniAttrStart + uniAttr + baseUniAttrEnd);
-    //   uniPath.setAttribute('id', 'routes ' + attr);
-    //   uniPath.setAttribute('fill', 'transparent');
-    //   uniPath.setAttribute('stroke', '');
-    //   uniPath.setAttribute('stroke-width', '');
-    //   uniPath.setAttribute('marker-start', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-    //   uniPath.setAttribute('marker-mid', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-    //   uniPath.setAttribute('marker-end', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-    // }
-
-    $("#lines").append(newPath);
-
     if (isUnidirectional) {
-      var uniNewPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      var uniPath = document.getElementById('routes ' + attr);
       var uniAttr = "";
       var baseUniAttrStart = "M " + x1 + " " + y1 + " ";
       var baseUniAttrEnd = " " + x2 + " " + y2;
-      var totalLength = uniPath.getTotalLength();
+      var totalLength = newPath.getTotalLength();
       var increment = 15;
       var queryString = '#routes' + attr;
 
-      for (let i = 0; i < totalLength; i+=increment) {
-        let point = uniPath.getPointAtLength(i);
+      for (let i = 0; i < totalLength; i += increment) {
+        let point = newPath.getPointAtLength(i);
         uniAttr += point.x + " " + point.y + " ";
       }
 
-      uniPath.setAttribute('d', baseUniAttrStart + uniAttr + baseUniAttrEnd);
-      uniPath.setAttribute('id', 'routes ' + attr);
-      uniPath.setAttribute('fill', 'transparent');
-      uniPath.setAttribute('stroke', '');
-      uniPath.setAttribute('stroke-width', '');
-      uniPath.setAttribute('marker-start', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-      uniPath.setAttribute('marker-mid', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-      uniPath.setAttribute('marker-end', "url(" + $scope.absUrl + "#chevron-" + color + ")");
-      // console.log(baseUniAttrStart + uniAttr + baseUniAttrEnd);
-      // $(queryString).remove();
-      $("#lines").append(uniNewPath);
+      newPath.setAttribute('d', baseUniAttrStart + uniAttr + baseUniAttrEnd);
+      newPath.setAttribute('id', 'routes ' + attr);
+      newPath.setAttribute('fill', 'transparent');
+      newPath.setAttribute('stroke', '');
+      newPath.setAttribute('stroke-width', '');
+      newPath.setAttribute('marker-start', "url(" + $scope.absUrl + "#chevron-" + color + ")");
+      newPath.setAttribute('marker-mid', "url(" + $scope.absUrl + "#chevron-" + color + ")");
+      newPath.setAttribute('marker-end', "url(" + $scope.absUrl + "#chevron-" + color + ")");
     }
-  }
 
-  function drawUnidirectionalSvgLine() {
-
+    $("#lines").append(newPath);
   }
 
   function drawMapConnections(array) { // use the output from the get all connections
@@ -178,11 +153,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       var x2 = endCoords[0] + divDiameter;
       var y2 = endCoords[1] + divDiameter;
       var color = object.color;
-
-      // TODO: if the object in question has bidirectional: false
-      // if (object.start === 3 && object.end === 5) object.bidirectional = false;
-      // if (object.start === 3 && object.end === 4) object.bidirectional = false;
-      console.log(object);
 
       if (!object.bidirectional) {
         if (object.curvature) drawSvgLine(x1, y1, x2, y2, color, object.curvature, true);
