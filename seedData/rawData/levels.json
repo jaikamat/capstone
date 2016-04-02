@@ -1,3 +1,4 @@
+
 [{
   "map": 1,
   "scroll": 1,
@@ -19,7 +20,7 @@
   "scroll": 4,
   "difficulty": "Intermediate"
 }, {
-  "map": 1,
+  "map": 8,
   "scroll": 8,
   "difficulty": "Intermediate"
 }]

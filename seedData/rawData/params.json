@@ -1,49 +1,482 @@
+
 [{
   "startNode": 5,
   "endNode": 3,
   "redTokens": 2,
-  "blueTokens": 0,
   "greenTokens": 2,
+  "blueTokens": 0,
   "gems": [],
   "conditionals": []
 }, {
   "startNode": 3,
   "endNode": 5,
   "redTokens": 2,
-  "blueTokens": 2,
   "greenTokens": 0,
+  "blueTokens": 2,
   "gems": [0],
   "conditionals": []
 }, {
   "startNode": 4,
   "endNode": 0,
   "redTokens": 1,
-  "blueTokens": 2,
   "greenTokens": 1,
+  "blueTokens": 2,
   "gems": [1, 5],
   "conditionals": []
 }, {
   "startNode": 1,
   "endNode": 5,
   "redTokens": 2,
-  "blueTokens": 2,
   "greenTokens": 1,
+  "blueTokens": 2,
   "gems": [3, 4],
   "conditionals": []
 }, {
   "startNode": 2,
+  "endNode": 5,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [3],
+  "conditionals": []
+}, {
+  "startNode": 5,
+  "endNode": 0,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [1, 4],
+  "conditionals": []
+}, {
+  "startNode": 0,
+  "endNode": 8,
+  "redTokens": 2,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [],
+  "conditionals": []
+}, {
+  "startNode": 7,
+  "endNode": 4,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 0,
+  "gems": [],
+  "conditionals": []
+}, {
+  "startNode": 9,
+  "endNode": 4,
+  "redTokens": 2,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [0, 7],
+  "conditionals": []
+}, { 
+  "startNode": 2,
+  "endNode": 6,
+  "redTokens": 3,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [],
+  "conditionals": []
+}, { 
+  "startNode": 2,
+  "endNode": 4,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [1],
+  "conditionals": []
+}, { 
+  "startNode": 5,
+  "endNode": 0,
+  "redTokens": 2,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [],
+  "conditionals": []
+}, { 
+  "startNode": 5,
+  "endNode": 0,
+  "redTokens": 3,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [4, 4],
+  "conditionals": []
+}, { 
+  "startNode": 1,
+  "endNode": 5,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [3, 4],
+  "conditionals": []
+}, { 
+  "startNode": 4,
+  "endNode": 0,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [2, 5],
+  "conditionals": []
+}, { 
+  "startNode": 1,
+  "endNode": 3,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [2, 2, 2, 4, 4, 4],
+  "conditionals": [6]
+}, { 
+  "startNode": 3,
+  "endNode": 5,
+  "redTokens": 1,
+  "greenTokens": 3,
+  "blueTokens": 2,
+  "gems": [0, 4],
+  "conditionals": []
+}, { 
+  "startNode": 9,
+  "endNode": 2,
+  "redTokens": 1,
+  "greenTokens": 2,
+  "blueTokens": 3,
+  "gems": [11],
+  "conditionals": []
+}, { 
+  "startNode": 2,
+  "endNode": 8,
+  "redTokens": 1,
+  "greenTokens": 2,
+  "blueTokens": 3,
+  "gems": [0, 4],
+  "conditionals": []
+}, { 
+  "startNode": 6,
+  "endNode": 0,
+  "redTokens": 3,
+  "greenTokens": 1,
+  "blueTokens": 3,
+  "gems": [2],
+  "conditionals": []
+}, { 
+  "startNode": 0,
+  "endNode": 5,
+  "redTokens": 1,
+  "greenTokens": 3,
+  "blueTokens": 1,
+  "gems": [1, 1],
+  "conditionals": []
+}, { 
+  "startNode": 5,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 4,
+  "blueTokens": 1,
+  "gems": [3, 4],
+  "conditionals": []
+}, { 
+  "startNode": 2,
   "endNode": 4,
   "redTokens": 1,
-  "blueTokens": 1,
   "greenTokens": 1,
+  "blueTokens": 1,
   "gems": [1, 3],
+  "conditionals": [2]
+}, { 
+  "startNode": 0,
+  "endNode": 5,
+  "redTokens": 2,
+  "greenTokens": 4,
+  "blueTokens": 1,
+  "gems": [4, 4, 5, 5],
+  "conditionals": []
+}, { 
+  "startNode": 5,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [],
   "conditionals": ["orange"]
-}, {
+}, { 
+  "startNode": 0,
+  "endNode": 1,
+  "redTokens": 3,
+  "greenTokens": 1,
+  "blueTokens": 3,
+  "gems": [2, 3, 3, 4],
+  "conditionals": []
+}, { 
+  "startNode": 0,
+  "endNode": 1,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [2, 5],
+  "conditionals": [2]
+}, { 
+  "startNode": 9,
+  "endNode": 4,
+  "redTokens": 3,
+  "greenTokens": 1,
+  "blueTokens": 3,
+  "gems": [2],
+  "conditionals": []
+}, { 
+  "startNode": 5,
+  "endNode": 8,
+  "redTokens": 1,
+  "greenTokens": 3,
+  "blueTokens": 2,
+  "gems": [6, 9],
+  "conditionals": []
+}, { 
+  "startNode": 6,
+  "endNode": 6,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [3],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 2,
+  "endNode": 4,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [1, 1, 5],
+  "conditionals": [2]
+}, { 
+  "startNode": 4,
+  "endNode": 5,
+  "redTokens": 3,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [0, 1, 5, 5],
+  "conditionals": []
+}, { 
+  "startNode": 1,
+  "endNode": 4,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [3, 3, 3],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 3,
+  "endNode": 4,
+  "redTokens": 1,
+  "greenTokens": 2,
+  "blueTokens": 3,
+  "gems": [1, 4, 4],
+  "conditionals": ["purple"]
+}, { 
+  "startNode": 4,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [2, 5, 5],
+  "conditionals": [2, 3]
+}, { 
+  "startNode": 2,
+  "endNode": 1,
+  "redTokens": 2,
+  "greenTokens": 3,
+  "blueTokens": 1,
+  "gems": [0, 3, 3],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 1,
+  "endNode": 5,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [3, 8],
+  "conditionals": [1]
+}, { 
+  "startNode": 8,
+  "endNode": 2,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [1],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 3,
+  "endNode": 0,
+  "redTokens": 3,
+  "greenTokens": 2,
+  "blueTokens": 2,
+  "gems": [2, 4, 9],
+  "conditionals": []
+}, { 
+  "startNode": 8,
+  "endNode": 6,
+  "redTokens": 2,
+  "greenTokens": 2,
+  "blueTokens": 3,
+  "gems": [2, 4, 9, 11],
+  "conditionals": ["purple"]
+}, { 
+  "startNode": 1,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [2, 3, 4],
+  "conditionals": ["orange", "purple"]
+}, { 
+  "startNode": 0,
+  "endNode": 2,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [3, 3, 3, 4, 4, 4],
+  "conditionals": ["purple"]
+}, { 
+  "startNode": 5,
+  "endNode": 3,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [0, 1, 2, 3, 4],
+  "conditionals": [1, 5]
+}, { 
+  "startNode": 2,
+  "endNode": 3,
+  "redTokens": 1,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [0, 4, 5],
+  "conditionals": [1]
+}, { 
+  "startNode": 2,
+  "endNode": 3,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [1, 1, 1],
+  "conditionals": [3, "purple"]
+}, { 
+  "startNode": 3,
+  "endNode": 4,
+  "redTokens": 2,
+  "greenTokens": 1,
+  "blueTokens": 1,
+  "gems": [0, 1, 1, 1, 4],
+  "conditionals": ["purple", 2, 5]
+}, { 
+  "startNode": 0,
+  "endNode": 8,
+  "redTokens": 2,
+  "greenTokens": 3,
+  "blueTokens": 1,
+  "gems": [1, 6],
+  "conditionals": [1]
+}, { 
+  "startNode": 1,
+  "endNode": 3,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [6, 11],
+  "conditionals": [2]
+}, { 
+  "startNode": 1,
+  "endNode": 8,
+  "redTokens": 2,
+  "greenTokens": 4,
+  "blueTokens": 1,
+  "gems": [2, 3, 6],
+  "conditionals": []
+}, { 
+  "startNode": 8,
+  "endNode": 11,
+  "redTokens": 1,
+  "greenTokens": 3,
+  "blueTokens": 2,
+  "gems": [4, 4, 5, 11, 11],
+  "conditionals": [1]
+}, { 
+  "startNode": 4,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [0, 5, 5],
+  "conditionals": ["orange", 2, 3]
+}, { 
   "startNode": 5,
   "endNode": 3,
   "redTokens": 2,
-  "blueTokens": 0,
+  "greenTokens": 3,
+  "blueTokens": 1,
+  "gems": [0, 1, 1, 2, 4],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 4,
+  "endNode": 4,
+  "redTokens": 1,
   "greenTokens": 2,
-  "gems": [],
-  "conditionals": []
+  "blueTokens": 1,
+  "gems": [0, 0, 2, 2],
+  "conditionals": [4, "orange", "purple"]
+}, { 
+  "startNode": 3,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 2,
+  "blueTokens": 1,
+  "gems": [1, 4, 5],
+  "conditionals": [2, 3]
+}, { 
+  "startNode": 0,
+  "endNode": 5,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [1, 1, 4, 5],
+  "conditionals": [1, 4]
+}, { 
+  "startNode": 4,
+  "endNode": 1,
+  "redTokens": 3,
+  "greenTokens": 3,
+  "blueTokens": 1,
+  "gems": [1, 1, 2, 2, 3, 3],
+  "conditionals": [5]
+}, { 
+  "startNode": 0,
+  "endNode": 0,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [2, 3, 3, 4, 5, 7],
+  "conditionals": ["orange", 4]
+}, { 
+  "startNode": 5,
+  "endNode": 8,
+  "redTokens": 2,
+  "greenTokens": 3,
+  "blueTokens": 2,
+  "gems": [0, 9, 10],
+  "conditionals": ["orange"]
+}, { 
+  "startNode": 0,
+  "endNode": 1,
+  "redTokens": 1,
+  "greenTokens": 1,
+  "blueTokens": 2,
+  "gems": [2, 5, 7, 7, 7],
+  "conditionals": [2, "orange"]
+}, { 
+  "startNode": 8,
+  "endNode": 9,
+  "redTokens": 3,
+  "greenTokens": 2,
+  "blueTokens": 4,
+  "gems": [2, 9],
+  "conditionals": [2]
 }]
