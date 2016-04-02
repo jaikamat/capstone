@@ -267,14 +267,14 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function checkTokenInsertion() {
     var items = [].slice.call($('.read-these'));
-    var conditionals = [].slice.call($('.item-class-conditional'));
+    // var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) return false;
     return true;
   }
 
   function repeatRun() {
-    $scope.intervalId = window.setInterval(function(){
+    $scope.intervalId = window.setInterval(function () {
       $scope.isRunning = true;
       $scope.run();
       $scope.$digest();
@@ -289,7 +289,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function run() {
     var items = [].slice.call($('.read-these'));
-    var conditionals = [].slice.call($('.item-class-conditional'));
+    console.log("Items", items);
+    // var conditionals = [].slice.call($('.item-class-conditional'));
+    items.sort(function (a, b) {
+      var aId = a.id.split('-')[1];
+      var bId = b.id.split('-')[1];
+      return aId > bId;
+    });
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) {
       console.log("Please insert all tokens before clicking the Play button.");
@@ -299,13 +305,15 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       var current, currentNode, last, origin, destination, previousOrigin;
 
       items.forEach(function (item, index) {
+        console.log("Item ID", item.id);
         if (item.id.split('-')[0] === 'item') {
-          $scope.game.scroll.items[index].color = tokens[index].style.backgroundColor;
+          $scope.game.scroll.items[index].color = item.firstChild.style.backgroundColor;
         } else {
-          if (tokens[index].firstElementChild.innerHTML) {
-            $scope.game.scroll.items[index].condition = +tokens[index].firstElementChild.innerHTML;
+          console.log("The token breaking everything is...", item);
+          if (item.firstChild.firstElementChild.innerHTML) {
+            $scope.game.scroll.items[index].condition = +item.firstChild.firstElementChild.innerHTML;
           } else {
-            $scope.game.scroll.items[index].condition = tokens[index].style.backgroundColor;
+            $scope.game.scroll.items[index].condition = item.firstChild.style.backgroundColor;
             console.log("Conditional", $scope.game.scroll.items[index]);
           }
         }
