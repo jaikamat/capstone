@@ -241,34 +241,12 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     return true;
   }
 
-  function repeatFunc(func, interval) {
-    var failure = "Goal not reached!";
-    var success = "Level completed!";
-
-    $scope.intervalId = setInterval(function () {
-      $scope.isRunning = true;
-      func();
-      if ($scope.game.gameMessage === failure) {
-        $scope.isRunning = false;
-        window.clearInterval($scope.intervalId);
-        $scope.reset();
-        $scope.$digest();
-        $scope.intervalId = null;
-      } else if ($scope.game.gameMessage === success) {
-        $scope.isRunning = false;
-        window.clearInterval($scope.intervalId);
-        $scope.intervalId = null;
-      }
-    }, interval);
-  }
-
   function repeatRun() {
-    if (!$scope.isRunning && checkTokenInsertion()) $scope.isRunning = true;
-    else {
-      console.log("Please insert all tokens to continue");
-      return;
-    };
-    repeatFunc($scope.run, RUN_INTERVAL);
+    $scope.intervalId = window.setInterval(function(){
+      $scope.isRunning = true;
+      $scope.run();
+      $scope.$digest();
+    }, 1000)
   }
 
   function pause() {
