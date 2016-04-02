@@ -295,7 +295,11 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       return aId > bId;
     });
     var tokens = [].slice.call($('.read-these').children());
-    if (items.length !== tokens.length) {} else {
+    if (items.length !== tokens.length) {
+      var error = document.getElementById('error');
+      error.load();
+      error.play();
+    } else {
       $('.read-these').children().removeAttr('draggable');
 
       var current, currentNode, last, origin, destination, previousOrigin;
@@ -339,6 +343,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   };
 
   function reset() {
+    var resetSound = document.getElementById('reset');
+    resetSound.load();
+    resetSound.play();
     $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
@@ -365,7 +372,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');
-    var jump, fanfare, warpPipe, gameOver, win;
+    var jump, fanfare, gameOver, win;
 
     if ($scope.game.stepCounter >= 1 && $scope.game.validGame) {
       var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
