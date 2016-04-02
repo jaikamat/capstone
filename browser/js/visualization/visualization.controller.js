@@ -274,12 +274,14 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   }
 
   function repeatRun() {
-    $scope.intervalId = window.setInterval(function(){
-      $scope.isRunning = true;
+    $scope.isRunning = true;
+    $scope.intervalId = window.setInterval(function () {
       $scope.run();
       $scope.$digest();
-      if ($scope.game.gameMessage === "Level completed!") {
+      console.log("GAME MESSAGE: ", $scope.game.gameMessage);
+      if ($scope.game.gameMessage === "Level completed!" || $scope.game.gameMessage === "Goal not reached!") {
         window.clearInterval($scope.intervalId);
+        $scope.isRunning = false;
       }
     }, 1000)
   }
