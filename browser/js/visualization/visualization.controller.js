@@ -137,6 +137,10 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     $("#lines").append(newPath);
   }
 
+  function drawUnidirectionalPath (svgPath) {
+    
+  }
+
   function drawMapConnections(array) { // use the output from the get all connections
     array.forEach(function (object) {
       var bW = document.getElementById('board').offsetWidth;
