@@ -128,7 +128,7 @@ svg {
     padding-bottom: 10px;
     margin: 0 auto;
     /*hack for centering this div*/
-    left:50%; 
+    left: 50%;
     /*margin-left: -500px;*/
 }
 
@@ -271,9 +271,7 @@ svg {
     text-align: center;
 }
 
-#inner-inventory {
-
-}
+#inner-inventory {}
 
 .currentMapNode {
     background-color: yellow;
@@ -305,7 +303,6 @@ svg {
     width: 2px;
     height: 2px;
     border-radius: 50%;
-
     z-index: 3;
     position: absolute;
     padding: 8px;
@@ -337,7 +334,7 @@ svg {
 }
 
 #favicon-container > img {
-    
+    width: 17px;
 }
 
 .inventory {
@@ -356,8 +353,7 @@ svg {
 
 #inner-inventory {
     /*position: absolute;*/
-/*    margin-top: 10%;
-    margin-left: 25px;*/
+    margin-top: 10%;
 }
 
 #inner-inventory > span {

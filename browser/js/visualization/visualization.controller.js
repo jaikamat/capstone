@@ -364,8 +364,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
     var pointer = $('#pointer');
     pointer.animate({
-      top: ($scope.game.scroll.start.coords[1] - 27) + 'px',
-      left: ($scope.game.scroll.start.coords[0] - 140) + 'px'
+      top: ($scope.game.scroll.start.coords[1] - 20) + 'px',
+      left: ($scope.game.scroll.start.coords[0] - 170) + 'px'
     });
   };
 
