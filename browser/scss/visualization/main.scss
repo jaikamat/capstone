@@ -102,17 +102,20 @@ svg {
 /*changing this value changes the scroll distance from the board*/
 
 #scroll-and-tokens {
-    margin-top: -90px;
+    margin-top: 0px;
     text-align: center;
 }
 
 #tokens {
-    width: 800px;
+    width: 1000px;
     height: 80px;
     z-index: 0;
     text-align: center;
     padding-top: 10px;
     margin: 0 auto;
+    /*hack for centering this div*/
+    left:50%; 
+    margin-left: -100px;
 }
 
 
