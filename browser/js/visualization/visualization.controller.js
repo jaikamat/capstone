@@ -278,6 +278,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       $scope.isRunning = true;
       $scope.run();
       $scope.$digest();
+      if ($scope.game.gameMessage === "Level completed!") {
+        window.clearInterval($scope.intervalId);
+      }
     }, 1000)
   }
 
