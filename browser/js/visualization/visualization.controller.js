@@ -32,7 +32,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   // for each element, if another object exists with those start and
   // ends swapped, remove it and label bidirectional
   function filterDirection(arrOfConnections) {
-    console.log("arrOfConnections", arrOfConnections);
     arrOfConnections.forEach(function (singleConnection) {
       var nstart = singleConnection.end;
       var nend = singleConnection.start;
@@ -65,7 +64,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         }
       });
     }
-    console.log("Connections", connections);
     return specifyBezierCurves(filterDirection(connections));
   }
 
@@ -274,12 +272,13 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   }
 
   function repeatRun() {
+    $scope.isRunning = true;
     $scope.intervalId = window.setInterval(function () {
-      $scope.isRunning = true;
       $scope.run();
       $scope.$digest();
-      if ($scope.game.gameMessage === "Level completed!") {
+      if ($scope.game.gameMessage === "Level completed!" || $scope.game.gameMessage === "Goal not reached!") {
         window.clearInterval($scope.intervalId);
+        $scope.isRunning = false;
       }
     }, 1000)
   }
@@ -292,7 +291,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function run() {
     var items = [].slice.call($('.read-these'));
-    console.log("Items", items);
     // var conditionals = [].slice.call($('.item-class-conditional'));
     items.sort(function (a, b) {
       var aId = a.id.split('-')[1];
@@ -301,29 +299,24 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     });
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) {
-      console.log("Please insert all tokens before clicking the Play button.");
     } else {
       $('.read-these').children().removeAttr('draggable');
 
       var current, currentNode, last, origin, destination, previousOrigin;
 
       items.forEach(function (item, index) {
-        console.log("Item ID", item.id);
         if (item.id.split('-')[0] === 'item') {
           $scope.game.scroll.items[index].color = item.firstChild.style.backgroundColor;
         } else {
-          console.log("The token breaking everything is...", item);
           if (item.firstChild.firstElementChild.innerHTML) {
             $scope.game.scroll.items[index].condition = +item.firstChild.firstElementChild.innerHTML;
           } else {
             $scope.game.scroll.items[index].condition = item.firstChild.style.backgroundColor;
-            console.log("Conditional", $scope.game.scroll.items[index]);
           }
         }
       });
 
       origin = $scope.game.scroll.pointer;
-      console.log("Origin", origin);
       let gemsCollected = $scope.game.map.gemsCollected;
       $scope.game.advance();
       if (gemsCollected !== $scope.game.map.gemsCollected) {
