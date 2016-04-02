@@ -265,7 +265,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function checkTokenInsertion() {
     var items = [].slice.call($('.read-these'));
-    // var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) return false;
     return true;
@@ -290,7 +289,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function run() {
     var items = [].slice.call($('.read-these'));
-    // var conditionals = [].slice.call($('.item-class-conditional'));
     items.sort(function (a, b) {
       var aId = a.id.split('-')[1];
       var bId = b.id.split('-')[1];
@@ -388,19 +386,11 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       fanfare.load();
       fanfare.play();
     } else if ($scope.game.gameMessage === 'Level completed!') {
-      var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
       win = document.getElementById('win');
       win.load();
       win.play();
-      // warpPipe = document.getElementById('warp-pipe');
-      // warpPipe.load();
-      // warpPipe.play();
       playerImg.animate({
         width: '0px'
-      });
-      playerImg.css({
-        top: '100px',
-        left: '100px'
       });
     } else {
       gameOver = document.getElementById('game-over');
