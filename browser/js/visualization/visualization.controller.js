@@ -32,13 +32,14 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   // for each element, if another object exists with those start and
   // ends swapped, remove it and label bidirectional
   function filterDirection(arrOfConnections) {
+    console.log("arrOfConnections", arrOfConnections);
     arrOfConnections.forEach(function (singleConnection) {
       var nstart = singleConnection.end;
       var nend = singleConnection.start;
       var ncolor = singleConnection.color;
+      if (nstart === nend) singleConnection.bidirectional = true; // TODO: for Jai to troubleshoot
       arrOfConnections.forEach(function (e, idx) {
-        if (e.start === e.end) singleConnection.bidirectional = true;
-        else if (e.start === nstart && e.end === nend && nstart !== nend && e.color === ncolor) {
+        if (e.start === nstart && e.end === nend && nstart !== nend && e.color === ncolor) {
           singleConnection.bidirectional = true;
           arrOfConnections.splice(idx, 1);
         }
@@ -64,6 +65,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         }
       });
     }
+    console.log("Connections", connections);
     return specifyBezierCurves(filterDirection(connections));
   }
 
@@ -137,8 +139,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     $("#lines").append(newPath);
   }
 
-  function drawUnidirectionalPath (svgPath) {
-    
+  function drawUnidirectionalPath(svgPath) {
+
   }
 
   function drawMapConnections(array) { // use the output from the get all connections
