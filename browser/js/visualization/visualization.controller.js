@@ -265,7 +265,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function checkTokenInsertion() {
     var items = [].slice.call($('.read-these'));
-    // var conditionals = [].slice.call($('.item-class-conditional'));
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) return false;
     return true;
@@ -290,7 +289,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
   function run() {
     var items = [].slice.call($('.read-these'));
-    // var conditionals = [].slice.call($('.item-class-conditional'));
     items.sort(function (a, b) {
       var aId = a.id.split('-')[1];
       var bId = b.id.split('-')[1];
@@ -298,6 +296,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     });
     var tokens = [].slice.call($('.read-these').children());
     if (items.length !== tokens.length) {
+      var error = document.getElementById('error');
+      error.load();
+      error.play();
     } else {
       $('.read-these').children().removeAttr('draggable');
 
@@ -336,12 +337,15 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
           $state.go('level', {
             levelNum: (Number($stateParams.levelNum)) + 1
           });
-        }, 1000)
+        }, 2200)
       }
     }
   };
 
   function reset() {
+    var resetSound = document.getElementById('reset');
+    resetSound.load();
+    resetSound.play();
     $scope.game.resetGame();
     setNodeCoordinates($scope.game.nodeCoords);
     // draws map connections
@@ -368,7 +372,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');
-    var jump, fanfare, warpPipe, gameOver;
+    var jump, fanfare, gameOver, win;
 
     if ($scope.game.stepCounter >= 1 && $scope.game.validGame) {
       var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
@@ -389,9 +393,9 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       fanfare.load();
       fanfare.play();
     } else if ($scope.game.gameMessage === 'Level completed!') {
-      warpPipe = document.getElementById('warp-pipe');
-      warpPipe.load();
-      warpPipe.play();
+      win = document.getElementById('win');
+      win.load();
+      win.play();
       playerImg.animate({
         width: '0px'
       });
