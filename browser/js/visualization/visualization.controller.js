@@ -246,7 +246,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       let text, color;
       if (!isNaN(conditional)) {
         text = conditional.toString();
-        color = 'white';
+        color = '#333333';
       } else {
         text = '';
         color = conditional;
@@ -364,8 +364,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
 
     var pointer = $('#pointer');
     pointer.animate({
-      top: ($scope.game.scroll.start.coords[1] - 27) + 'px',
-      left: ($scope.game.scroll.start.coords[0] - 140) + 'px'
+      top: ($scope.game.scroll.start.coords[1] - 20) + 'px',
+      left: ($scope.game.scroll.start.coords[0] - 170) + 'px'
     });
   };
 
@@ -426,8 +426,8 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     else destinationCoords = $scope.game.scroll.items[destination.id].coords;
 
     pointer.animate({
-      top: (destinationCoords[1] - 27) + 'px',
-      left: (destinationCoords[0] - 140) + 'px'
+      top: (destinationCoords[1] - 20) + 'px',
+      left: (destinationCoords[0] - 170) + 'px'
     });
   }
 
