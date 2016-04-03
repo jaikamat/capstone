@@ -15,11 +15,227 @@
   "scroll": 2,
   "difficulty": "Beginner"
 }, {
+  "map": 5,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 6,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 7,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 8,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 9,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 10,
+  "scroll": 3,
+  "difficulty": "Beginner"
+}, {
+  "map": 1,
+  "scroll": 1,
+  "difficulty": "Beginner"
+}, {
+  "map": 2,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 3,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 4,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 5,
+  "scroll": 2,
+  "difficulty": "Beginner"
+}, {
+  "map": 6,
+  "scroll": 4,
+  "difficulty": "Intermediate"
+}, {
+  "map": 7,
+  "scroll": 3,
+  "difficulty": "Intermediate"
+}, {
+  "map": 8,
+  "scroll": 3,
+  "difficulty": "Intermediate"
+}, {
+  "map": 9,
+  "scroll": 3,
+  "difficulty": "Intermediate"
+}, {
+  "map": 10,
+  "scroll": 5,
+  "difficulty": "Intermediate"
+}, {
+  "map": 1,
+  "scroll": 2,
+  "difficulty": "Intermediate"
+}, {
+  "map": 2,
+  "scroll": 3,
+  "difficulty": "Intermediate"
+}, {
   "map": 3,
   "scroll": 4,
   "difficulty": "Intermediate"
 }, {
+  "map": 4,
+  "scroll": 5,
+  "difficulty": "Intermediate"
+}, {
+  "map": 5,
+  "scroll": 4,
+  "difficulty": "Intermediate"
+}, {
+  "map": 6,
+  "scroll": 5,
+  "difficulty": "Intermediate"
+}, {
+  "map": 7,
+  "scroll": 4,
+  "difficulty": "Intermediate"
+}, {
+  "map": 8,
+  "scroll": 5,
+  "difficulty": "Intermediate"
+}, {
+  "map": 9,
+  "scroll": 3,
+  "difficulty": "Intermediate"
+}, {
+  "map": 10,
+  "scroll": 6,
+  "difficulty": "Intermediate"
+}, {
+  "map": 1,
+  "scroll": 6,
+  "difficulty": "Advanced"
+}, {
+  "map": 2,
+  "scroll": 3,
+  "difficulty": "Advanced"
+}, {
+  "map": 3,
+  "scroll": 4,
+  "difficulty": "Advanced"
+}, {
+  "map": 4,
+  "scroll": 7,
+  "difficulty": "Advanced"
+}, {
+  "map": 5,
+  "scroll": 8,
+  "difficulty": "Advanced"
+}, {
+  "map": 6,
+  "scroll": 7,
+  "difficulty": "Advanced"
+}, {
+  "map": 7,
+  "scroll": 6,
+  "difficulty": "Advanced"
+}, {
+  "map": 8,
+  "scroll": 6,
+  "difficulty": "Advanced"
+}, {
+  "map": 9,
+  "scroll": 5,
+  "difficulty": "Advanced"
+}, {
+  "map": 10,
+  "scroll": 9,
+  "difficulty": "Advanced"
+}, {
   "map": 1,
   "scroll": 8,
-  "difficulty": "Intermediate"
+  "difficulty": "Advanced"
+}, {
+  "map": 2,
+  "scroll": 10,
+  "difficulty": "Advanced"
+}, {
+  "map": 3,
+  "scroll": 8,
+  "difficulty": "Advanced"
+}, {
+  "map": 4,
+  "scroll": 6,
+  "difficulty": "Advanced"
+}, {
+  "map": 5,
+  "scroll": 11,
+  "difficulty": "Advanced"
+}, {
+  "map": 6,
+  "scroll": 12,
+  "difficulty": "Expert"
+}, {
+  "map": 7,
+  "scroll": 7,
+  "difficulty": "Expert"
+}, {
+  "map": 8,
+  "scroll": 10,
+  "difficulty": "Expert"
+}, {
+  "map": 9,
+  "scroll": 5,
+  "difficulty": "Expert"
+}, {
+  "map": 10,
+  "scroll": 7,
+  "difficulty": "Expert"
+}, {
+  "map": 1,
+  "scroll": 12,
+  "difficulty": "Expert"
+}, {
+  "map": 2,
+  "scroll": 7,
+  "difficulty": "Expert"
+}, {
+  "map": 3,
+  "scroll": 12,
+  "difficulty": "Expert"
+}, {
+  "map": 4,
+  "scroll": 11,
+  "difficulty": "Expert"
+}, {
+  "map": 5,
+  "scroll": 11,
+  "difficulty": "Expert"
+}, {
+  "map": 6,
+  "scroll": 9,
+  "difficulty": "Expert"
+}, {
+  "map": 7,
+  "scroll": 11,
+  "difficulty": "Expert"
+}, {
+  "map": 8,
+  "scroll": 9,
+  "difficulty": "Expert"
+}, {
+  "map": 9,
+  "scroll": 11,
+  "difficulty": "Expert"
+}, {
+  "map": 10,
+  "scroll": 9,
+  "difficulty": "Expert"
 }]

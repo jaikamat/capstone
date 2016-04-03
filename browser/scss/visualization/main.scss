@@ -61,6 +61,7 @@ body {
 
 #scroll-lines {
     height: 200px;
+    margin: 0px;
     /*background-color: transparent;*/
 }
 
@@ -101,16 +102,34 @@ svg {
 /*changing this value changes the scroll distance from the board*/
 
 #scroll-and-tokens {
-    margin-top: -90px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.conditional-token-count {
+    color: grey;
+    position: absolute;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 30%;
+    margin-top: 30%;
+    line-height: 7px;
+}
+
+.bg-item-count {
+    color: red;
 }
 
 #tokens {
-    width: 800px;
+    width: 1000px;
     height: 80px;
     z-index: 0;
     text-align: center;
-    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 0 auto;
+    /*hack for centering this div*/
+    left: 50%;
+    /*margin-left: -500px;*/
 }
 
 
@@ -129,6 +148,7 @@ svg {
     text-align: center;
     background-color: transparent;
     margin: 0 auto;
+    margin-bottom: 15px;
     @include clearfix;
 }
 
@@ -169,15 +189,15 @@ svg {
     -webkit-transform: rotate(-45deg) translate(0%, 20%);
 }
 
-.item-class.over {
-    border: 5px dashed $node-color-default;
+.over {
+    border: 3px dashed $node-color-default;
 }
 
 .token-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     z-index: 2;
     border: 5px solid $node-color-default;
     margin-left: 10px;
@@ -189,7 +209,7 @@ svg {
 .token-container-conditional {
     width: 40px;
     height: 40px;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     z-index: 2;
     border: 5px solid $node-color-default;
     margin-left: 10px;
@@ -240,8 +260,12 @@ svg {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #FFFFFF;
     z-index: 2;
+}
+
+.background-image-scroll-tokens {
+    background-image: url(./img/rock_texture3.png);
+    background-size: contain;
 }
 
 .node-label {
@@ -251,8 +275,15 @@ svg {
     text-align: center;
 }
 
+#inner-inventory {}
+
 .currentMapNode {
     background-color: yellow;
+}
+
+.glyphicon-forward {
+    padding-left: 2px;
+    padding-top: 1px;
 }
 
 .step {
@@ -276,7 +307,6 @@ svg {
     width: 2px;
     height: 2px;
     border-radius: 50%;
-
     z-index: 3;
     position: absolute;
     padding: 8px;
@@ -303,6 +333,41 @@ svg {
 }
 
 #pointer-img {
-    width: 50px;
+    width: 40px;
     height: auto;
+}
+
+#favicon-container > img {
+    width: 17px;
+}
+
+.inventory {
+    width: 100px;
+    height: 50px;
+    border-radius: 500px;
+    background-color: #333333;
+    z-index: 2;
+    border: 5px solid $node-color-default;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate(0%, -30%);
+}
+
+#inner-inventory {
+    /*position: absolute;*/
+    margin-top: 10%;
+}
+
+#inner-inventory > span {
+    margin-top: 10px;
+    color: grey;
+    font-size: 12px;
+    font-family: 'Press Start 2P', cursive;
+    transform: translate(0%, -50%);
+}
+
+#label {
+    display: block;
 }

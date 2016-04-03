@@ -122,7 +122,7 @@ app.factory('ScrollFactory', function () {
       this.move(); //Move the pointer
       return data; //Send the data
     }
-    if (this.pointer.id === -1) { //If the node were on is the end
+    if (this.pointer.id === -1) { //If the node we're on is the end
       return null; //Notify that the game is over
     }
   };

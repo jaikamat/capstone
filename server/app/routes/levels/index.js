@@ -15,7 +15,7 @@ router.get('/:levelId', function (req, res, next) {
   var levelId = req.params.levelId
   if(!req.user) {
   // how many levels you have access to
-    if(req.params.levelId < 60) {
+    if(req.params.levelId <= 60) {
       Levels.findOne({levelId: levelId})
           .populate('map scroll params')
           .then(function (level) {
