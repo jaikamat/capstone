@@ -197,7 +197,7 @@ svg {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     z-index: 2;
     border: 5px solid $node-color-default;
     margin-left: 10px;
@@ -209,7 +209,7 @@ svg {
 .token-container-conditional {
     width: 40px;
     height: 40px;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     z-index: 2;
     border: 5px solid $node-color-default;
     margin-left: 10px;
@@ -260,8 +260,12 @@ svg {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #FFFFFF;
     z-index: 2;
+}
+
+.background-image-scroll-tokens {
+    background-image: url(./img/rock_texture3.png);
+    background-size: contain;
 }
 
 .node-label {
