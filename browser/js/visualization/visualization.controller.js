@@ -268,12 +268,17 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   }
 
   function repeatRun() {
+    var gm1, gm2, gm3;
+    gm1 = "Level completed!";
+    gm2 = "Goal not reached!";
+    gm3 = "That path does not exist!";
     $scope.isRunning = true;
     $scope.intervalId = window.setInterval(function () {
       $scope.run();
-      if ($scope.game.gameMessage === "Level completed!" || $scope.game.gameMessage === "Goal not reached!") {
+      if ($scope.game.gameMessage === gm1 || $scope.game.gameMessage === gm2 || $scope.game.gameMessage === gm3) {
         pause();
       }
+      console.log($scope.game.gameMessage);
       $scope.$digest();
     }, RUN_INTERVAL)
   }
