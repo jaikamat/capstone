@@ -1,6 +1,41 @@
 $font: 'Lato', sans-serif;
+$grey: #D1D3CB;
+
+.hero {
+  max-height:200px;
+  max-width: 200px;
+  margin: 50px auto;
+}
+
+.level-access-container {
+  background-color: $grey;
+  text-align: center;
+}
 
 .fun-title {
   font-family: $font;
-  font-size: large;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
+
+.signup {
+  margin-top: 20px;
+}
+
+.gain-access {
+  font-family: $font;
+  font-size:30px;
+  margin: 20px 10px;
+}
+
+.game-features-container {
+  padding-bottom: 50px;
+}
+
+.game-feature {
+  font-family: $font;
+  font-size: 20px;
+  line-height: 40px;
+}
+
+
