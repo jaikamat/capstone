@@ -21,6 +21,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   $scope.reset = reset;
   $scope.run = run;
   $scope.pause = pause;
+  $scope.checkConditionalsForNodeColor = checkConditionalsForNodeColor;
 
   //------------------------------------------
 
@@ -135,10 +136,6 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     }
 
     $("#lines").append(newPath);
-  }
-
-  function drawUnidirectionalPath(svgPath) {
-
   }
 
   function drawMapConnections(array) { // use the output from the get all connections
@@ -274,11 +271,11 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
     $scope.isRunning = true;
     $scope.intervalId = window.setInterval(function () {
       $scope.run();
-      $scope.$digest();
       if ($scope.game.gameMessage === "Level completed!" || $scope.game.gameMessage === "Goal not reached!") {
         pause();
       }
-    }, 1000)
+      $scope.$digest();
+    }, RUN_INTERVAL)
   }
 
   function pause() {
@@ -429,6 +426,18 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
       top: (destinationCoords[1] - 20) + 'px',
       left: (destinationCoords[0] - 170) + 'px'
     });
+  }
+
+  function checkConditionalsForNodeColor(scopeParams) {
+    var listOfColors = [];
+    var isString = false;
+    scopeParams.forEach(function (scopeParam) {
+      listOfColors.push(scopeParam);
+    })
+    listOfColors.forEach(function (element) {
+      if (typeof element === "string") isString = true;
+    })
+    return isString;
   }
 
   (function () {

@@ -10,9 +10,6 @@ app.config(function ($urlRouterProvider, $locationProvider) {
         .otherwise('/');
 });
 
-
-
-
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
 

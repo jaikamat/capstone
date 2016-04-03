@@ -132,16 +132,12 @@ app.factory('ScrollFactory', function () {
       if (this.pointer.next.id === -1) this.pointer = this.end;
       else this.pointer = this.items[this.pointer.next];
     } else {
-      console.log("gemsAndTrollState", gemsAndTrollState);
-      console.log("this.pointer.condition", this.pointer.condition);
       if (gemsAndTrollState.trollStatus === this.pointer.condition || gemsAndTrollState.gemsCollected === this.pointer.condition) {
-        console.log("True dat");
         // console.log("Pointer before adjustment: ", this.pointer);
         if (this.pointer.truePath.id === -1) this.pointer = this.pointer.truePath;
         else this.pointer = this.items[this.pointer.truePath]; //move to True Path
         // console.log("Pointer after adjustment: ", this.pointer);
       } else {
-        console.log("False dat");
         if (this.pointer.falsePath.id === -1) this.pointer = this.pointer.falsePath;
         else this.pointer = this.items[this.pointer.falsePath]; //move to False Path
       }
