@@ -18,7 +18,7 @@ app.directive('draggable', function () {
         clone.style.transform = 'translateX(-500px) rotate(-45deg)';
         document.body.appendChild(clone);
         e.dataTransfer.setDragImage(clone, 30, 30);
-        this.style.backgroundColor = 'white';
+        this.style.backgroundColor = 'transparent';
         e.dataTransfer.setData('Text', this.id);
         e.dataTransfer.setData('Parent', this.parentNode.id);
         this.classList.add('drag');
