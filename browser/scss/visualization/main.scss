@@ -218,6 +218,8 @@ svg {
     -webkit-transform: rotate(-45deg) translate(0%, 25%);
     -webkit-transform-origin: 50% 90%;
     vertical-align: top;
+    background-image: url(./img/rock_texture3.png);
+    background-size: contain;
 }
 
 .token-conditional {
