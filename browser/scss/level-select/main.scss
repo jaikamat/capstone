@@ -1,10 +1,26 @@
-$green: #4CAF50;
-$yellow: #FFEB3B;
-$orange: #FFC107;
-$red: #F44336;
+$green: #43A047;
+$yellow: #FDD835;
+$orange: #FFB300;
+$red: #E53935;
+$grey: #D1D3CB;
+
+@mixin solid-circle($color) {
+  background-color: $color;
+  line-height: 50px;
+}
+
+@mixin hollow-circle($color) {
+  border: 5px solid $color;
+  line-height: 40px;
+}
+
+@mixin lock() {
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 1px;
+}
 
 .level-select {
-
+  background-color: $grey;
 }
 
 .title {
@@ -33,16 +49,6 @@ $red: #F44336;
 
 .levels-container {
   margin-bottom: 30px;
-}
-
-@mixin solid-circle($color) {
-  background-color: $color;
-  line-height: 50px;
-}
-
-@mixin hollow-circle($color) {
-  border: 5px solid $color;
-  line-height: 40px;
 }
 
 .beginner-solid-circle {
@@ -104,16 +110,20 @@ $red: #F44336;
 
 .fa-lock-green {
   color: $green;
+  @include lock();
 }
 
 .fa-lock-yellow {
   color: $yellow;
+  @include lock();
 }
 
 .fa-lock-orange {
   color: $orange;
+  @include lock();
 }
 
 .fa-lock-red {
   color: $red;
+  @include lock();
 }
