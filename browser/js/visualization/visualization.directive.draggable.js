@@ -10,8 +10,8 @@ app.directive('draggable', function () {
         e.dataTransfer.effectAllowed = 'move';
 
         var drag = document.getElementById('drag');
-        drag.load();
-        drag.play();
+        // drag.load();
+        // drag.play();
 
         var clone = this.cloneNode(true);
         clone.id = 'clone';
@@ -32,8 +32,8 @@ app.directive('draggable', function () {
       function (e) {
 
         var drop = document.getElementById('drop');
-        drop.load();
-        drop.play();
+        // drop.load();
+        // drop.play();
 
         this.classList.remove('drag');
         this.style.backgroundColor = this.id.split('-')[0];
