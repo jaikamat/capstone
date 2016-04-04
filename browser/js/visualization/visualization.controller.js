@@ -374,7 +374,7 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
   function animatePlayer() {
     var player = $('#player');
     var playerImg = $('#player-img');
-    var jump, fanfare, gameOver, win;
+    var jump, fanfare, gameOver, win, scorpion;
 
     if ($scope.game.stepCounter >= 1 && $scope.game.validGame) {
       var destinationCoords = $scope.game.map.nodes[$scope.game.map.current.id].coords;
@@ -402,9 +402,17 @@ app.controller('VisualizationCtrl', function ($scope, game, EvalFactory, UserSta
         width: '0px'
       });
     } else {
-      gameOver = document.getElementById('game-over');
-      gameOver.load();
-      gameOver.play();
+      console.log("OY");
+      if (Math.random() < 0.01) {
+        console.log("EY");
+        scorpion = document.getElementById('scorpion');
+        scorpion.load();
+        scorpion.play();
+      } else {
+        gameOver = document.getElementById('game-over');
+        gameOver.load();
+        gameOver.play();
+      }
       $scope.reset();
     }
   }
