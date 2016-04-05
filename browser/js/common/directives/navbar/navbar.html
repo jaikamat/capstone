@@ -10,15 +10,15 @@
             <div class="collapse navbar-collapse navbar-1">
                 <ul class="site-navigation nav navbar-nav">
                     <li>
-                        <a ui-sref="level({ levelNum: 1 })">Play Now {{state}}</a>
+                        <a ui-sref="level({ levelNum: 1 })">Play now {{state}}</a>
                     </li>
                     <li>
-                        <a ng-show="isLoggedIn()" ui-sref="level-select({ userId: user._id })">Level Select</a>
+                        <a ng-show="isLoggedIn()" ui-sref="level-select({ userId: user._id })">Level select</a>
                         <a ng-hide="isLoggedIn()" ui-sref="signup">Sign up</a>
                     </li>
                     <li>
-                        <a id="pl-1" ng-show="isLoggedIn()" ng-click="logout()">Logout</a>
-                        <a id="pl-1" ng-hide="isLoggedIn()" ui-sref="login">Login</a>
+                        <a id="pl-1" ng-show="isLoggedIn()" ng-click="logout()">Sign out</a>
+                        <a id="pl-1" ng-hide="isLoggedIn()" ui-sref="login">Sign in</a>
                     </li>
                     <li>
                         <a ui-sref="about">About</a>
